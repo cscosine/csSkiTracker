@@ -7,7 +7,7 @@
 CameraNode::CameraNode(const csCamera::Camerad& camera, const csCamera::CameraDistortionModeld& distModel,
                        FocalEstimation focalEstimation, const std::array<bool, 2>& fixCenter, const std::array<bool, 6>& fixKs,
                        const std::array<bool, 2>& fixPs, const std::array<bool, 4>& fixSs)
-    : CameraPoseNodeBase(CameraPoseNodeBaseType::Camera)
+    : CameraPosePointNodeBase(CameraPosePointNodeBaseType::Camera)
     , _camera(camera)
     , _distModel(distModel)
     , _focalEstimation(focalEstimation)

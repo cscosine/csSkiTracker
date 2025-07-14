@@ -7,7 +7,6 @@
 #include "DataDescription.h"
 
 class QFile;
-
 namespace csSkiTracker {
 namespace dataReader {
 
@@ -21,6 +20,10 @@ class DataReader {
 
   static const QString world_points_h;
   static const QString frame_h;
+
+  static const QString skier_pts_h;
+  static const QString skier_pts_view1_h;
+  static const QString skier_pts_view2_h;
 
   static const QString matching_pts_h;
   static const QString matching_pts_view1_h;

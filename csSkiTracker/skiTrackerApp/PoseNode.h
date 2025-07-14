@@ -1,9 +1,9 @@
 #pragma once
 #include "csLie/SE3_impl.hpp"
 
-#include "CameraPoseNodeBase.h"
+#include "CameraPosePointNodeBase.h"
 
-class PoseNode : public CameraPoseNodeBase {
+class PoseNode : public CameraPosePointNodeBase {
   csLie::SE3d _pose;
 
 public:

@@ -8,6 +8,7 @@ class Window;
 }
 
 class Problem;
+struct CommandLineOptions;
 
 class Window : public QMainWindow {
   Q_OBJECT;
@@ -23,8 +24,11 @@ class Window : public QMainWindow {
 
   void saveAndShow();
 
+  bool gui2fixedPoints(Eigen::Vector3i& out, QString& errmsg) const;
+  void fixedPoints2gui(const Eigen::Vector3i& p);
+
 public:
-  Window(Problem& p, QWidget* parent = 0);
+  Window(Problem& p, const CommandLineOptions& cmd, QWidget* parent = 0);
   virtual ~Window();
 
   void resizeEvent(QResizeEvent* event) override;
@@ -34,10 +38,13 @@ public slots:
   void on_pushButtonPlotReprojErr_clicked();
   void on_pushButtonPlotReprojErrV1_clicked();
   void on_pushButtonReprojErrSummary_clicked();
+  void on_pushButtonSaveSkierPoints_clicked();
 
   void on_horizontalSlider_valueChanged(int n);
 
   void on_pushButtonNonLinearRefine_clicked();
+  void on_pushButtonNonLinearRefinePoints3Fix_clicked();
+  void on_pushButtonNonLinearRefinePoints2Fix_clicked();
 
   void on_pushButtonPlay_clicked();
 
@@ -66,4 +73,6 @@ public slots:
   void on_checkBoxShow3DCalibPoints_clicked();
   void on_checkBoxShow3DPoles_clicked();
   void on_checkBoxShow3DCorr_clicked();
+
+  void on_pushButtonTest_clicked();
 };

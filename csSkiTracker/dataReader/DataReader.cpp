@@ -6,7 +6,6 @@
 
 namespace csSkiTracker {
 namespace dataReader {
-
 const QString DataReader::header = "#SKI_TRACKER_DATA_INPUT";
 const QString DataReader::version = "v1.0";
 
@@ -20,6 +19,10 @@ const QString DataReader::matching_pts_h = "#MATCHING_PTS";
 const QString DataReader::matching_pts_view1_h = "#VIEW_1";
 const QString DataReader::matching_pts_view2_h = "#VIEW_2";
 const QString DataReader::matching_pts_world_h = "#WORLD";
+
+const QString DataReader::skier_pts_h = "#SKIER_PTS";
+const QString DataReader::skier_pts_view1_h = "#VIEW_1";
+const QString DataReader::skier_pts_view2_h = "#VIEW_2";
 
 const QString DataReader::calib_pts_view1_h = "#CALIB_PTS_VIEW_1";
 const QString DataReader::calib_pts_view2_h = "#CALIB_PTS_VIEW_2";
@@ -336,6 +339,46 @@ std::shared_ptr<const ProblemData> DataReader::readFromFile(const QString& filen
           ok = readMatrix<double>(mp.worldPoints, file, lineCount, _error);
           // convert to meters
           mp.worldPoints = mp.worldPoints / 1000.0;
+        }
+      }
+      //-----------------------------------------------
+      // read skier pts
+      {
+        int nSkiers;
+        SkierPoints& sp = frame_data.skierPoints;
+        if (ok) {
+          QString err;
+          line = getLine(file, lineCount);
+          ok = parseNameValuePair(line, skier_pts_h, nSkiers, err);
+          if (!ok) {
+            _error = QString("line %1: %2").arg(lineCount).arg(err);
+          } else {
+            sp = SkierPoints(nSkiers);
+          }
+        }
+        // check view1 header
+        if (ok) {
+          line = getLine(file, lineCount);
+          if (line.compare(skier_pts_view1_h) != 0) {
+            _error = QString("line %1: wrong header, expected %2, got %3").arg(lineCount).arg(skier_pts_view1_h).arg(line);
+            ok = false;
+          }
+        }
+        // read view1
+        if (ok) {
+          ok = readMatrix<double>(sp.imgPoints_view1, file, lineCount, _error);
+        }
+        // check view2 header
+        if (ok) {
+          line = getLine(file, lineCount);
+          if (line.compare(skier_pts_view2_h) != 0) {
+            _error = QString("line %1: wrong header, expected %2, got %3").arg(lineCount).arg(skier_pts_view2_h).arg(line);
+            ok = false;
+          }
+        }
+        // read view2
+        if (ok) {
+          ok = readMatrix<double>(sp.imgPoints_view2, file, lineCount, _error);
         }
       }
       //-----------------------------------------------

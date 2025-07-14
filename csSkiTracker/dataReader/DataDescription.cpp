@@ -10,6 +10,12 @@ MatchingPoints::MatchingPoints(int n)
     , imgPoints_view2(2, n)
     , worldPoints(3, n) {}
 
+SkierPoints::SkierPoints() {}
+
+SkierPoints::SkierPoints(int n)
+    : imgPoints_view1(2, n)
+    , imgPoints_view2(2, n) {}
+
 CalibPoints::CalibPoints() {}
 
 CalibPoints::CalibPoints(int n)

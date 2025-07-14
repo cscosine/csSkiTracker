@@ -15,6 +15,14 @@ struct MatchingPoints {
   MatchingPoints(int n);
 };
 
+struct SkierPoints {
+  Eigen::Matrix2Xd imgPoints_view1;
+  Eigen::Matrix2Xd imgPoints_view2;
+
+  SkierPoints();
+  SkierPoints(int n);
+};
+
 struct CalibPoints {
   Eigen::Matrix<double, 3, 4> projMat;
   Eigen::Matrix2Xd imgPoints;
@@ -27,6 +35,7 @@ struct CalibPoints {
 struct FrameData {
   MatchingPoints matchingPoints;
   CalibPoints view2;
+  SkierPoints skierPoints;
 };
 
 struct ImageSize {

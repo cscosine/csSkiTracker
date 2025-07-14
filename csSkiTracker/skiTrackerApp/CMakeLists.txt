@@ -17,33 +17,36 @@ cs_find_package(skiTrackerApp PUBLIC csLie REQUIRED COMPONENTS csLie CONFIG)
 
 cs_target_sources(skiTrackerApp
 	PRIVATE
-	Visualizer.h
-	Window.h
-	Window.cpp
-  WindowPlots.cpp
-	Visualizer.cpp
-	main.cpp
-	Window.ui
-  CommandLineOptions.h
-  CommandLineOptions.cpp
-  ProjectionMatrixEstimate.h
-  ProjectionMatrixEstimate.cpp
-  ProblemDescription.h
-  ProblemDescription.cpp
-  Triangulate.h
-  Triangulate.cpp
-#--------------------
-  PoseNode.h
-  PoseNode.cpp
-  Camera3dPointReprojectionError.h
   Camera3dPointReprojectionError.cpp
+  Camera3dPointReprojectionError.h
+  CameraCalibSection.cpp
+  CameraCalibSection.h
+  CameraNode.cpp
   CameraNode.h
   CameraNode.hpp
-  CameraNode.cpp
-  CameraCalibSection.h
-  CameraCalibSection.cpp
-  CameraPoseNodeBase.h
-  CameraPoseNodeBase.cpp
+  CameraPosePointNodeBase.cpp
+  CameraPosePointNodeBase.h
+  CommandLineOptions.cpp
+  CommandLineOptions.h
+  main.cpp
+  PointNode.cpp
+  PointNode.h
+  PoseNode.cpp
+  PoseNode.h
+  ProblemDescription.cpp
+  ProblemDescription.h
+  ProjectionMatrixEstimate.cpp
+  ProjectionMatrixEstimate.h
+  SkierModel.cpp
+  SkierModel.h
+  Triangulate.cpp
+  Triangulate.h
+  Visualizer.cpp
+  Visualizer.h
+  Window.cpp
+  Window.h
+  WindowPlots.cpp
+  Window.ui
     )
 
 	set_target_properties(skiTrackerApp PROPERTIES AUTOMOC ON)

@@ -3,11 +3,15 @@
 #include "csVisOpenGL/PainterAxes.h"
 #include "csVisOpenGL/PainterCameras.h"
 #include "csVisOpenGL/PainterGrid.h"
+#include "csVisOpenGL/PerVertexLineRenderer.h"
+#include "csVisOpenGL/UniformEllipsoidsRenderer.h"
 #include "csVisOpenGL/UniformLineRenderer.h"
 #include "csVisOpenGL/UniformPointRenderer.h"
 #include "csVisOpenGL/Visualizer.h"
 
 #include <Eigen/Geometry>
+
+class SkierModel;
 
 class Visualizer : public csVisOpenGL::Visualizer {
   csVisOpenGL::UniformPointRenderer worldPointsRenderer;
@@ -22,6 +26,9 @@ class Visualizer : public csVisOpenGL::Visualizer {
   csVisOpenGL::UniformLineRenderer movCameraWorldLinesRenderer, movCameraWorldErrRenderer;
 
   csVisOpenGL::UniformPointRenderer reconstructedPointsRenderer;
+  csVisOpenGL::PerVertexLineRenderer skierModelRenderer;
+  csVisOpenGL::UniformEllipsoidsRenderer3D skierHeadRenderer;
+  csVisOpenGL::PainterAxes skierPoseRenderer;
 
   csVisOpenGL::PainterAxes axes;
   csVisOpenGL::PainterGrid grid;
@@ -44,9 +51,14 @@ class Visualizer : public csVisOpenGL::Visualizer {
   Eigen::Matrix3Xf worldPoints;
   Eigen::ArrayXi worldPointsIdxs;
 
+  Eigen::Matrix3Xf reconstructedPoints;
+  Eigen::Matrix3Xf skierPoints;
+
   Eigen::Matrix2Xf corrImgMeasPointsV1, corrImgReprPointsV1;
   Eigen::Matrix2Xf corrImgMeasPointsV2, corrImgReprPointsV2;
-  Eigen::ArrayXi corrImgMeasIndexes;
+
+  Eigen::Matrix2Xf skierImgMeasPointsV1, skierImgReprPointsV1;
+  Eigen::Matrix2Xf skierImgMeasPointsV2, skierImgReprPointsV2;
 
   float computeImgScale(const QImage& source, QImage& dest);
 
@@ -76,6 +88,8 @@ public:
   void setMovCameraWorldPoints(const Eigen::Isometry3f& T_C_wrt_W, const Eigen::Matrix3Xf& camPoints,
                                const Eigen::Matrix3Xf& worldPoints);
   void setReconstructedPoints(const Eigen::Matrix3Xf& points);
+  void setSkierModel(const SkierModel& model);
+
   void setCameraPoses(const Eigen::Isometry3f& fixCam, const std::vector<Eigen::Isometry3f>& T_C_wrt_W);
 
   void setFixCameraImgPoints(const Eigen::Matrix2Xf& measPoints, const Eigen::Matrix2Xf& reprojPoints, const Eigen::ArrayXi& idxs);
@@ -86,7 +100,9 @@ public:
   void setMovCameraPose(const Eigen::Isometry3f& T_C_wrt_W);
 
   void setCorrespondences(const Eigen::Matrix2Xf& measV1, const Eigen::Matrix2Xf& reprV1, const Eigen::Matrix2Xf& measV2,
-                          const Eigen::Matrix2Xf& reprV2, const Eigen::ArrayXi& ids);
+                          const Eigen::Matrix2Xf& reprV2);
+  void setSkierCorrespondences(const Eigen::Matrix2Xf& measV1, const Eigen::Matrix2Xf& reprV1, const Eigen::Matrix2Xf& measV2,
+                               const Eigen::Matrix2Xf& reprV2);
 
   void setWidgetSize(int w, int h);
 };

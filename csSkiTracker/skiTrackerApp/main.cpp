@@ -29,7 +29,13 @@ int main(int argc, char* argv[]) {
     QMessageBox::critical(nullptr, "Error", "Error reading file: " + reader.error());
   } else {
 
-    Problem p = Problem(d->frames.size(), d->worldPoints);
+    QFileInfo qi(filename);
+    QString f1 =
+        qi.dir().absoluteFilePath(qi.completeBaseName() + QDir::separator() + "imgs" + QDir::separator() + "deinterlaced_fro");
+    QString f2 =
+        qi.dir().absoluteFilePath(qi.completeBaseName() + QDir::separator() + "imgs" + QDir::separator() + "deinterlaced_lat");
+
+    Problem p = Problem(d->frames.size(), d->worldPoints, f1, cmd.startFrame1, f2, cmd.startFrame2);
 
     // initialize views, i.e. compute camera pose and f
     p.initView1(d->calib_view1.imgPoints, d->calib_view1.worldPointsId,
@@ -38,14 +44,12 @@ int main(int argc, char* argv[]) {
       p.initView2(i, d->frames[i].view2.imgPoints, d->frames[i].view2.worldPointsId,
                   Eigen::Vector2i(d->view2_imgSize.width, d->view2_imgSize.height));
 
-      // todo: read indexes of points of the skeleton
-      Eigen::ArrayXi indexes(d->frames[i].matchingPoints.imgPoints_view1.cols());
-      for (int k = 0; k < indexes.size(); k++)
-        indexes[k] = k;
-      p.setImgMeasPoints(i, d->frames[i].matchingPoints.imgPoints_view1, d->frames[i].matchingPoints.imgPoints_view2, indexes);
+      p.setImgMatchingPoints(i, d->frames[i].matchingPoints.imgPoints_view1, d->frames[i].matchingPoints.imgPoints_view2);
+
+      p.setImgSkierPoints(i, d->frames[i].skierPoints.imgPoints_view1, d->frames[i].skierPoints.imgPoints_view2);
     }
 
-    Window window(p, nullptr);
+    Window window(p, cmd, nullptr);
     app.exec();
   }
 

@@ -5,6 +5,8 @@
 #include "csVisOpenGL/Camera.h"
 #include "csVisOpenGL/Colors.h"
 
+#include "SkierModel.h"
+
 #include <math.h>
 
 Visualizer::Visualizer()
@@ -85,6 +87,17 @@ void Visualizer::initialize(csVisOpenGL::ShaderFactory* shaderFactory) {
   reconstructedPointsRenderer.setSmoothPoints(true);
   reconstructedPointsRenderer.setUniformColor(csVisOpenGL::Color::blue);
   reconstructedPointsRenderer.setPoints(Eigen::Matrix3Xf());
+
+  skierModelRenderer.initialize(shaderFactory);
+  skierModelRenderer.setLineWidth(3);
+  skierModelRenderer.setUniformColor(csVisOpenGL::Color::white);
+  skierModelRenderer.setLines(Eigen::Matrix3Xf(), Eigen::Matrix3Xf());
+
+  skierPoseRenderer.initialize(shaderFactory);
+  skierPoseRenderer.setLineWidth(3);
+
+  skierHeadRenderer.initialize(shaderFactory);
+  skierHeadRenderer.setUniformColor(csVisOpenGL::Color::pink);
 
   polesLineRenderer.initialize(shaderFactory);
   polesLineRenderer.setLineWidth(2);
@@ -220,6 +233,28 @@ void Visualizer::paintQt(const csVisOpenGL::Camera& camera, QPainter& painter) {
     }
   }
 
+  // reconstructed points
+  if (showLabels3D) {
+    auto pen = painter.pen();
+    pen.setColor(Qt::yellow);
+    painter.setPen(pen);
+    for (int i = 0; i < reconstructedPoints.cols(); i++) {
+      auto sp = camera.worldToScreen(reconstructedPoints.col(i), true);
+      painter.drawText(QPoint(sp.x(), sp.y()), QString("%1").arg(i));
+    }
+  }
+
+  // skier points
+  if (showLabels3D) {
+    auto pen = painter.pen();
+    pen.setColor(Qt::yellow);
+    painter.setPen(pen);
+    for (int i = 0; i < this->skierPoints.cols(); i++) {
+      auto sp = camera.worldToScreen(this->skierPoints.col(i), true);
+      painter.drawText(QPoint(sp.x(), sp.y()), QString("%1").arg(i));
+    }
+  }
+
   // images
   int movImgOffset = _widgetSize.width() - _movImg.width(); // -1;
   if (!_fixImg.isNull()) {
@@ -239,13 +274,28 @@ void Visualizer::paintQt(const csVisOpenGL::Camera& camera, QPainter& painter) {
   if (showLabelsMov)
     drawText(movImgMeasPoints, movIndexes, painter, _movImgScale, movImgOffset, Eigen::Vector2i(crossSize, crossSize));
 
+  //------------------------------------------
+  // matching
   drawCorrespondances(corrImgMeasPointsV1, corrImgReprPointsV1, painter, _fixImgScale, 0, crossSize, showMeasCorr, showReprCorr,
                       showErrCorr);
   drawCorrespondances(corrImgMeasPointsV2, corrImgReprPointsV2, painter, _movImgScale, movImgOffset, crossSize, showMeasCorr,
                       showReprCorr, showErrCorr);
   if (showLabelsCorr) {
-    drawText(corrImgMeasPointsV1, corrImgMeasIndexes, painter, _fixImgScale, 0, Eigen::Vector2i(crossSize, crossSize));
-    drawText(corrImgMeasPointsV2, corrImgMeasIndexes, painter, _movImgScale, movImgOffset, Eigen::Vector2i(crossSize, crossSize));
+    Eigen::VectorXi indexes = Eigen::VectorXi::LinSpaced(corrImgMeasPointsV1.cols(), 0, corrImgMeasPointsV1.cols() - 1);
+    drawText(corrImgMeasPointsV1, indexes, painter, _fixImgScale, 0, Eigen::Vector2i(crossSize, crossSize));
+    drawText(corrImgMeasPointsV2, indexes, painter, _movImgScale, movImgOffset, Eigen::Vector2i(crossSize, crossSize));
+  }
+
+  //------------------------------------------
+  // skier
+  drawCorrespondances(skierImgMeasPointsV1, skierImgReprPointsV1, painter, _fixImgScale, 0, crossSize, showMeasCorr, showReprCorr,
+                      showErrCorr);
+  drawCorrespondances(skierImgMeasPointsV2, skierImgReprPointsV2, painter, _movImgScale, movImgOffset, crossSize, showMeasCorr,
+                      showReprCorr, showErrCorr);
+  if (showLabelsCorr) {
+    Eigen::VectorXi indexes = Eigen::VectorXi::LinSpaced(skierImgMeasPointsV1.cols(), 0, skierImgMeasPointsV1.cols() - 1);
+    drawText(skierImgMeasPointsV1, indexes, painter, _fixImgScale, 0, Eigen::Vector2i(crossSize, crossSize));
+    drawText(skierImgMeasPointsV2, indexes, painter, _movImgScale, movImgOffset, Eigen::Vector2i(crossSize, crossSize));
   }
 }
 
@@ -266,18 +316,170 @@ void Visualizer::setMovCameraImgPoints(const Eigen::Matrix2Xf& measPoints, const
 }
 
 void Visualizer::setReconstructedPoints(const Eigen::Matrix3Xf& points) {
-  this->reconstructedPointsRenderer.setPoints(_T_ski_wrt_vis * points);
+  // store to show ids
+  this->reconstructedPoints = _T_ski_wrt_vis * points;
+
+  this->reconstructedPointsRenderer.setPoints(this->reconstructedPoints);
+}
+
+void Visualizer::setSkierModel(const SkierModel& model) {
+  this->skierPoints = _T_ski_wrt_vis * model.bodyPoints().cast<float>();
+
+  const int nLinesSide = 10;
+  const int nLinesConnections = 2;
+  const int nLinesHead = 2;
+
+  const int nPoints = 2 * (2 * nLinesSide + nLinesConnections + nLinesHead);
+
+  Eigen::Matrix3Xf lines(3, nPoints), colors(3, nPoints);
+  int count = 0;
+  int cstart = 0;
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightFootHead).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightFootRearBottom).cast<float>();
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightFootRearBottom).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightAnkle).cast<float>();
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightAnkle).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightFootHead).cast<float>();
+
+  colors.middleCols(cstart, count - cstart).colwise() = csVisOpenGL::Color::red.head<3>();
+  cstart = count;
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightAnkle).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightKnee).cast<float>();
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightKnee).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightHip).cast<float>();
+
+  colors.middleCols(cstart, count - cstart).colwise() = csVisOpenGL::Color::amber.head<3>();
+  cstart = count;
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightHip).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightShoulder).cast<float>();
+
+  colors.middleCols(cstart, count - cstart).colwise() = csVisOpenGL::Color::yellow.head<3>();
+  cstart = count;
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightShoulder).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightElbow).cast<float>();
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightElbow).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightHand).cast<float>();
+
+  colors.middleCols(cstart, count - cstart).colwise() = csVisOpenGL::Color::cyan.head<3>();
+  cstart = count;
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightHand).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightPoleTip).cast<float>();
+
+  colors.middleCols(cstart, count - cstart).colwise() = csVisOpenGL::Color::green.head<3>();
+  cstart = count;
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightSkiHead).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightSkiTail).cast<float>();
+
+  colors.middleCols(cstart, count - cstart).colwise() = csVisOpenGL::Color::orange.head<3>();
+  cstart = count;
+
+  //-------------------------------------------------------------
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftFootHead).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftFootRearBottom).cast<float>();
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftFootRearBottom).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftAnkle).cast<float>();
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftAnkle).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftFootHead).cast<float>();
+
+  colors.middleCols(cstart, count - cstart).colwise() = csVisOpenGL::Color::red.head<3>();
+  cstart = count;
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftAnkle).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftKnee).cast<float>();
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftKnee).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftHip).cast<float>();
+
+  colors.middleCols(cstart, count - cstart).colwise() = csVisOpenGL::Color::amber.head<3>();
+  cstart = count;
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftHip).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftShoulder).cast<float>();
+
+  colors.middleCols(cstart, count - cstart).colwise() = csVisOpenGL::Color::yellow.head<3>();
+  cstart = count;
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftShoulder).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftElbow).cast<float>();
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftElbow).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftHand).cast<float>();
+
+  colors.middleCols(cstart, count - cstart).colwise() = csVisOpenGL::Color::cyan.head<3>();
+  cstart = count;
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftHand).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftPoleTip).cast<float>();
+
+  colors.middleCols(cstart, count - cstart).colwise() = csVisOpenGL::Color::green.head<3>();
+  cstart = count;
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftSkiHead).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftSkiTail).cast<float>();
+
+  colors.middleCols(cstart, count - cstart).colwise() = csVisOpenGL::Color::orange.head<3>();
+  cstart = count;
+
+  //-------------------------------------------------------------
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightHip).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftHip).cast<float>();
+
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::RightShoulder).cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::LeftShoulder).cast<float>();
+
+  colors.middleCols(cstart, count - cstart).colwise() = csVisOpenGL::Color::yellow.head<3>();
+  cstart = count;
+
+  //-------------------------------------------------------------
+  lines.col(count++) = model.shouldersMiddlePoints().cast<float>();
+  lines.col(count++) = model.bodyPoint(SkierModel::Labels::Head).cast<float>();
+
+  colors.middleCols(cstart, count - cstart).colwise() = csVisOpenGL::Color::pink.head<3>();
+  cstart = count;
+
+  lines.col(count++) = model.shouldersMiddlePoints().cast<float>();
+  lines.col(count++) = model.hipsMiddlePoints().cast<float>();
+
+  colors.middleCols(cstart, count - cstart).colwise() = csVisOpenGL::Color::yellow.head<3>();
+  cstart = count;
+
+  assert(count == nPoints);
+
+  this->skierModelRenderer.setLines(_T_ski_wrt_vis * lines, colors);
+  this->skierPoseRenderer.setPose(_T_ski_wrt_vis * model.pose().cast<float>(), 0.3);
+
+  Eigen::Isometry3f poseHead = Eigen::Isometry3f::Identity();
+  poseHead.translation() = _T_ski_wrt_vis * model.bodyPoint(SkierModel::Labels::Head).cast<float>();
+  this->skierHeadRenderer.setCovariances(poseHead, Eigen::Matrix3d::Identity() * 0.1 * 0.1, 1.0);
 }
 
 void Visualizer::setCorrespondences(const Eigen::Matrix2Xf& measV1, const Eigen::Matrix2Xf& reprV1, const Eigen::Matrix2Xf& measV2,
-                                    const Eigen::Matrix2Xf& reprV2, const Eigen::ArrayXi& ids) {
+                                    const Eigen::Matrix2Xf& reprV2) {
   this->corrImgMeasPointsV1 = measV1;
   this->corrImgReprPointsV1 = reprV1;
 
   this->corrImgMeasPointsV2 = measV2;
   this->corrImgReprPointsV2 = reprV2;
+}
 
-  this->corrImgMeasIndexes = ids;
+void Visualizer::setSkierCorrespondences(const Eigen::Matrix2Xf& measV1, const Eigen::Matrix2Xf& reprV1,
+                                         const Eigen::Matrix2Xf& measV2, const Eigen::Matrix2Xf& reprV2) {
+  this->skierImgMeasPointsV1 = measV1;
+  this->skierImgReprPointsV1 = reprV1;
+
+  this->skierImgMeasPointsV2 = measV2;
+  this->skierImgReprPointsV2 = reprV2;
 }
 
 void Visualizer::setFixCameraImgPoints(const Eigen::Matrix2Xf& measPoints, const Eigen::Matrix2Xf& reprojPoints,
@@ -351,6 +553,9 @@ void Visualizer::paint(const csVisOpenGL::Camera& camera) {
     movCameraWorldErrRenderer.draw(camera);
   if (showCorr3D)
     reconstructedPointsRenderer.draw(camera);
+  skierModelRenderer.draw(camera);
+  skierPoseRenderer.draw(camera);
+  skierHeadRenderer.draw(camera);
 
   camerasMoving.draw(camera);
   camerasMovingAxes.draw(camera);

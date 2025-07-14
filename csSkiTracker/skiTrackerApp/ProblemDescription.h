@@ -4,7 +4,11 @@
 #include "csCamera/Camera.hpp"
 #include "csCamera/CameraDistortionModel.hpp"
 
+#include "SkierModel.h"
 #include <Eigen/Dense>
+
+#include <QImage>
+#include <QString>
 
 struct CameraDistModel {
   csCamera::Camerad cameraModel;
@@ -33,7 +37,6 @@ struct FrameMeasPoints {
   Eigen::Matrix2Xd view1Points_repr;
   Eigen::Matrix2Xd view2Points;
   Eigen::Matrix2Xd view2Points_repr;
-  Eigen::ArrayXi indexes;
 
   Eigen::Matrix3Xd p3d_est;
 
@@ -42,7 +45,6 @@ struct FrameMeasPoints {
     view2Points.setZero(2, n);
     view1Points_repr.setZero(2, n);
     view2Points_repr.setZero(2, n);
-    indexes.resize(n);
     p3d_est.setZero(3, n);
   }
 };
@@ -59,6 +61,8 @@ class Problem {
       _view2CamPar; // note:can be unique or one per pose (at init), use _view2CamPar(i) method, that will return proper one
   std::vector<std::pair<bool, Eigen::Isometry3d>> _T_W_wrt_view2;
   std::vector<FrameMeasPoints> _framesMeas;
+  std::vector<FrameMeasPoints> _framesSkierPoints;
+  std::vector<SkierModel> _framesSkierModel;
   std::vector<int> _validViewsIndexes;
 
   Eigen::Matrix3Xd _calibWorldPoints;
@@ -67,8 +71,11 @@ class Problem {
   ImgCalibPoints _view1CalibPoints;
   std::vector<ImgCalibPoints> _view2CalibPoints;
 
+  QString _folderPathView1, _folderPathView2;
+  int _s1, _s2;
+
 public:
-  Problem(int nMovingCameras, const Eigen::Matrix3Xd& calibWorldPoints);
+  Problem(int nMovingCameras, const Eigen::Matrix3Xd& calibWorldPoints, const QString& f1, int s1, const QString& f2, int s2);
   virtual ~Problem();
 
   static Eigen::Matrix3Xd recoverPoints(const Eigen::ArrayXi& idx, const Eigen::Matrix3Xd& source);
@@ -77,12 +84,24 @@ public:
 
   void initView1(const Eigen::Matrix2Xd& imgPoints, const Eigen::ArrayXi& worldPointIndexes, Eigen::Vector2i imgSize);
   void initView2(int i, const Eigen::Matrix2Xd& imgPoints, const Eigen::ArrayXi& worldPointIndexes, Eigen::Vector2i imgSize);
-  void setImgMeasPoints(int i, const Eigen::Matrix2Xd& view1_meas, const Eigen::Matrix2Xd& view2_meas, const Eigen::VectorXi& indexes);
-  void recomputeImgMeasTriangulation();
+  void setImgMatchingPoints(int i, const Eigen::Matrix2Xd& view1_meas, const Eigen::Matrix2Xd& view2_meas);
+  void setImgSkierPoints(int i, const Eigen::Matrix2Xd& view1_meas, const Eigen::Matrix2Xd& view2_meas);
+  void recomputeImgMatchingTriangulation();
+  void recomputeImgSkierTriangulation();
+  void recomputeImgSkierReprojErrors();
+  void updateSkierModelFromPoints();
 
   int numViews() const {
     return _T_W_wrt_view2.size();
   }
+
+  Eigen::VectorXi indexesCalibrationPointsVisibleMultipleTimes(int minN) const;
+  Eigen::VectorXi indexesCalibrationPointsVisibleFromBoth() const;
+  Eigen::VectorXi indexCalibrationPointsNotSelected(const Eigen::VectorXi& sel) const;
+  Eigen::Matrix<bool, Eigen::Dynamic, 1> selectedVectorToBoolMask(const Eigen::VectorXi& sel) const;
+
+  // return oldCalibId2NewCalibId
+  Eigen::VectorXi applyMask2CalibPoints(const Eigen::VectorXi& sel);
 
   int numValidViews() const {
     return int(_validViewsIndexes.size());
@@ -145,6 +164,17 @@ public:
     return _framesMeas[k];
   }
 
+  const FrameMeasPoints& framesSkierMeas(int k) const {
+    return _framesSkierPoints[k];
+  }
+
+  QImage imageView1(int i) const;
+  QImage imageView2(int i) const;
+
+  const SkierModel& skierModel(int k) const {
+    return _framesSkierModel[k];
+  }
+
   std::vector<double> collectView2Cx() const;
   std::vector<double> collectView2Cy() const;
   std::vector<double> collectView2Fx() const;
@@ -153,4 +183,10 @@ public:
   std::vector<Eigen::Isometry3d> collect_T_W_wrt_view2() const;
 
   void recomputeCameraParamsPoses();
+
+  // return the three fixed points new indexes
+  Eigen::Vector3i recomputeCameraParamsPosesPoints2Fixed(int minViews, Eigen::Vector3i index3FixedPoints,
+                                                         bool includeSkierPoints); // 1: visible from both, >=2 min num of views
+  Eigen::Vector3i recomputeCameraParamsPosesPoints3Fixed(int minViews, Eigen::Vector3i index3FixedPoints,
+                                                         bool includeSkierPoints); // 1: visible from both, >=2 min num of views
 };

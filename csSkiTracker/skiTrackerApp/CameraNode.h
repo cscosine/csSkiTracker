@@ -3,11 +3,11 @@
 #include "csCamera/Camera.h"
 #include "csCamera/CameraDistortionModel.h"
 
-#include "CameraPoseNodeBase.h"
+#include "CameraPosePointNodeBase.h"
 
 #include <array>
 
-class CameraNode : public CameraPoseNodeBase {
+class CameraNode : public CameraPosePointNodeBase {
 public:
   enum class FocalEstimation { Fixed, FixRatio, Both };
 

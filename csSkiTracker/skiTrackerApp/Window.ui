@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>611</width>
-    <height>401</height>
+    <width>880</width>
+    <height>614</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -52,7 +52,7 @@
     </property>
     <item>
      <widget class="QWidget" name="widget_2" native="true">
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,0">
        <property name="spacing">
         <number>3</number>
        </property>
@@ -129,8 +129,8 @@
              <property name="spacing">
               <number>3</number>
              </property>
-             <item row="1" column="0">
-              <widget class="QPushButton" name="pushButtonPlotReprojErrV1">
+             <item row="2" column="0" colspan="2">
+              <widget class="QPushButton" name="pushButtonNonLinearRefine">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -138,7 +138,7 @@
                 </size>
                </property>
                <property name="text">
-                <string>Plot Reproj Err V1</string>
+                <string>Non Linear Refine</string>
                </property>
               </widget>
              </item>
@@ -155,8 +155,15 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="0">
-              <widget class="QPushButton" name="pushButtonPlotCameraParams">
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_11">
+               <property name="text">
+                <string>Fixed Points:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QPushButton" name="pushButtonPlotReprojErrV1">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -164,7 +171,7 @@
                 </size>
                </property>
                <property name="text">
-                <string>Plot Cam Params</string>
+                <string>Plot Reproj Err V1</string>
                </property>
               </widget>
              </item>
@@ -181,8 +188,8 @@
                </property>
               </widget>
              </item>
-             <item row="2" column="0" colspan="2">
-              <widget class="QPushButton" name="pushButtonNonLinearRefine">
+             <item row="0" column="0">
+              <widget class="QPushButton" name="pushButtonPlotCameraParams">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -190,11 +197,95 @@
                 </size>
                </property>
                <property name="text">
-                <string>Non LinearRefine</string>
+                <string>Plot Cam Params</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="lineEditFixedPointsIds">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>32</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0">
+              <widget class="QPushButton" name="pushButtonNonLinearRefinePoints2Fix">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>SLAM (-7dof)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="QPushButton" name="pushButtonNonLinearRefinePoints3Fix">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>SLAM (-9dof)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QSpinBox" name="spinBoxMinNumViews">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string extracomment="1 = at least fixed and movable, &gt;=2 allow only movable"/>
+               </property>
+               <property name="prefix">
+                <string>min num views </string>
+               </property>
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QCheckBox" name="checkBoxEstimateSkier">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Estimate Skier</string>
                </property>
               </widget>
              </item>
             </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButtonSaveSkierPoints">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>32</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Save Skier Points</string>
+            </property>
            </widget>
           </item>
           <item>
@@ -216,7 +307,7 @@
                 <string/>
                </property>
                <property name="checked">
-                <bool>true</bool>
+                <bool>false</bool>
                </property>
               </widget>
              </item>
@@ -348,7 +439,7 @@
                 <string/>
                </property>
                <property name="checked">
-                <bool>true</bool>
+                <bool>false</bool>
                </property>
               </widget>
              </item>
@@ -512,6 +603,19 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButtonTest">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>32</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>test</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

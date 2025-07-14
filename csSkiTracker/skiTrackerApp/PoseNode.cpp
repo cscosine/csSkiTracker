@@ -1,10 +1,10 @@
 #include "PoseNode.h"
 
 PoseNode::PoseNode()
-    : CameraPoseNodeBase(CameraPoseNodeBaseType::Pose)
+    : CameraPosePointNodeBase(CameraPosePointNodeBaseType::Pose)
     , _pose(csLie::SE3d::Identity()) {}
 PoseNode::PoseNode(const csLie::SE3d& pose)
-    : CameraPoseNodeBase(CameraPoseNodeBaseType::Pose)
+    : CameraPosePointNodeBase(CameraPosePointNodeBaseType::Pose)
     , _pose(pose) {}
 
 PoseNode::~PoseNode() {}
