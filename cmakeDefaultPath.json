@@ -1,0 +1,21 @@
+{
+  "version": 10,
+  "configurePresets": [
+    {
+      "name": "cmake-path-msvc2022-x64",
+      "hidden": true
+    },
+    {
+      "name": "cmake-path-msvc2022-x64-LLVM",
+      "hidden": true
+    },
+    {
+      "name": "cmake-path-linux-ninja",
+      "hidden": true
+    },
+    {
+      "name": "cmake-path-linux-ninja-multi-config-clang",
+      "hidden": true
+    }
+  ]
+}

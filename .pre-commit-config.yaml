@@ -1,0 +1,5 @@
+repos:
+  - repo: https://github.com/simoneceriani/csPrecommit
+    rev: v0.1
+    hooks:
+      - id: cs-hook
