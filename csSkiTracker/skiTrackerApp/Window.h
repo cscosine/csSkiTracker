@@ -1,16 +1,15 @@
 #pragma once
 #include "Visualizer.h"
-#include <QMainWindow>
 #include "csSkiTracker/dataReader/DataDescription.h"
+#include <QMainWindow>
 
 namespace Ui {
-  class Window;
+class Window;
 }
 
 class Problem;
 
-class Window : public QMainWindow
-{
+class Window : public QMainWindow {
   Q_OBJECT;
 
   std::unique_ptr<Ui::Window> ui;

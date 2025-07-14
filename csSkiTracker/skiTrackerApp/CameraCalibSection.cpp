@@ -5,18 +5,14 @@
 
 #include "csNelson/SingleSection.hpp"
 
-CameraCalibSection::CameraCalibSection(
-  const CameraNode& camera1,
-  const CameraNode& camera2,
-  const csLie::SE3d& view1Pose,
-  const std::vector<csLie::SE3d>& view2Poses
-) :
-  _cameras({ camera1, camera2 }),
-  _camerasBck({ camera1, camera2 }), //need init
-  _view1Pose(PoseNode(view1Pose)),
-  _view2Poses(view2Poses.size()),
-  _parametersSize(2 + (view2Poses.size() > 0 ? 1 : 0) + view2Poses.size())
-{
+CameraCalibSection::CameraCalibSection(const CameraNode& camera1, const CameraNode& camera2, const csLie::SE3d& view1Pose,
+                                       const std::vector<csLie::SE3d>& view2Poses)
+    : _cameras({camera1, camera2})
+    , _camerasBck({camera1, camera2})
+    , // need init
+    _view1Pose(PoseNode(view1Pose))
+    , _view2Poses(view2Poses.size())
+    , _parametersSize(2 + (view2Poses.size() > 0 ? 1 : 0) + view2Poses.size()) {
   for (int i = 0; i < _view2Poses.size(); i++) {
     _view2Poses[i].setPose(view2Poses[i]);
   }
@@ -35,8 +31,4 @@ CameraCalibSection::CameraCalibSection(
   this->parametersReady();
 }
 
-
-
-CameraCalibSection::~CameraCalibSection() {
-
-}
+CameraCalibSection::~CameraCalibSection() {}

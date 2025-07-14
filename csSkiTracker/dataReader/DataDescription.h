@@ -4,49 +4,49 @@
 #include <vector>
 
 namespace csSkiTracker {
-  namespace dataReader {
+namespace dataReader {
 
-  struct MatchingPoints {
-    Eigen::Matrix2Xd imgPoints_view1;
-    Eigen::Matrix2Xd imgPoints_view2;
-    Eigen::Matrix3Xd worldPoints;
+struct MatchingPoints {
+  Eigen::Matrix2Xd imgPoints_view1;
+  Eigen::Matrix2Xd imgPoints_view2;
+  Eigen::Matrix3Xd worldPoints;
 
-    MatchingPoints();
-    MatchingPoints(int n);
-  };
+  MatchingPoints();
+  MatchingPoints(int n);
+};
 
-  struct CalibPoints {
-    Eigen::Matrix<double, 3, 4> projMat;
-    Eigen::Matrix2Xd imgPoints;
-    Eigen::ArrayXi worldPointsId;
+struct CalibPoints {
+  Eigen::Matrix<double, 3, 4> projMat;
+  Eigen::Matrix2Xd imgPoints;
+  Eigen::ArrayXi worldPointsId;
 
-    CalibPoints(int n);
-    CalibPoints();
-  };
+  CalibPoints(int n);
+  CalibPoints();
+};
 
-  struct FrameData {
-    MatchingPoints matchingPoints;
-    CalibPoints view2;
-  };
+struct FrameData {
+  MatchingPoints matchingPoints;
+  CalibPoints view2;
+};
 
-  struct ImageSize {
-    int width;
-    int height;
-  };
+struct ImageSize {
+  int width;
+  int height;
+};
 
-  struct ProblemData {
+struct ProblemData {
 
-    ImageSize view1_imgSize;
-    ImageSize view2_imgSize;
-    Eigen::Matrix3Xd worldPoints;
+  ImageSize view1_imgSize;
+  ImageSize view2_imgSize;
+  Eigen::Matrix3Xd worldPoints;
 
-    CalibPoints calib_view1;
+  CalibPoints calib_view1;
 
-    std::vector<FrameData> frames;
+  std::vector<FrameData> frames;
 
-    ProblemData();
+  ProblemData();
 
-  private:
-  };
-  }
-}
+private:
+};
+} // namespace dataReader
+} // namespace csSkiTracker

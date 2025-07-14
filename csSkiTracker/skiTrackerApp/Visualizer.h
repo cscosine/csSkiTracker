@@ -1,26 +1,25 @@
 #pragma once
-#include "csVisOpenGL/Visualizer.h"
-#include "csVisOpenGL/UniformPointRenderer.h"
-#include "csVisOpenGL/UniformLineRenderer.h"
-#include "csVisOpenGL/PainterAxes.h"
-#include "csVisOpenGL/PainterGrid.h"
 #include "csVisOpenGL/BackgroundRenderer.h"
+#include "csVisOpenGL/PainterAxes.h"
 #include "csVisOpenGL/PainterCameras.h"
+#include "csVisOpenGL/PainterGrid.h"
+#include "csVisOpenGL/UniformLineRenderer.h"
+#include "csVisOpenGL/UniformPointRenderer.h"
+#include "csVisOpenGL/Visualizer.h"
 
 #include <Eigen/Geometry>
 
-class Visualizer : public csVisOpenGL::Visualizer
-{
+class Visualizer : public csVisOpenGL::Visualizer {
   csVisOpenGL::UniformPointRenderer worldPointsRenderer;
   csVisOpenGL::UniformLineRenderer polesLineRenderer;
   csVisOpenGL::PainterCameras camerasMoving, cameraFixed, cameraMoving;
   csVisOpenGL::PainterAxes camerasMovingAxes, cameraFixedAxis, cameraMovingAxis;
 
   csVisOpenGL::UniformPointRenderer fixCameraWorldPointsRenderer;
-  csVisOpenGL::UniformLineRenderer  fixCameraWorldLinesRenderer, fixCameraWorldErrRenderer;
+  csVisOpenGL::UniformLineRenderer fixCameraWorldLinesRenderer, fixCameraWorldErrRenderer;
 
   csVisOpenGL::UniformPointRenderer movCameraWorldPointsRenderer;
-  csVisOpenGL::UniformLineRenderer  movCameraWorldLinesRenderer, movCameraWorldErrRenderer;
+  csVisOpenGL::UniformLineRenderer movCameraWorldLinesRenderer, movCameraWorldErrRenderer;
 
   csVisOpenGL::UniformPointRenderer reconstructedPointsRenderer;
 
@@ -43,7 +42,7 @@ class Visualizer : public csVisOpenGL::Visualizer
   Eigen::ArrayXi movIndexes;
 
   Eigen::Matrix3Xf worldPoints;
-  Eigen::ArrayXi   worldPointsIdxs;
+  Eigen::ArrayXi worldPointsIdxs;
 
   Eigen::Matrix2Xf corrImgMeasPointsV1, corrImgReprPointsV1;
   Eigen::Matrix2Xf corrImgMeasPointsV2, corrImgReprPointsV2;
@@ -72,8 +71,10 @@ public:
 
   void setWorldPoints(const Eigen::Matrix3Xf& wp, const Eigen::Matrix3Xf& polesLines, const Eigen::ArrayXi& idxs);
 
-  void setFixCameraWorldPoints(const Eigen::Isometry3f& T_C_wrt_W, const Eigen::Matrix3Xf& camPoints, const Eigen::Matrix3Xf& worldPoints);
-  void setMovCameraWorldPoints(const Eigen::Isometry3f& T_C_wrt_W, const Eigen::Matrix3Xf& camPoints, const Eigen::Matrix3Xf& worldPoints);
+  void setFixCameraWorldPoints(const Eigen::Isometry3f& T_C_wrt_W, const Eigen::Matrix3Xf& camPoints,
+                               const Eigen::Matrix3Xf& worldPoints);
+  void setMovCameraWorldPoints(const Eigen::Isometry3f& T_C_wrt_W, const Eigen::Matrix3Xf& camPoints,
+                               const Eigen::Matrix3Xf& worldPoints);
   void setReconstructedPoints(const Eigen::Matrix3Xf& points);
   void setCameraPoses(const Eigen::Isometry3f& fixCam, const std::vector<Eigen::Isometry3f>& T_C_wrt_W);
 
@@ -84,7 +85,8 @@ public:
   void setMovCameraImg(const QImage& img);
   void setMovCameraPose(const Eigen::Isometry3f& T_C_wrt_W);
 
-  void setCorrespondences(const Eigen::Matrix2Xf& measV1, const Eigen::Matrix2Xf& reprV1, const Eigen::Matrix2Xf& measV2, const Eigen::Matrix2Xf& reprV2, const Eigen::ArrayXi& ids);
+  void setCorrespondences(const Eigen::Matrix2Xf& measV1, const Eigen::Matrix2Xf& reprV1, const Eigen::Matrix2Xf& measV2,
+                          const Eigen::Matrix2Xf& reprV2, const Eigen::ArrayXi& ids);
 
   void setWidgetSize(int w, int h);
 };

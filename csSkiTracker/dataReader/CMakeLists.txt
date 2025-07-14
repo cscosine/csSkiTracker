@@ -11,7 +11,7 @@ cs_target_sources(dataReader
 	PRIVATE_INSTALL
     DataDescription.h
 		DataReader.h
-	PRIVATE 
+	PRIVATE
     DataDescription.cpp
 		DataReader.cpp
     )
@@ -20,7 +20,7 @@ cs_target_link_libraries(dataReader
 	PUBLIC
 		csSkiTracker::csSkiTracker
 		Eigen3::Eigen
-		Qt6::Core    
+		Qt6::Core
 )
 
 add_subdirectory(samples)

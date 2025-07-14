@@ -1,15 +1,18 @@
 #include "Triangulate.h"
 
 #include "csBlockMatrix/DenseMatrixBlock.hpp"
-#include "csNelson/SingleSection.hpp"
-#include "csNelson/GaussNewton.hpp"
 #include "csNelson/EdgeUnary.hpp"
+#include "csNelson/GaussNewton.hpp"
+#include "csNelson/SingleSection.hpp"
 
 #include <iostream>
 
-#define DEBUGME if(false) std::cout <<
+#define DEBUGME \
+  if (false)    \
+  std::cout <<
 
-Eigen::Vector3d Triangulate::triangulateLinear(const ProjectionMatrix& P1, const Eigen::Vector2d& i1, const ProjectionMatrix& P2, const Eigen::Vector2d& i2) {
+Eigen::Vector3d Triangulate::triangulateLinear(const ProjectionMatrix& P1, const Eigen::Vector2d& i1, const ProjectionMatrix& P2,
+                                               const Eigen::Vector2d& i2) {
 
   Eigen::Matrix4d A;
 
@@ -30,13 +33,14 @@ Eigen::Vector3d Triangulate::triangulateLinear(const ProjectionMatrix& P1, const
   return P.head<3>();
 }
 
-
-class SinglePointSection : public csNelson::SingleSection< SinglePointSection, Eigen::Vector3d, csBlockMatrix::BlockDense, double, 3, 1> {
+class SinglePointSection
+    : public csNelson::SingleSection<SinglePointSection, Eigen::Vector3d, csBlockMatrix::BlockDense, double, 3, 1> {
   Eigen::Vector3d _point;
-  using SingleSection = csNelson::SingleSection< SinglePointSection, Eigen::Vector3d, csBlockMatrix::BlockDense, double, 3, 1>;
+  using SingleSection = csNelson::SingleSection<SinglePointSection, Eigen::Vector3d, csBlockMatrix::BlockDense, double, 3, 1>;
 
 public:
-  SinglePointSection(const Eigen::Vector3d& point) : _point(point) {
+  SinglePointSection(const Eigen::Vector3d& point)
+      : _point(point) {
     this->parametersReady();
   }
 
@@ -68,25 +72,18 @@ class ReprojErr : public SinglePointSection::EdgeUnary<ReprojErr> {
   Eigen::Matrix<double, 2, 3> jacobian;
   Eigen::Vector2d error;
 
-
 public:
-  ReprojErr(
-    const Eigen::Vector2d& imgPoint,
-    const ProjectionMatrix& Pmat
-  ) : imgPoint(imgPoint), Pmat(Pmat) 
-  {
-  }
+  ReprojErr(const Eigen::Vector2d& imgPoint, const ProjectionMatrix& Pmat)
+      : imgPoint(imgPoint)
+      , Pmat(Pmat) {}
 
-  virtual ~ReprojErr() {
-
-  }
+  virtual ~ReprojErr() {}
 
   void update(bool hessians) {
     if (hessians) {
       Eigen::Vector2d repr = ProjectionMatrixEstimate::proj3DPoints2img(Pmat, this->parameter(), jacobian);
       error = repr - imgPoint;
-    }
-    else {
+    } else {
       Eigen::Vector2d repr = ProjectionMatrixEstimate::proj3DPoints2img(Pmat, this->parameter());
       error = repr - imgPoint;
     }
@@ -94,14 +91,15 @@ public:
     this->setChi2(error.transpose() * error);
   }
 
-  template<class Derived1, class Derived2>
+  template <class Derived1, class Derived2>
   void updateHBlock(Eigen::MatrixBase<Derived1>& H, Eigen::MatrixBase<Derived2>& b) {
     H.noalias() += jacobian.transpose() * jacobian;
     b.noalias() += jacobian.transpose() * error;
   }
 };
 
-Eigen::Vector3d Triangulate::triangulateNonLinear(const ProjectionMatrix& P1, const Eigen::Vector2d& i1, const ProjectionMatrix& P2, const Eigen::Vector2d& i2, const Eigen::Vector3d& guess) {
+Eigen::Vector3d Triangulate::triangulateNonLinear(const ProjectionMatrix& P1, const Eigen::Vector2d& i1, const ProjectionMatrix& P2,
+                                                  const Eigen::Vector2d& i2, const Eigen::Vector3d& guess) {
 
   SinglePointSection optProb(guess);
   optProb.addEdge(0, new ReprojErr(i1, P1));
@@ -111,7 +109,9 @@ Eigen::Vector3d Triangulate::triangulateNonLinear(const ProjectionMatrix& P1, co
 
   optProb.update(true);
   double chi2 = optProb.hessian().chi2();
-  csNelson::GaussNewton<typename csNelson::SolverTraits<csNelson::solverCholeskyDense>::Solver<typename SinglePointSection::Hessian::Traits>> gn;
+  csNelson::GaussNewton<
+      typename csNelson::SolverTraits<csNelson::solverCholeskyDense>::Solver<typename SinglePointSection::Hessian::Traits>>
+      gn;
 
   gn.settings().epsBVector = 1e-6;
   gn.settings().epsChi2 = 1e-6;
@@ -122,7 +122,7 @@ Eigen::Vector3d Triangulate::triangulateNonLinear(const ProjectionMatrix& P1, co
   auto tc = gn.solve(optProb);
 
   DEBUGME "--- triangulate ---" << std::endl << gn.stats().toString() << std::endl << std::endl;
-  
+
   optProb.update(true);
   chi2 = optProb.hessian().chi2();
 

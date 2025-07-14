@@ -17,7 +17,7 @@ struct ImgCalibPoints {
   Eigen::Matrix2Xd imgPoints;
   Eigen::ArrayXi indexes;
   Eigen::Matrix2Xd reprojPoints;
-  
+
   Eigen::Matrix3Xd p3d_wrt_cam_closest;
 
   Eigen::Matrix2Xd reprojErr() const;
@@ -26,8 +26,6 @@ struct ImgCalibPoints {
   void reprojErrMeanMax(double& mean, double& max) const;
   void reprojErr2Vec(std::vector<double>& ex, std::vector<double>& ey) const;
   std::vector<int> indexesVec() const;
-
-
 };
 
 struct FrameMeasPoints {
@@ -57,9 +55,10 @@ class Problem {
   CameraDistModel _view1CamPar;
   Eigen::Isometry3d _T_W_wrt_view1;
 
-  std::vector<CameraDistModel> _view2CamPar; // note:can be unique or one per pose (at init), use _view2CamPar(i) method, that will return proper one
+  std::vector<CameraDistModel>
+      _view2CamPar; // note:can be unique or one per pose (at init), use _view2CamPar(i) method, that will return proper one
   std::vector<std::pair<bool, Eigen::Isometry3d>> _T_W_wrt_view2;
-  std::vector < FrameMeasPoints> _framesMeas;
+  std::vector<FrameMeasPoints> _framesMeas;
   std::vector<int> _validViewsIndexes;
 
   Eigen::Matrix3Xd _calibWorldPoints;
@@ -69,13 +68,12 @@ class Problem {
   std::vector<ImgCalibPoints> _view2CalibPoints;
 
 public:
-
-
-  Problem(int nMovingCameras, const Eigen::Matrix3Xd & calibWorldPoints);
+  Problem(int nMovingCameras, const Eigen::Matrix3Xd& calibWorldPoints);
   virtual ~Problem();
 
   static Eigen::Matrix3Xd recoverPoints(const Eigen::ArrayXi& idx, const Eigen::Matrix3Xd& source);
-  static Eigen::Matrix3Xd computeClosest3DPoint(const Eigen::Isometry3d & T_W_wrt_C, const Eigen::Matrix3Xd & wp, const Eigen::Matrix3Xd& unitView_C);
+  static Eigen::Matrix3Xd computeClosest3DPoint(const Eigen::Isometry3d& T_W_wrt_C, const Eigen::Matrix3Xd& wp,
+                                                const Eigen::Matrix3Xd& unitView_C);
 
   void initView1(const Eigen::Matrix2Xd& imgPoints, const Eigen::ArrayXi& worldPointIndexes, Eigen::Vector2i imgSize);
   void initView2(int i, const Eigen::Matrix2Xd& imgPoints, const Eigen::ArrayXi& worldPointIndexes, Eigen::Vector2i imgSize);
@@ -93,7 +91,7 @@ public:
   const CameraDistModel& view1CamPar() const {
     return _view1CamPar;
   }
-  
+
   Eigen::Isometry3d T_W_wrt_view1() const {
     return _T_W_wrt_view1;
   }
@@ -101,8 +99,8 @@ public:
   const CameraDistModel& view2CamPar(int i) const {
     if (uniqueCamParamsView2()) {
       return _view2CamPar[0];
-    }
-    else return _view2CamPar[i];
+    } else
+      return _view2CamPar[i];
   }
 
   Eigen::Vector2d view2fxfyMedian() const;
@@ -155,5 +153,4 @@ public:
   std::vector<Eigen::Isometry3d> collect_T_W_wrt_view2() const;
 
   void recomputeCameraParamsPoses();
-
 };

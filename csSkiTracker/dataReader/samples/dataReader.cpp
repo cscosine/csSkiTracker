@@ -12,8 +12,7 @@ int main(int argc, char* argv[]) {
   auto d = reader.readFromFile(argv[1]);
   if (d == nullptr) {
     std::cerr << "Error " << reader.error().toStdString() << std::endl;
-  }
-  else {
+  } else {
     std::cout << "Read " << d->frames.size() << " frames" << std::endl;
   }
 

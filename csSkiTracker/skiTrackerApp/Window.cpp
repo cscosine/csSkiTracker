@@ -13,12 +13,11 @@
 #include <QTimer>
 
 Window::Window(Problem& p, QWidget* parent)
-  : QMainWindow(parent),
-  ui(new Ui::Window()),
-  problem(p),
-  vis(new Visualizer()),
-  _initialized(false)
-{
+    : QMainWindow(parent)
+    , ui(new Ui::Window())
+    , problem(p)
+    , vis(new Visualizer())
+    , _initialized(false) {
   ui->setupUi(this);
 
   vis->setWidgetSize(ui->preview->width(), ui->preview->height());
@@ -30,7 +29,8 @@ Window::Window(Problem& p, QWidget* parent)
   controller->setRadius(10);
   controller->setMinRadius(0.001);
 
-  vis->setWorldPoints(problem.calibWorldPoints().cast<float>(), problem.polesPointPairs().cast<float>(), Eigen::ArrayXi::LinSpaced(problem.calibWorldPoints().cols(), 0, problem.calibWorldPoints().cols() - 1));
+  vis->setWorldPoints(problem.calibWorldPoints().cast<float>(), problem.polesPointPairs().cast<float>(),
+                      Eigen::ArrayXi::LinSpaced(problem.calibWorldPoints().cols(), 0, problem.calibWorldPoints().cols() - 1));
 
   std::vector<Eigen::Isometry3f> T_c_wrt_W;
   auto c2 = problem.collect_T_W_wrt_view2();
@@ -46,11 +46,13 @@ Window::Window(Problem& p, QWidget* parent)
   ui->horizontalSlider->setMaximum(problem.numValidViews() - 1);
   ui->horizontalSlider->blockSignals(false);
 
-
-  vis->setFixCameraImgPoints(problem.view1CalibPoints().imgPoints.cast<float>(), problem.view1CalibPoints().reprojPoints.cast<float>(), problem.view1CalibPoints().indexes);
+  vis->setFixCameraImgPoints(problem.view1CalibPoints().imgPoints.cast<float>(), problem.view1CalibPoints().reprojPoints.cast<float>(),
+                             problem.view1CalibPoints().indexes);
 
   // calib points of fix camera
-  vis->setFixCameraWorldPoints(problem.T_W_wrt_view1().inverse().cast<float>(), problem.view1CalibPoints().p3d_wrt_cam_closest.cast<float>(), problem.view1CalibPoints3D().cast<float>());
+  vis->setFixCameraWorldPoints(problem.T_W_wrt_view1().inverse().cast<float>(),
+                               problem.view1CalibPoints().p3d_wrt_cam_closest.cast<float>(),
+                               problem.view1CalibPoints3D().cast<float>());
 
   this->on_horizontalSlider_valueChanged(ui->horizontalSlider->value());
 
@@ -83,10 +85,7 @@ Window::Window(Problem& p, QWidget* parent)
   _initialized = true;
 }
 
-Window::~Window()
-{
-
-}
+Window::~Window() {}
 
 void Window::on_horizontalSlider_valueChanged(int n) {
 
@@ -103,17 +102,20 @@ void Window::on_horizontalSlider_valueChanged(int n) {
     vis->setMovCameraImg(movImg);
   }
 
-  vis->setMovCameraImgPoints(problem.view2CalibPoints(n).imgPoints.cast<float>(), problem.view2CalibPoints(n).reprojPoints.cast<float>(), problem.view2CalibPoints(n).indexes);
-
+  vis->setMovCameraImgPoints(problem.view2CalibPoints(n).imgPoints.cast<float>(),
+                             problem.view2CalibPoints(n).reprojPoints.cast<float>(), problem.view2CalibPoints(n).indexes);
 
   // calib points of mov camera
-  vis->setMovCameraWorldPoints(problem.T_W_wrt_view2(n).second.inverse().cast<float>(), problem.view2CalibPoints(n).p3d_wrt_cam_closest.cast<float>(), problem.view2CalibPoints3D(n).cast<float>());
+  vis->setMovCameraWorldPoints(problem.T_W_wrt_view2(n).second.inverse().cast<float>(),
+                               problem.view2CalibPoints(n).p3d_wrt_cam_closest.cast<float>(),
+                               problem.view2CalibPoints3D(n).cast<float>());
   vis->setMovCameraPose(problem.T_W_wrt_view2(n).second.inverse().cast<float>());
 
   // correspondences
   const auto& f = problem.framesMeas(n);
-  vis->setCorrespondences(f.view1Points.cast<float>(), f.view1Points_repr.cast<float>(), f.view2Points.cast<float>(), f.view2Points_repr.cast<float>(), f.indexes);
-  
+  vis->setCorrespondences(f.view1Points.cast<float>(), f.view1Points_repr.cast<float>(), f.view2Points.cast<float>(),
+                          f.view2Points_repr.cast<float>(), f.indexes);
+
   vis->setReconstructedPoints(f.p3d_est.cast<float>());
 
   // autoplay
@@ -121,14 +123,11 @@ void Window::on_horizontalSlider_valueChanged(int n) {
     if (ui->pushButtonPlay->isChecked()) {
       if (ui->horizontalSlider->value() < ui->horizontalSlider->maximum()) {
         ui->horizontalSlider->setValue(ui->horizontalSlider->value() + 1);
-      }
-      else {
+      } else {
         ui->horizontalSlider->setValue(0);
       }
     }
-    });
-
-
+  });
 }
 
 void Window::on_pushButtonNonLinearRefine_clicked() {
@@ -141,8 +140,11 @@ void Window::on_pushButtonNonLinearRefine_clicked() {
   }
 
   vis->setCameraPoses(problem.T_W_wrt_view1().inverse().cast<float>(), T_c_wrt_W);
-  vis->setFixCameraImgPoints(problem.view1CalibPoints().imgPoints.cast<float>(), problem.view1CalibPoints().reprojPoints.cast<float>(), problem.view1CalibPoints().indexes);
-  vis->setFixCameraWorldPoints(problem.T_W_wrt_view1().inverse().cast<float>(), problem.view1CalibPoints().p3d_wrt_cam_closest.cast<float>(), problem.view1CalibPoints3D().cast<float>());
+  vis->setFixCameraImgPoints(problem.view1CalibPoints().imgPoints.cast<float>(), problem.view1CalibPoints().reprojPoints.cast<float>(),
+                             problem.view1CalibPoints().indexes);
+  vis->setFixCameraWorldPoints(problem.T_W_wrt_view1().inverse().cast<float>(),
+                               problem.view1CalibPoints().p3d_wrt_cam_closest.cast<float>(),
+                               problem.view1CalibPoints3D().cast<float>());
 
   on_horizontalSlider_valueChanged(ui->horizontalSlider->value());
 }
@@ -225,8 +227,6 @@ void Window::on_checkBoxShow3DCorr_clicked() {
 void Window::on_pushButtonPlay_clicked() {
   if (ui->pushButtonPlay->isChecked()) {
     this->on_horizontalSlider_valueChanged(ui->horizontalSlider->value());
-  }
-  else {
-
+  } else {
   }
 }

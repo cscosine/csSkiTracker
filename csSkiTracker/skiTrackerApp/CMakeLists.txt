@@ -16,7 +16,7 @@ cs_find_package(skiTrackerApp PUBLIC csLie REQUIRED COMPONENTS csLie CONFIG)
 
 
 cs_target_sources(skiTrackerApp
-	PRIVATE 
+	PRIVATE
 	Visualizer.h
 	Window.h
 	Window.cpp
@@ -54,7 +54,7 @@ cs_target_link_libraries(skiTrackerApp
 	PUBLIC
 		csSkiTracker::dataReader
 		Eigen3::Eigen
-		Qt6::Core    
+		Qt6::Core
 		Qt6::Widgets
 	csVisOpenGL::csVisOpenGL
     csCamera::csCamera

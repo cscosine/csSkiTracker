@@ -22,9 +22,9 @@ readOk = true;
 while(readOk)
   filename = [dir '/' sprintf('frame_%03d.mat', frameN)];
   c = exist(filename, 'file');
-  if(c == 2) 
+  if(c == 2)
     readOk = true;
-    
+
     fd = load(filename);
     fd = fd.frame_data;
 
@@ -33,11 +33,11 @@ while(readOk)
       s = viewData2String(fd.view1, '#CALIB_PTS_VIEW_1', '  ', worldPoints);
       fprintf(fo, s);
     end
-        
+
     s= frameData2string(fd, '  ', worldPoints);
     fprintf(fo, '#FRAME %d\n', frameN);
     fprintf(fo, s);
-    
+
     frameN = frameN + 1
   else
     readOk = false;

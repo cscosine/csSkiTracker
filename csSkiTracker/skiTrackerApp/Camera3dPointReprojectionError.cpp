@@ -1,24 +1,17 @@
 #include "Camera3dPointReprojectionError.h"
 
-#include "csNelson/EdgeSectionBase.hpp"
 #include "csNelson/EdgeBinary.hpp"
+#include "csNelson/EdgeSectionBase.hpp"
 
-#include "csCamera/Utils.hpp"
 #include "csCamera/Camera.hpp"
 #include "csCamera/CameraDistortionModel.hpp"
+#include "csCamera/Utils.hpp"
 
-Camera3dPointReprojectionError::Camera3dPointReprojectionError(
-  const Eigen::Matrix3Xd& worldPoints,
-  const Eigen::Matrix2Xd& imgMeasPoints
-) :
-  _worldPoints(worldPoints),
-  _imgMeasPoints(imgMeasPoints)
-{
-
-}
-Camera3dPointReprojectionError::~Camera3dPointReprojectionError() {
-
-}
+Camera3dPointReprojectionError::Camera3dPointReprojectionError(const Eigen::Matrix3Xd& worldPoints,
+                                                               const Eigen::Matrix2Xd& imgMeasPoints)
+    : _worldPoints(worldPoints)
+    , _imgMeasPoints(imgMeasPoints) {}
+Camera3dPointReprojectionError::~Camera3dPointReprojectionError() {}
 
 void Camera3dPointReprojectionError::update(bool hessians) {
 #ifndef NDEBUG
@@ -36,8 +29,7 @@ void Camera3dPointReprojectionError::update(bool hessians) {
     Eigen::Matrix2Xd repr = camera.camera().pointsZ1_to_image(pz1d);
     Eigen::Matrix2Xd err = repr - _imgMeasPoints;
     this->setChi2(err.squaredNorm());
-  }
-  else {
+  } else {
     // resize hessians (camera params is variable)
     this->H_camParams.setZero(camera.numParams(), camera.numParams());
     this->H_camParams_pose.setZero(camera.numParams(), 6);
@@ -62,7 +54,8 @@ void Camera3dPointReprojectionError::update(bool hessians) {
       Eigen::Matrix<double, 2, 3> d_pz1d_d_k123, d_pz1d_d_k456;
       Eigen::Matrix2d d_pz1d_d_p12;
       Eigen::Matrix<double, 2, 4> d_pz1d_d_s1234;
-      Eigen::Vector2d pz1d = camera.distModel().distort_jacobians(pz1, d_pz1d_d_pz1, d_pz1d_d_k123, d_pz1d_d_k456, d_pz1d_d_p12, d_pz1d_d_s1234);
+      Eigen::Vector2d pz1d =
+          camera.distModel().distort_jacobians(pz1, d_pz1d_d_pz1, d_pz1d_d_k123, d_pz1d_d_k456, d_pz1d_d_p12, d_pz1d_d_s1234);
 
       // reproj
       Eigen::Matrix<double, 2, 4> d_repr_d_camparams;
@@ -87,36 +80,47 @@ void Camera3dPointReprojectionError::update(bool hessians) {
       if (camera.focalEstimation() == CameraNode::FocalEstimation::Both) {
         d_repr_d_camParams.block<2, 2>(0, np) = d_repr_d_camparams.leftCols<2>();
         np += 2;
-      }
-      else if (camera.focalEstimation() == CameraNode::FocalEstimation::FixRatio) {
+      } else if (camera.focalEstimation() == CameraNode::FocalEstimation::FixRatio) {
         d_repr_d_camParams(0, np) = d_repr_d_camparams(0, 0);
         d_repr_d_camParams(1, np) = d_repr_d_camparams(1, 1);
         np++;
-      }
-      else if (camera.focalEstimation() == CameraNode::FocalEstimation::Fixed) {
+      } else if (camera.focalEstimation() == CameraNode::FocalEstimation::Fixed) {
         // nothing
-      }
-      else {
+      } else {
         assert(false && "how the hell do you ended up here?");
       }
 
-      if (!camera.fixCenter()[0]) d_repr_d_camParams.col(np++) = d_repr_d_camparams.col(2);
-      if (!camera.fixCenter()[1]) d_repr_d_camParams.col(np++) = d_repr_d_camparams.col(3);
+      if (!camera.fixCenter()[0])
+        d_repr_d_camParams.col(np++) = d_repr_d_camparams.col(2);
+      if (!camera.fixCenter()[1])
+        d_repr_d_camParams.col(np++) = d_repr_d_camparams.col(3);
 
-      if (!camera.fixKs()[0]) d_repr_d_camParams.col(np++) = d_repr_d_k123.col(0);
-      if (!camera.fixKs()[1]) d_repr_d_camParams.col(np++) = d_repr_d_k123.col(1);
-      if (!camera.fixKs()[2]) d_repr_d_camParams.col(np++) = d_repr_d_k123.col(2);
-      if (!camera.fixKs()[3]) d_repr_d_camParams.col(np++) = d_repr_d_k456.col(0);
-      if (!camera.fixKs()[4]) d_repr_d_camParams.col(np++) = d_repr_d_k456.col(1);
-      if (!camera.fixKs()[5]) d_repr_d_camParams.col(np++) = d_repr_d_k456.col(2);
+      if (!camera.fixKs()[0])
+        d_repr_d_camParams.col(np++) = d_repr_d_k123.col(0);
+      if (!camera.fixKs()[1])
+        d_repr_d_camParams.col(np++) = d_repr_d_k123.col(1);
+      if (!camera.fixKs()[2])
+        d_repr_d_camParams.col(np++) = d_repr_d_k123.col(2);
+      if (!camera.fixKs()[3])
+        d_repr_d_camParams.col(np++) = d_repr_d_k456.col(0);
+      if (!camera.fixKs()[4])
+        d_repr_d_camParams.col(np++) = d_repr_d_k456.col(1);
+      if (!camera.fixKs()[5])
+        d_repr_d_camParams.col(np++) = d_repr_d_k456.col(2);
 
-      if (!camera.fixPs()[0]) d_repr_d_camParams.col(np++) = d_repr_d_p12.col(0);
-      if (!camera.fixPs()[1]) d_repr_d_camParams.col(np++) = d_repr_d_p12.col(1);
+      if (!camera.fixPs()[0])
+        d_repr_d_camParams.col(np++) = d_repr_d_p12.col(0);
+      if (!camera.fixPs()[1])
+        d_repr_d_camParams.col(np++) = d_repr_d_p12.col(1);
 
-      if (!camera.fixSs()[0]) d_repr_d_camParams.col(np++) = d_repr_d_s1234.col(0);
-      if (!camera.fixSs()[1]) d_repr_d_camParams.col(np++) = d_repr_d_s1234.col(1);
-      if (!camera.fixSs()[2]) d_repr_d_camParams.col(np++) = d_repr_d_s1234.col(2);
-      if (!camera.fixSs()[3]) d_repr_d_camParams.col(np++) = d_repr_d_s1234.col(3);
+      if (!camera.fixSs()[0])
+        d_repr_d_camParams.col(np++) = d_repr_d_s1234.col(0);
+      if (!camera.fixSs()[1])
+        d_repr_d_camParams.col(np++) = d_repr_d_s1234.col(1);
+      if (!camera.fixSs()[2])
+        d_repr_d_camParams.col(np++) = d_repr_d_s1234.col(2);
+      if (!camera.fixSs()[3])
+        d_repr_d_camParams.col(np++) = d_repr_d_s1234.col(3);
 
       assert(np == camera.numParams());
 
@@ -134,5 +138,4 @@ void Camera3dPointReprojectionError::update(bool hessians) {
 
     this->setChi2(chi2);
   }
-
 }

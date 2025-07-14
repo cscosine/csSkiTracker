@@ -36,5 +36,5 @@ function s = frameData2string(fd, prefix, worldPoints)
   # skip, write only once in header
   ## s = [s viewData2String(fd.view1, [prefix '#CALIB_PTS_VIEW_1'], [prefix '  '], worldPoints)];
   #####################
-  s = [s viewData2String(fd.view2, [prefix '#CALIB_PTS_VIEW_2'], [prefix '  '], worldPoints)]; 
+  s = [s viewData2String(fd.view2, [prefix '#CALIB_PTS_VIEW_2'], [prefix '  '], worldPoints)];
 endfunction

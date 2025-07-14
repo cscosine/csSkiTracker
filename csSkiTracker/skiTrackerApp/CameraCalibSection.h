@@ -1,13 +1,14 @@
 #pragma once
 #include "csNelson/SingleSection.h"
 
+#include "CameraNode.h"
 #include "CameraPoseNodeBase.h"
 #include "PoseNode.h"
-#include "CameraNode.h"
 
 #include <vector>
 
-class CameraCalibSection : public csNelson::SingleSection<CameraCalibSection, CameraPoseNodeBase, csBlockMatrix::BlockCoeffSparse, double, csBlockMatrix::Variable> {
+class CameraCalibSection : public csNelson::SingleSection<CameraCalibSection, CameraPoseNodeBase, csBlockMatrix::BlockCoeffSparse,
+                                                          double, csBlockMatrix::Variable> {
 
   std::array<CameraNode, 2> _cameras, _camerasBck;
   PoseNode _view1Pose, _view1PoseBck;
@@ -15,15 +16,12 @@ class CameraCalibSection : public csNelson::SingleSection<CameraCalibSection, Ca
 
   std::vector<int> _parametersSize;
 
-  using SingleSectionBase = csNelson::SingleSection<CameraCalibSection, CameraPoseNodeBase, csBlockMatrix::BlockCoeffSparse, double, csBlockMatrix::Variable>;
+  using SingleSectionBase = csNelson::SingleSection<CameraCalibSection, CameraPoseNodeBase, csBlockMatrix::BlockCoeffSparse, double,
+                                                    csBlockMatrix::Variable>;
 
 public:
-  CameraCalibSection(
-    const CameraNode& camera1,
-    const CameraNode& camera2,
-    const csLie::SE3d& view1Pose,
-    const std::vector<csLie::SE3d>& view2Poses
-  );
+  CameraCalibSection(const CameraNode& camera1, const CameraNode& camera2, const csLie::SE3d& view1Pose,
+                     const std::vector<csLie::SE3d>& view2Poses);
   virtual ~CameraCalibSection();
 
   void backupSolution() {
@@ -37,7 +35,6 @@ public:
     _view1Pose = _view1PoseBck;
     _view2Poses = _view2PosesBck;
   }
-
 
   const std::vector<int>& parameterSize() const override {
     return _parametersSize;
@@ -58,68 +55,80 @@ public:
     assert(ns == inc.numSegments());
   }
 
-  csNelson::NodeId camera1ParId() const { return csNelson::NodeId(0); }
-  csNelson::NodeId camera2ParId() const { 
+  csNelson::NodeId camera1ParId() const {
+    return csNelson::NodeId(0);
+  }
+  csNelson::NodeId camera2ParId() const {
     if (_view2Poses.size() > 0) {
       return csNelson::NodeId(1);
-    }
-    else {
+    } else {
       assert(false);
       return csNelson::NodeId(-1);
     }
   }
-  csNelson::NodeId camera1PoseId() const { 
+  csNelson::NodeId camera1PoseId() const {
     if (_view2Poses.size() > 0) {
       return csNelson::NodeId(2);
-    }
-    else {
+    } else {
       return csNelson::NodeId(1);
     }
   }
-  csNelson::NodeId camera2PoseId(int i) const { 
+  csNelson::NodeId camera2PoseId(int i) const {
     return csNelson::NodeId(2 + (_view2Poses.size() > 0 ? 1 : 0) + i);
   }
 
-  const csCamera::Camerad& view1Camera() const { return _cameras[0].camera(); }
-  const csCamera::Camerad& view2Camera() const { return _cameras[1].camera(); }
-  const csCamera::CameraDistortionModeld& view1CameraDistModel() const { return _cameras[0].distModel(); }
-  const csCamera::CameraDistortionModeld& view2CameraDistModel() const { return _cameras[1].distModel(); }
-  const csLie::SE3d& view1Pose() const { return _view1Pose.pose(); }
-  int numView2Poses() const { return _view2Poses.size(); }
-  const csLie::SE3d& view2Pose(int i) const { return _view2Poses[i].pose(); }
+  const csCamera::Camerad& view1Camera() const {
+    return _cameras[0].camera();
+  }
+  const csCamera::Camerad& view2Camera() const {
+    return _cameras[1].camera();
+  }
+  const csCamera::CameraDistortionModeld& view1CameraDistModel() const {
+    return _cameras[0].distModel();
+  }
+  const csCamera::CameraDistortionModeld& view2CameraDistModel() const {
+    return _cameras[1].distModel();
+  }
+  const csLie::SE3d& view1Pose() const {
+    return _view1Pose.pose();
+  }
+  int numView2Poses() const {
+    return _view2Poses.size();
+  }
+  const csLie::SE3d& view2Pose(int i) const {
+    return _view2Poses[i].pose();
+  }
 
   virtual const CameraPoseNodeBase& parameter(csNelson::NodeId i) const override {
-    assert(i.isVariable()); 
-    if (i.id() == 0) { return _cameras[0]; }
-    else if (i.id() == 1) { 
+    assert(i.isVariable());
+    if (i.id() == 0) {
+      return _cameras[0];
+    } else if (i.id() == 1) {
       if (_view2Poses.size() > 0) {
         return _cameras[1];
-      }
-      else {
+      } else {
         return _view1Pose;
       }
+    } else if (i.id() == 2) {
+      return _view1Pose;
+    } else {
+      return _view2Poses[i.id() - 3];
     }
-    else if (i.id() == 2) { 
-      return _view1Pose; 
-    }
-    else { return _view2Poses[i.id() - 3]; }
   }
   virtual CameraPoseNodeBase& parameter(csNelson::NodeId i) override {
     assert(i.isVariable());
-    if (i.id() == 0) { return _cameras[0]; }
-    else if (i.id() == 1) {
+    if (i.id() == 0) {
+      return _cameras[0];
+    } else if (i.id() == 1) {
       if (_view2Poses.size() > 0) {
         return _cameras[1];
-      }
-      else {
+      } else {
         return _view1Pose;
       }
-    }
-    else if (i.id() == 2) {
+    } else if (i.id() == 2) {
       return _view1Pose;
+    } else {
+      return _view2Poses[i.id() - 3];
     }
-    else { return _view2Poses[i.id() - 3]; }
   }
-
-
 };

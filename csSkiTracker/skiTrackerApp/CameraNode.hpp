@@ -1,7 +1,7 @@
 #pragma once
 #include "CameraNode.h"
 
-template<typename Derived>
+template <typename Derived>
 void CameraNode::oplus(const Eigen::MatrixBase<Derived>& oplus) {
   assert(oplus.size() == _numParams);
 
@@ -13,13 +13,11 @@ void CameraNode::oplus(const Eigen::MatrixBase<Derived>& oplus) {
   if (_focalEstimation == FocalEstimation::FixRatio) {
     new_fx += oplus(np++);
     new_fy = new_fx / _aspectRatio;
-  }
-  else if (_focalEstimation == FocalEstimation::Both) {
+  } else if (_focalEstimation == FocalEstimation::Both) {
     new_fx += oplus(np++);
     new_fy += oplus(np++);
     this->_aspectRatio = new_fx / new_fy;
-  }
-  else {
+  } else {
     // nothing
   }
 
@@ -43,11 +41,11 @@ void CameraNode::oplus(const Eigen::MatrixBase<Derived>& oplus) {
   double newS4 = _distModel.s4y() + (_fixSs[3] ? 0 : oplus(np++));
 
   csCamera::Camerad newCamera = csCamera::Camerad(new_fx, new_fy, new_cx, new_cy, _camera.w(), _camera.h());
-  csCamera::CameraDistortionModeld newDistModel = csCamera::CameraDistortionModeld(newK1, newK2, newK3, newP1, newP2, newK4, newK5, newK6, newS1, newS2, newS3, newS4);
+  csCamera::CameraDistortionModeld newDistModel =
+      csCamera::CameraDistortionModeld(newK1, newK2, newK3, newP1, newP2, newK4, newK5, newK6, newS1, newS2, newS3, newS4);
 
   this->_camera = newCamera;
   this->_distModel = newDistModel;
 
   assert(_numParams == np);
-
 }

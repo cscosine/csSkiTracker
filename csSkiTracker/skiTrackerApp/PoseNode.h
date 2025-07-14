@@ -5,8 +5,8 @@
 
 class PoseNode : public CameraPoseNodeBase {
   csLie::SE3d _pose;
-public:
 
+public:
   PoseNode();
   PoseNode(const csLie::SE3d& pose);
   virtual ~PoseNode();
@@ -16,10 +16,8 @@ public:
   }
   void setPose(const csLie::SE3d& pose);
 
-
-  template<typename Derived>
+  template <typename Derived>
   void oplus(const Eigen::MatrixBase<Derived>& oplus) {
     _pose = csLie::se3Exp(csLie::se3Log(csLie::se3Exp(csLie::SE3Algd(oplus)) * _pose));
   }
-
 };

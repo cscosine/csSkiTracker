@@ -7,23 +7,32 @@
 
 #include <math.h>
 
+Visualizer::Visualizer()
+    : csVisOpenGL::Visualizer()
+    , _widgetSize(-1, -1)
+    , showLabels3D(true)
+    , showLabelsMov(true)
+    , showLabelsFix(true)
+    , showLabelsCorr(true)
+    , showMeas3D(true)
+    , showMeasMov(true)
+    , showMeasFix(true)
+    , showMeasCorr(true)
+    , showReprMov(true)
+    , showReprFix(true)
+    , showReprCorr(true)
+    , showErr3D(true)
+    , showErrFix(true)
+    , showErrMov(true)
+    , showErrCorr(true)
+    , showViewRaysFix(true)
+    , showViewRaysMov(true)
+    , show3DCalibPoints(true)
+    , show3DCalibPoles(true)
+    , showCorr3D(true) {}
+Visualizer::~Visualizer() {}
 
-Visualizer::Visualizer() :
-  csVisOpenGL::Visualizer(),
-  _widgetSize(-1, -1),
-  showLabels3D(true), showLabelsMov(true), showLabelsFix(true), showLabelsCorr(true),
-  showMeas3D(true), showMeasMov(true), showMeasFix(true), showMeasCorr(true),
-  showReprMov(true), showReprFix(true), showReprCorr(true),
-  showErr3D(true), showErrFix(true), showErrMov(true), showErrCorr(true),
-  showViewRaysFix(true), showViewRaysMov(true),
-  show3DCalibPoints(true), show3DCalibPoles(true),
-  showCorr3D(true)
-{
-}
-Visualizer::~Visualizer() { }
-
-void Visualizer::initialize(csVisOpenGL::ShaderFactory* shaderFactory)
-{
+void Visualizer::initialize(csVisOpenGL::ShaderFactory* shaderFactory) {
 
   // swap y and z
   _T_ski_wrt_vis.setIdentity();
@@ -71,7 +80,6 @@ void Visualizer::initialize(csVisOpenGL::ShaderFactory* shaderFactory)
   movCameraWorldErrRenderer.setUniformColor(csVisOpenGL::ColorDark::red);
   movCameraWorldErrRenderer.setLines(Eigen::Matrix3Xf());
 
-  
   reconstructedPointsRenderer.initialize(shaderFactory);
   reconstructedPointsRenderer.setPointSize(3);
   reconstructedPointsRenderer.setSmoothPoints(true);
@@ -101,7 +109,6 @@ void Visualizer::initialize(csVisOpenGL::ShaderFactory* shaderFactory)
   cameraMovingAxis.initialize(shaderFactory);
 
   _fixImgScale = _movImgScale = -1;
-
 }
 
 float Visualizer::computeImgScale(const QImage& source, QImage& dest) {
@@ -117,29 +124,27 @@ float Visualizer::computeImgScale(const QImage& source, QImage& dest) {
     if (scaleW > scaleH) {
       dest = source.scaledToWidth(max_width);
       return 1.0 / scaleW;
-    }
-    else {
+    } else {
       dest = source.scaledToHeight(max_height);
       return 1.0 / scaleH;
     }
-  }
-  else {
+  } else {
     dest = source;
     return 1.0;
   }
-
-
 }
 
 class PainterSaveRestore {
   QPainter& painter;
 
 public:
-  PainterSaveRestore(PainterSaveRestore& p) : painter(p()) {
+  PainterSaveRestore(PainterSaveRestore& p)
+      : painter(p()) {
     painter.save();
   }
 
-  PainterSaveRestore(QPainter& p) : painter(p) {
+  PainterSaveRestore(QPainter& p)
+      : painter(p) {
     painter.save();
   }
   ~PainterSaveRestore() {
@@ -149,7 +154,6 @@ public:
   QPainter& operator()() {
     return painter;
   }
-
 };
 
 void drawCross(const Eigen::Vector2f& point, PainterSaveRestore painter, const QColor& color, float scale, int offset, int crossSize) {
@@ -157,11 +161,14 @@ void drawCross(const Eigen::Vector2f& point, PainterSaveRestore painter, const Q
   pen.setColor(color);
   painter().setPen(pen);
 
-  painter().drawLine(QPointF(offset + scale * point.x() - crossSize, scale * point.y()), QPointF(offset + scale * point.x() + crossSize, scale * point.y()));
-  painter().drawLine(QPointF(offset + scale * point.x(), scale * point.y() - crossSize), QPointF(offset + scale * point.x(), scale * point.y() + crossSize));
+  painter().drawLine(QPointF(offset + scale * point.x() - crossSize, scale * point.y()),
+                     QPointF(offset + scale * point.x() + crossSize, scale * point.y()));
+  painter().drawLine(QPointF(offset + scale * point.x(), scale * point.y() - crossSize),
+                     QPointF(offset + scale * point.x(), scale * point.y() + crossSize));
 }
 
-void drawLine(const Eigen::Vector2f& p1, const Eigen::Vector2f& p2, PainterSaveRestore painter, const QColor& color, float scale, int offset) {
+void drawLine(const Eigen::Vector2f& p1, const Eigen::Vector2f& p2, PainterSaveRestore painter, const QColor& color, float scale,
+              int offset) {
   auto pen = painter().pen();
   pen.setColor(color);
   pen.setWidth(3);
@@ -170,7 +177,8 @@ void drawLine(const Eigen::Vector2f& p1, const Eigen::Vector2f& p2, PainterSaveR
   painter().drawLine(QPointF(offset + scale * p1.x(), scale * p1.y()), QPointF(offset + scale * p2.x(), scale * p2.y()));
 }
 
-void drawCorrespondances(const Eigen::Matrix2Xf& meas, const Eigen::Matrix2Xf& reproj, PainterSaveRestore painter, float scale, int offset, int crossSize, bool flagMeas, bool flagRepr, bool flagErr) {
+void drawCorrespondances(const Eigen::Matrix2Xf& meas, const Eigen::Matrix2Xf& reproj, PainterSaveRestore painter, float scale,
+                         int offset, int crossSize, bool flagMeas, bool flagRepr, bool flagErr) {
 
   if (flagMeas && meas.cols() > 0) {
     for (int i = 0; i < meas.cols(); i++) {
@@ -187,10 +195,10 @@ void drawCorrespondances(const Eigen::Matrix2Xf& meas, const Eigen::Matrix2Xf& r
       drawLine(reproj.col(i), meas.col(i), painter, Qt::red, scale, offset);
     }
   }
-
 }
 
-void drawText(const Eigen::Matrix2Xf& meas, const Eigen::ArrayXi& idx, PainterSaveRestore painter, float scale, int offset, Eigen::Vector2i d) {
+void drawText(const Eigen::Matrix2Xf& meas, const Eigen::ArrayXi& idx, PainterSaveRestore painter, float scale, int offset,
+              Eigen::Vector2i d) {
   auto pen = painter().pen();
   pen.setColor(Qt::black);
   painter().setPen(pen);
@@ -198,7 +206,6 @@ void drawText(const Eigen::Matrix2Xf& meas, const Eigen::ArrayXi& idx, PainterSa
   for (int i = 0; i < meas.cols(); i++) {
     painter().drawText(QPoint(offset + scale * meas.col(i).x() + d.x(), scale * meas.col(i).y() + d.y()), QString("%1").arg(idx(i)));
   }
-
 }
 
 void Visualizer::paintQt(const csVisOpenGL::Camera& camera, QPainter& painter) {
@@ -214,7 +221,7 @@ void Visualizer::paintQt(const csVisOpenGL::Camera& camera, QPainter& painter) {
   }
 
   // images
-  int movImgOffset = _widgetSize.width() - _movImg.width();// -1;
+  int movImgOffset = _widgetSize.width() - _movImg.width(); // -1;
   if (!_fixImg.isNull()) {
     painter.drawImage(QPoint(0, 0), _fixImg);
   }
@@ -224,31 +231,35 @@ void Visualizer::paintQt(const csVisOpenGL::Camera& camera, QPainter& painter) {
 
   static const int crossSize = 5;
   drawCorrespondances(fixImgMeasPoints, fixImgReprojPoints, painter, _fixImgScale, 0, crossSize, showMeasFix, showReprFix, showErrFix);
-  if (showLabelsFix) drawText(fixImgMeasPoints, fixIndexes, painter, _fixImgScale, 0, Eigen::Vector2i(crossSize, crossSize));
+  if (showLabelsFix)
+    drawText(fixImgMeasPoints, fixIndexes, painter, _fixImgScale, 0, Eigen::Vector2i(crossSize, crossSize));
 
-  drawCorrespondances(movImgMeasPoints, movImgReprojPoints, painter, _movImgScale, movImgOffset, crossSize, showMeasMov, showReprMov, showErrMov);
-  if (showLabelsMov) drawText(movImgMeasPoints, movIndexes, painter, _movImgScale, movImgOffset, Eigen::Vector2i(crossSize, crossSize));
+  drawCorrespondances(movImgMeasPoints, movImgReprojPoints, painter, _movImgScale, movImgOffset, crossSize, showMeasMov, showReprMov,
+                      showErrMov);
+  if (showLabelsMov)
+    drawText(movImgMeasPoints, movIndexes, painter, _movImgScale, movImgOffset, Eigen::Vector2i(crossSize, crossSize));
 
-  drawCorrespondances(corrImgMeasPointsV1, corrImgReprPointsV1, painter, _fixImgScale, 0, crossSize, showMeasCorr, showReprCorr, showErrCorr);
-  drawCorrespondances(corrImgMeasPointsV2, corrImgReprPointsV2, painter, _movImgScale, movImgOffset, crossSize, showMeasCorr, showReprCorr, showErrCorr);
+  drawCorrespondances(corrImgMeasPointsV1, corrImgReprPointsV1, painter, _fixImgScale, 0, crossSize, showMeasCorr, showReprCorr,
+                      showErrCorr);
+  drawCorrespondances(corrImgMeasPointsV2, corrImgReprPointsV2, painter, _movImgScale, movImgOffset, crossSize, showMeasCorr,
+                      showReprCorr, showErrCorr);
   if (showLabelsCorr) {
     drawText(corrImgMeasPointsV1, corrImgMeasIndexes, painter, _fixImgScale, 0, Eigen::Vector2i(crossSize, crossSize));
     drawText(corrImgMeasPointsV2, corrImgMeasIndexes, painter, _movImgScale, movImgOffset, Eigen::Vector2i(crossSize, crossSize));
   }
-
 }
 
 void Visualizer::setFixCameraImg(const QImage& img) {
 
   _fixImgScale = computeImgScale(img, _fixImg);
-
 }
 
 void Visualizer::setMovCameraImg(const QImage& img) {
   _movImgScale = computeImgScale(img, _movImg);
 }
 
-void Visualizer::setMovCameraImgPoints(const Eigen::Matrix2Xf& measPoints, const Eigen::Matrix2Xf& reprojPoints, const Eigen::ArrayXi& idxs) {
+void Visualizer::setMovCameraImgPoints(const Eigen::Matrix2Xf& measPoints, const Eigen::Matrix2Xf& reprojPoints,
+                                       const Eigen::ArrayXi& idxs) {
   this->movImgMeasPoints = measPoints;
   this->movImgReprojPoints = reprojPoints;
   this->movIndexes = idxs;
@@ -258,23 +269,26 @@ void Visualizer::setReconstructedPoints(const Eigen::Matrix3Xf& points) {
   this->reconstructedPointsRenderer.setPoints(_T_ski_wrt_vis * points);
 }
 
-void Visualizer::setCorrespondences(const Eigen::Matrix2Xf& measV1, const Eigen::Matrix2Xf& reprV1, const Eigen::Matrix2Xf& measV2, const Eigen::Matrix2Xf& reprV2, const Eigen::ArrayXi & ids) {
+void Visualizer::setCorrespondences(const Eigen::Matrix2Xf& measV1, const Eigen::Matrix2Xf& reprV1, const Eigen::Matrix2Xf& measV2,
+                                    const Eigen::Matrix2Xf& reprV2, const Eigen::ArrayXi& ids) {
   this->corrImgMeasPointsV1 = measV1;
   this->corrImgReprPointsV1 = reprV1;
-  
+
   this->corrImgMeasPointsV2 = measV2;
   this->corrImgReprPointsV2 = reprV2;
 
   this->corrImgMeasIndexes = ids;
 }
 
-void Visualizer::setFixCameraImgPoints(const Eigen::Matrix2Xf& measPoints, const Eigen::Matrix2Xf& reprojPoints, const Eigen::ArrayXi& idxs) {
+void Visualizer::setFixCameraImgPoints(const Eigen::Matrix2Xf& measPoints, const Eigen::Matrix2Xf& reprojPoints,
+                                       const Eigen::ArrayXi& idxs) {
   this->fixImgMeasPoints = measPoints;
   this->fixImgReprojPoints = reprojPoints;
   this->fixIndexes = idxs;
 }
 
-void Visualizer::setFixCameraWorldPoints(const Eigen::Isometry3f& T_C_wrt_W, const Eigen::Matrix3Xf& camPoints, const Eigen::Matrix3Xf& worldPoints) {
+void Visualizer::setFixCameraWorldPoints(const Eigen::Isometry3f& T_C_wrt_W, const Eigen::Matrix3Xf& camPoints,
+                                         const Eigen::Matrix3Xf& worldPoints) {
   Eigen::Matrix3Xf destPoints = T_C_wrt_W * camPoints;
   Eigen::Matrix3Xf destLines(3, 2 * destPoints.cols());
   Eigen::Matrix3Xf errLines(3, 2 * destPoints.cols());
@@ -291,7 +305,8 @@ void Visualizer::setFixCameraWorldPoints(const Eigen::Isometry3f& T_C_wrt_W, con
   this->fixCameraWorldErrRenderer.setLines(_T_ski_wrt_vis * errLines);
 }
 
-void Visualizer::setMovCameraWorldPoints(const Eigen::Isometry3f& T_C_wrt_W, const Eigen::Matrix3Xf& camPoints, const Eigen::Matrix3Xf& worldPoints) {
+void Visualizer::setMovCameraWorldPoints(const Eigen::Isometry3f& T_C_wrt_W, const Eigen::Matrix3Xf& camPoints,
+                                         const Eigen::Matrix3Xf& worldPoints) {
   Eigen::Matrix3Xf destPoints = T_C_wrt_W * camPoints;
   Eigen::Matrix3Xf destLines(3, 2 * destPoints.cols());
   Eigen::Matrix3Xf errLines(3, 2 * destPoints.cols());
@@ -312,22 +327,30 @@ void Visualizer::paintBackground(const csVisOpenGL::Camera& camera) {
   bkgRenderer.draw(camera);
 }
 
-void Visualizer::paint(const csVisOpenGL::Camera& camera)
-{
+void Visualizer::paint(const csVisOpenGL::Camera& camera) {
 
-  if (show3DCalibPoints) worldPointsRenderer.draw(camera);
-  if (show3DCalibPoles) polesLineRenderer.draw(camera);
+  if (show3DCalibPoints)
+    worldPointsRenderer.draw(camera);
+  if (show3DCalibPoles)
+    polesLineRenderer.draw(camera);
   axes.draw(camera);
   grid.draw(camera);
 
-  if (showMeas3D) fixCameraWorldPointsRenderer.draw(camera);
-  if (showViewRaysFix) fixCameraWorldLinesRenderer.draw(camera);
-  if (showErr3D) fixCameraWorldErrRenderer.draw(camera);
+  if (showMeas3D)
+    fixCameraWorldPointsRenderer.draw(camera);
+  if (showViewRaysFix)
+    fixCameraWorldLinesRenderer.draw(camera);
+  if (showErr3D)
+    fixCameraWorldErrRenderer.draw(camera);
 
-  if (showMeas3D) movCameraWorldPointsRenderer.draw(camera);
-  if (showViewRaysMov) movCameraWorldLinesRenderer.draw(camera);
-  if (showErr3D) movCameraWorldErrRenderer.draw(camera);
-  if (showCorr3D) reconstructedPointsRenderer.draw(camera);
+  if (showMeas3D)
+    movCameraWorldPointsRenderer.draw(camera);
+  if (showViewRaysMov)
+    movCameraWorldLinesRenderer.draw(camera);
+  if (showErr3D)
+    movCameraWorldErrRenderer.draw(camera);
+  if (showCorr3D)
+    reconstructedPointsRenderer.draw(camera);
 
   camerasMoving.draw(camera);
   camerasMovingAxes.draw(camera);
@@ -345,7 +368,6 @@ void Visualizer::setWorldPoints(const Eigen::Matrix3Xf& wp, const Eigen::Matrix3
 
   // store to show ids
   this->worldPointsIdxs = idxs;
-
 }
 
 void Visualizer::setMovCameraPose(const Eigen::Isometry3f& T_C_wrt_W) {
