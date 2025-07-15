@@ -1,9 +1,9 @@
 #include "Visualizer.h"
-#include "csVisOpenGL/Colors.h"
+#include <csVisOpenGL/Colors.hpp>
 #include <iostream>
 
-#include "csVisOpenGL/Camera.h"
-#include "csVisOpenGL/Colors.h"
+#include <csVisOpenGL/Camera.hpp>
+#include <csVisOpenGL/Colors.hpp>
 
 #include "SkierModel.h"
 

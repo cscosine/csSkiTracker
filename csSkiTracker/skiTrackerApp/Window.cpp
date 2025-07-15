@@ -4,7 +4,7 @@
 
 #include "ui_Window.h"
 
-#include "csVisOpenGL/OrbitCameraController.h"
+#include <csVisOpenGL/OrbitCameraController.hpp>
 
 #include "ProjectionMatrixEstimate.h"
 

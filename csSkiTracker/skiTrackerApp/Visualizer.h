@@ -1,13 +1,13 @@
 #pragma once
-#include "csVisOpenGL/BackgroundRenderer.h"
-#include "csVisOpenGL/PainterAxes.h"
-#include "csVisOpenGL/PainterCameras.h"
-#include "csVisOpenGL/PainterGrid.h"
-#include "csVisOpenGL/PerVertexLineRenderer.h"
-#include "csVisOpenGL/UniformEllipsoidsRenderer.h"
-#include "csVisOpenGL/UniformLineRenderer.h"
-#include "csVisOpenGL/UniformPointRenderer.h"
-#include "csVisOpenGL/Visualizer.h"
+#include <csVisOpenGL/BackgroundRenderer.hpp>
+#include <csVisOpenGL/PainterAxes.hpp>
+#include <csVisOpenGL/PainterCameras.hpp>
+#include <csVisOpenGL/PainterGrid.hpp>
+#include <csVisOpenGL/PerVertexLineRenderer.hpp>
+#include <csVisOpenGL/UniformEllipsoidsRenderer.hpp>
+#include <csVisOpenGL/UniformLineRenderer.hpp>
+#include <csVisOpenGL/UniformPointRenderer.hpp>
+#include <csVisOpenGL/Visualizer.hpp>
 
 #include <Eigen/Geometry>
 

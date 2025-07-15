@@ -674,7 +674,7 @@
   <customwidget>
    <class>csVisOpenGL::Frame</class>
    <extends>QWidget</extends>
-   <header location="global">csVisOpenGL/Frame.h</header>
+   <header location="global">csVisOpenGL/Frame.hpp</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
