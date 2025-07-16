@@ -1,7 +1,7 @@
 #include "Camera3dPointReprojectionError.h"
 
-#include "csNelson/EdgeNary.hpp"
-#include "csNelson/EdgeSectionBase.hpp"
+#include <csNelson/EdgeNary_impl.hpp>
+#include <csNelson/EdgeSectionBase_impl.hpp>
 
 #include <csCamera/CameraDistortionModel_impl.hpp>
 #include <csCamera/Camera_impl.hpp>

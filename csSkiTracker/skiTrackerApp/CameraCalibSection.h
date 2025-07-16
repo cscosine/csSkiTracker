@@ -1,5 +1,5 @@
 #pragma once
-#include "csNelson/SingleSection.h"
+#include <csNelson/SingleSection_impl.hpp>
 
 #include "CameraNode.h"
 #include "CameraPosePointNodeBase.h"

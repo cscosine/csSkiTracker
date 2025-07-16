@@ -3,7 +3,7 @@
 #include "CameraNode.hpp"
 #include "PoseNode.h"
 
-#include "csNelson/SingleSection.hpp"
+#include <csNelson/SingleSection_impl.hpp>
 
 #include <cassert>
 

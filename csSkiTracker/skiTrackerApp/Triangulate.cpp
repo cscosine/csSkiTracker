@@ -1,9 +1,9 @@
 #include "Triangulate.h"
 
-#include "csNelson/EdgeUnary.hpp"
-#include "csNelson/GaussNewton.hpp"
-#include "csNelson/SingleSection.hpp"
 #include <csBlockMatrix/DenseMatrixBlock_impl.hpp>
+#include <csNelson/EdgeUnary_impl.hpp>
+#include <csNelson/GaussNewton_impl.hpp>
+#include <csNelson/SingleSection_impl.hpp>
 
 #include <iostream>
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "CameraCalibSection.h"
-#include "csNelson/EdgeBinary.h"
-#include "csNelson/EdgeSectionBase.h"
+#include <csNelson/EdgeNary_impl.hpp>
+#include <csNelson/EdgeSectionBase_impl.hpp>
 
 class Camera3dPointReprojectionError : public CameraCalibSection::EdgeNary<Camera3dPointReprojectionError, 3> {
   Eigen::Vector2d _imgMeasPoint;
