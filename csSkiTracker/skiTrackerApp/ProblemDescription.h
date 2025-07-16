@@ -1,8 +1,8 @@
 #pragma once
 #include "ProjectionMatrixEstimate.h"
 
-#include "csCamera/Camera.hpp"
-#include "csCamera/CameraDistortionModel.hpp"
+#include <csCamera/CameraDistortionModel_impl.hpp>
+#include <csCamera/Camera_impl.hpp>
 
 #include "SkierModel.h"
 #include <Eigen/Dense>

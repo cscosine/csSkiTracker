@@ -14,11 +14,11 @@
 #include "CameraCalibSection.h"
 #include "CameraNode.hpp"
 #include "PoseNode.h"
-#include "csCamera/Camera.hpp"
-#include "csCamera/CameraDistortionModel.hpp"
 #include "csNelson/GaussNewton.hpp"
 #include "csNelson/LevenbergMarquardt.hpp"
 #include "csNelson/SingleSection.hpp"
+#include <csCamera/CameraDistortionModel_impl.hpp>
+#include <csCamera/Camera_impl.hpp>
 
 #define DEBUGME_CLOSEST \
   if (false)            \

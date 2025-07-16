@@ -3,9 +3,9 @@
 #include "csNelson/EdgeNary.hpp"
 #include "csNelson/EdgeSectionBase.hpp"
 
-#include "csCamera/Camera.hpp"
-#include "csCamera/CameraDistortionModel.hpp"
-#include "csCamera/Utils.hpp"
+#include <csCamera/CameraDistortionModel_impl.hpp>
+#include <csCamera/Camera_impl.hpp>
+#include <csCamera/Utils_impl.hpp>
 
 Camera3dPointReprojectionError::Camera3dPointReprojectionError(const Eigen::Vector2d& imgMeasPoint)
     : _imgMeasPoint(imgMeasPoint) {}

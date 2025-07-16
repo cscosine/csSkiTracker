@@ -1,7 +1,7 @@
 #pragma once
 
-#include "csCamera/Camera.h"
-#include "csCamera/CameraDistortionModel.h"
+#include <csCamera/CameraDistortionModel_impl.hpp>
+#include <csCamera/Camera_impl.hpp>
 
 #include "CameraPosePointNodeBase.h"
 

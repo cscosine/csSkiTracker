@@ -1,8 +1,8 @@
 #include "CameraNode.h"
 #include "CameraNode.hpp"
 
-#include "csCamera/Camera.hpp"
-#include "csCamera/CameraDistortionModel.hpp"
+#include <csCamera/CameraDistortionModel_impl.hpp>
+#include <csCamera/Camera_impl.hpp>
 
 CameraNode::CameraNode(const csCamera::Camerad& camera, const csCamera::CameraDistortionModeld& distModel,
                        FocalEstimation focalEstimation, const std::array<bool, 2>& fixCenter, const std::array<bool, 6>& fixKs,

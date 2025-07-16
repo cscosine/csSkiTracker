@@ -2,7 +2,7 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
-#include "csCamera/Camera.h"
+#include <csCamera/Camera_impl.hpp>
 
 using ProjectionMatrix = Eigen::Matrix<double, 3, 4>;
 

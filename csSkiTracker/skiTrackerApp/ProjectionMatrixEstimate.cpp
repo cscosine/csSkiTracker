@@ -1,6 +1,6 @@
 #include "ProjectionMatrixEstimate.h"
 
-#include "csCamera/Camera.hpp"
+#include <csCamera/Camera_impl.hpp>
 
 #include <Eigen/Dense>
 #include <array>
