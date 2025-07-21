@@ -34,7 +34,8 @@ Visualizer::Visualizer()
     , showCorr3D(true) {}
 Visualizer::~Visualizer() {}
 
-void Visualizer::initialize(csVisOpenGL::ShaderFactory* shaderFactory) {
+void Visualizer::initialize(csVisOpenGL::ShaderFactory* shaderFactory,
+                            std::shared_ptr<QOpenGLExtraFunctions> const& glExtraFunctions) {
 
   // swap y and z
   _T_ski_wrt_vis.setIdentity();
@@ -42,84 +43,84 @@ void Visualizer::initialize(csVisOpenGL::ShaderFactory* shaderFactory) {
   _T_ski_wrt_vis.linear().col(1) = Eigen::Vector3f(0, 0, 1);
   _T_ski_wrt_vis.linear().col(2) = Eigen::Vector3f(0, -1, 0);
 
-  bkgRenderer.initialize(shaderFactory);
+  bkgRenderer.initialize(shaderFactory, glExtraFunctions);
 
-  worldPointsRenderer.initialize(shaderFactory);
+  worldPointsRenderer.initialize(shaderFactory, glExtraFunctions);
   worldPointsRenderer.setPointSize(3);
   worldPointsRenderer.setSmoothPoints(true);
   worldPointsRenderer.setUniformColor(csVisOpenGL::Color::deepOrange);
   worldPointsRenderer.setPoints(Eigen::Matrix3Xf());
 
-  fixCameraWorldPointsRenderer.initialize(shaderFactory);
+  fixCameraWorldPointsRenderer.initialize(shaderFactory, glExtraFunctions);
   fixCameraWorldPointsRenderer.setPointSize(3);
   fixCameraWorldPointsRenderer.setSmoothPoints(true);
   fixCameraWorldPointsRenderer.setUniformColor(csVisOpenGL::ColorLight::red);
   fixCameraWorldPointsRenderer.setPoints(Eigen::Matrix3Xf());
 
-  fixCameraWorldLinesRenderer.initialize(shaderFactory);
+  fixCameraWorldLinesRenderer.initialize(shaderFactory, glExtraFunctions);
   fixCameraWorldLinesRenderer.setLineWidth(2);
   fixCameraWorldLinesRenderer.setUniformColor(csVisOpenGL::ColorDark::lime);
   fixCameraWorldLinesRenderer.setLines(Eigen::Matrix3Xf());
 
-  fixCameraWorldErrRenderer.initialize(shaderFactory);
+  fixCameraWorldErrRenderer.initialize(shaderFactory, glExtraFunctions);
   fixCameraWorldErrRenderer.setLineWidth(4);
   fixCameraWorldErrRenderer.setUniformColor(csVisOpenGL::ColorDark::red);
   fixCameraWorldErrRenderer.setLines(Eigen::Matrix3Xf());
 
-  movCameraWorldPointsRenderer.initialize(shaderFactory);
+  movCameraWorldPointsRenderer.initialize(shaderFactory, glExtraFunctions);
   movCameraWorldPointsRenderer.setPointSize(3);
   movCameraWorldPointsRenderer.setSmoothPoints(true);
   movCameraWorldPointsRenderer.setUniformColor(csVisOpenGL::ColorLight::red);
   movCameraWorldPointsRenderer.setPoints(Eigen::Matrix3Xf());
 
-  movCameraWorldLinesRenderer.initialize(shaderFactory);
+  movCameraWorldLinesRenderer.initialize(shaderFactory, glExtraFunctions);
   movCameraWorldLinesRenderer.setLineWidth(2);
   movCameraWorldLinesRenderer.setUniformColor(csVisOpenGL::ColorDark::lime);
   movCameraWorldLinesRenderer.setLines(Eigen::Matrix3Xf());
 
-  movCameraWorldErrRenderer.initialize(shaderFactory);
+  movCameraWorldErrRenderer.initialize(shaderFactory, glExtraFunctions);
   movCameraWorldErrRenderer.setLineWidth(4);
   movCameraWorldErrRenderer.setUniformColor(csVisOpenGL::ColorDark::red);
   movCameraWorldErrRenderer.setLines(Eigen::Matrix3Xf());
 
-  reconstructedPointsRenderer.initialize(shaderFactory);
+  reconstructedPointsRenderer.initialize(shaderFactory, glExtraFunctions);
   reconstructedPointsRenderer.setPointSize(3);
   reconstructedPointsRenderer.setSmoothPoints(true);
   reconstructedPointsRenderer.setUniformColor(csVisOpenGL::Color::blue);
   reconstructedPointsRenderer.setPoints(Eigen::Matrix3Xf());
 
-  skierModelRenderer.initialize(shaderFactory);
+  skierModelRenderer.initialize(shaderFactory, glExtraFunctions);
   skierModelRenderer.setLineWidth(3);
   skierModelRenderer.setUniformColor(csVisOpenGL::Color::white);
   skierModelRenderer.setLines(Eigen::Matrix3Xf(), Eigen::Matrix3Xf());
 
-  skierPoseRenderer.initialize(shaderFactory);
+  skierPoseRenderer.initialize(shaderFactory, glExtraFunctions);
   skierPoseRenderer.setLineWidth(3);
 
-  skierHeadRenderer.initialize(shaderFactory);
+  skierHeadRenderer.initialize(shaderFactory, glExtraFunctions);
   skierHeadRenderer.setUniformColor(csVisOpenGL::Color::pink);
 
-  polesLineRenderer.initialize(shaderFactory);
+  polesLineRenderer.initialize(shaderFactory, glExtraFunctions);
   polesLineRenderer.setLineWidth(2);
   polesLineRenderer.setUniformColor(csVisOpenGL::Color::orange);
   polesLineRenderer.setLines(Eigen::Matrix3Xf());
 
-  axes.initialize(shaderFactory);
+  axes.initialize(shaderFactory, glExtraFunctions);
   axes.setPose(Eigen::Isometry3f::Identity(), 1.0f);
-  grid.initialize(shaderFactory);
+  grid.initialize(shaderFactory, glExtraFunctions);
 
-  cameraFixed.initialize(shaderFactory);
+  cameraFixed.initialize(shaderFactory, glExtraFunctions);
   cameraFixed.setUniformColor(csVisOpenGL::Color::red);
 
-  cameraMoving.initialize(shaderFactory);
+  cameraMoving.initialize(shaderFactory, glExtraFunctions);
   cameraMoving.setUniformColor(csVisOpenGL::Color::blue);
 
-  camerasMoving.initialize(shaderFactory);
+  camerasMoving.initialize(shaderFactory, glExtraFunctions);
   camerasMoving.setUniformColor(csVisOpenGL::Color::green);
 
-  camerasMovingAxes.initialize(shaderFactory);
-  cameraFixedAxis.initialize(shaderFactory);
-  cameraMovingAxis.initialize(shaderFactory);
+  camerasMovingAxes.initialize(shaderFactory, glExtraFunctions);
+  cameraFixedAxis.initialize(shaderFactory, glExtraFunctions);
+  cameraMovingAxis.initialize(shaderFactory, glExtraFunctions);
 
   _fixImgScale = _movImgScale = -1;
 }

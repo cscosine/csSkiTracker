@@ -16,7 +16,7 @@ class Window : public QMainWindow {
   std::unique_ptr<Ui::Window> ui;
   std::shared_ptr<const csSkiTracker::dataReader::ProblemData> _data;
 
-  std::unique_ptr<Visualizer> vis;
+  std::shared_ptr<Visualizer> vis;
 
   Problem& problem;
 

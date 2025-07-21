@@ -21,7 +21,7 @@ Window::Window(Problem& p, const CommandLineOptions& cmd, QWidget* parent)
     : QMainWindow(parent)
     , ui(new Ui::Window())
     , problem(p)
-    , vis(new Visualizer())
+    , vis(std::make_shared<Visualizer>())
     , _initialized(false) {
   ui->setupUi(this);
 
@@ -29,7 +29,7 @@ Window::Window(Problem& p, const CommandLineOptions& cmd, QWidget* parent)
 
   this->showMaximized();
 
-  ui->preview->addVisualizer(vis.get());
+  ui->preview->addVisualizer(vis);
   auto controller = static_cast<csVisOpenGL::OrbitCameraController*>(ui->preview->getCameraController());
   controller->setRadius(10);
   controller->setMinRadius(0.001);
