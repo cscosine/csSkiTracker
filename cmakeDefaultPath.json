@@ -3,11 +3,17 @@
   "configurePresets": [
     {
       "name": "cmake-path-msvc2022-x64",
-      "hidden": true
+      "hidden": true,
+      "cacheVariables": {
+        "CS_CMAKE_PREFIX_PATH_TAIL": "C:/Qt/6.8.1/msvc2022_64/lib/cmake"
+      }
     },
     {
       "name": "cmake-path-msvc2022-x64-LLVM",
-      "hidden": true
+      "hidden": true,
+      "cacheVariables": {
+        "CS_CMAKE_PREFIX_PATH_TAIL": "C:/Qt/6.8.1/msvc2022_64/lib/cmake"
+      }
     },
     {
       "name": "cmake-path-linux-ninja",
