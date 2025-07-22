@@ -1,5 +1,5 @@
 #pragma once
-#include <csVisOpenGL/Visualizer.hpp>
+#include <csVisOpenGL/VisualizerInterface.hpp>
 #include <csVisOpenGL/painters/PainterAxes.hpp>
 #include <csVisOpenGL/painters/PainterCameras.hpp>
 #include <csVisOpenGL/painters/PainterGrid.hpp>
@@ -13,7 +13,7 @@
 
 class SkierModel;
 
-class Visualizer : public csVisOpenGL::Visualizer {
+class Visualizer : public csVisOpenGL::VisualizerInterface {
   csVisOpenGL::UniformPointRenderer worldPointsRenderer;
   csVisOpenGL::UniformLineRenderer polesLineRenderer;
   csVisOpenGL::PainterCameras camerasMoving, cameraFixed, cameraMoving;

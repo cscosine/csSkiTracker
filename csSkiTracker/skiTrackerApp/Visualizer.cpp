@@ -10,7 +10,7 @@
 #include <math.h>
 
 Visualizer::Visualizer()
-    : csVisOpenGL::Visualizer()
+    : csVisOpenGL::VisualizerInterface()
     , _widgetSize(-1, -1)
     , showLabels3D(true)
     , showLabelsMov(true)
