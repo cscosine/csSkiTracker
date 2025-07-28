@@ -34,7 +34,7 @@ Visualizer::Visualizer()
     , showCorr3D(true) {}
 Visualizer::~Visualizer() {}
 
-void Visualizer::initialize(csVisOpenGL::ShaderFactory* shaderFactory,
+void Visualizer::initialize(csVisOpenGL::ShaderFactory& shaderFactory,
                             std::shared_ptr<QOpenGLExtraFunctions> const& glExtraFunctions) {
 
   // swap y and z

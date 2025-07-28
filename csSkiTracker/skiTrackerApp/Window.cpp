@@ -30,9 +30,9 @@ Window::Window(Problem& p, const CommandLineOptions& cmd, QWidget* parent)
   this->showMaximized();
 
   ui->preview->addVisualizer(vis);
-  auto controller = static_cast<csVisOpenGL::OrbitCameraController*>(ui->preview->getCameraController());
-  controller->setRadius(10);
-  controller->setMinRadius(0.001);
+  auto& controller = static_cast<csVisOpenGL::OrbitCameraController&>(ui->preview->getCameraController());
+  controller.setRadius(10);
+  controller.setMinRadius(0.001);
 
   vis->setWorldPoints(problem.calibWorldPoints().cast<float>(), problem.polesPointPairs().cast<float>(),
                       Eigen::ArrayXi::LinSpaced(problem.calibWorldPoints().cols(), 0, problem.calibWorldPoints().cols() - 1));
