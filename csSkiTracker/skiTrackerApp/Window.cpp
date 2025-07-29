@@ -22,17 +22,21 @@ Window::Window(Problem& p, const CommandLineOptions& cmd, QWidget* parent)
     , ui(new Ui::Window())
     , problem(p)
     , vis(std::make_shared<Visualizer>())
+    , m_cameraController(std::make_shared<csVisOpenGL::OrbitCameraController>())
     , _initialized(false) {
   ui->setupUi(this);
 
-  vis->setWidgetSize(ui->preview->width(), ui->preview->height());
+  m_cameraController->setRadius(10);
+  m_cameraController->setMinRadius(0.001);
+
+  ui->preview->setCameraController(m_cameraController);
+  ui->preview->connectSlotsInterface(*m_cameraController);
+
+  ui->preview->addVisualizer(vis);
 
   this->showMaximized();
 
-  ui->preview->addVisualizer(vis);
-  auto& controller = static_cast<csVisOpenGL::OrbitCameraController&>(ui->preview->getCameraController());
-  controller.setRadius(10);
-  controller.setMinRadius(0.001);
+  vis->setWidgetSize(ui->preview->width(), ui->preview->height());
 
   vis->setWorldPoints(problem.calibWorldPoints().cast<float>(), problem.polesPointPairs().cast<float>(),
                       Eigen::ArrayXi::LinSpaced(problem.calibWorldPoints().cols(), 0, problem.calibWorldPoints().cols() - 1));
@@ -45,6 +49,14 @@ Window::Window(Problem& p, const CommandLineOptions& cmd, QWidget* parent)
 
   vis->setCameraPoses(problem.T_W_wrt_view1().inverse().cast<float>(), T_c_wrt_W);
 
+  vis->setFixCameraImgPoints(problem.view1CalibPoints().imgPoints.cast<float>(), problem.view1CalibPoints().reprojPoints.cast<float>(),
+                             problem.view1CalibPoints().indexes);
+
+  // calib points of fix camera
+  vis->setFixCameraWorldPoints(problem.T_W_wrt_view1().inverse().cast<float>(),
+                               problem.view1CalibPoints().p3d_wrt_cam_closest.cast<float>(),
+                               problem.view1CalibPoints3D().cast<float>());
+
   ui->horizontalSlider->blockSignals(true);
   ui->horizontalSlider->setMinimum(0);
   ui->horizontalSlider->setValue(0);
@@ -56,14 +68,6 @@ Window::Window(Problem& p, const CommandLineOptions& cmd, QWidget* parent)
   ui->lineEditFixedPointsIds->setText(cmd.fixedPointsString.c_str());
 
   ui->checkBoxEstimateSkier->setChecked(true);
-
-  vis->setFixCameraImgPoints(problem.view1CalibPoints().imgPoints.cast<float>(), problem.view1CalibPoints().reprojPoints.cast<float>(),
-                             problem.view1CalibPoints().indexes);
-
-  // calib points of fix camera
-  vis->setFixCameraWorldPoints(problem.T_W_wrt_view1().inverse().cast<float>(),
-                               problem.view1CalibPoints().p3d_wrt_cam_closest.cast<float>(),
-                               problem.view1CalibPoints3D().cast<float>());
 
   this->on_horizontalSlider_valueChanged(ui->horizontalSlider->value());
 

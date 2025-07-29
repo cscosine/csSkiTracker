@@ -2,6 +2,7 @@
 #include "Visualizer.h"
 #include "csSkiTracker/dataReader/DataDescription.h"
 #include <QMainWindow>
+#include <csVisOpenGL/OrbitCameraController.hpp>
 
 namespace Ui {
 class Window;
@@ -17,6 +18,7 @@ class Window : public QMainWindow {
   std::shared_ptr<const csSkiTracker::dataReader::ProblemData> _data;
 
   std::shared_ptr<Visualizer> vis;
+  std::shared_ptr<csVisOpenGL::OrbitCameraController> m_cameraController;
 
   Problem& problem;
 
