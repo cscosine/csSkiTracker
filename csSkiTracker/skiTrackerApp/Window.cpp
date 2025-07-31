@@ -29,7 +29,7 @@ Window::Window(Problem& p, const CommandLineOptions& cmd, QWidget* parent)
   m_cameraController->setRadius(10);
   m_cameraController->setMinRadius(0.001);
 
-  ui->preview->setCameraController(m_cameraController);
+  ui->preview->connectCameraControllerSignals(m_cameraController->getCameraControllerSignals());
   ui->preview->connectSlotsInterface(*m_cameraController);
 
   ui->preview->addVisualizer(vis);
