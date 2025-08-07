@@ -27,8 +27,8 @@ cs_target_sources(csSkiTracker
 
 cs_target_link_libraries(csSkiTracker
 	INTERFACE
-		csSkiTrackerLib::csSkiTrackerLib_csCMakeBaseInclude
-		csSkiTrackerLib::csSkiTrackerLib_csCMakeCompileOptionsDefault
+		csSkiTrackerSol::csSkiTrackerSol_csCMakeBaseInclude
+		csSkiTrackerSol::csSkiTrackerSol_csCMakeCompileOptionsDefault
 )
 
 cs_install_target(csSkiTracker csSkiTracker)
