@@ -6,10 +6,7 @@ cs_add_executable(csSkiTracker::skiTrackerApp ALIAS skiTrackerApp)
 cs_find_package(skiTrackerApp PUBLIC Eigen3 REQUIRED CONFIG)
 cs_find_package(skiTrackerApp PUBLIC Qt6 COMPONENTS Core Widgets  REQUIRED CONFIG)
 cs_find_package(skiTrackerApp PUBLIC csVisOpenGL REQUIRED COMPONENTS csVisOpenGL renderers painters CONFIG)
-if(WIN32)
-  # TODO(sc) add tclap in windows
-  cs_find_package(skiTrackerApp PUBLIC tclap REQUIRED CONFIG)
-endif()
+cs_find_package(skiTrackerApp PUBLIC tclap REQUIRED CONFIG)
 cs_find_package(skiTrackerApp PUBLIC csNelson REQUIRED COMPONENTS csNelson CONFIG)
 cs_find_package(skiTrackerApp PUBLIC csCamera REQUIRED COMPONENTS csCamera CONFIG)
 cs_find_package(skiTrackerApp PUBLIC csLie REQUIRED COMPONENTS csLie CONFIG)
@@ -64,7 +61,9 @@ cs_target_link_libraries(skiTrackerApp
 	csVisOpenGL::renderers
     csCamera::csCamera
     csLie::csLie
-    csNelson::csNelson)
+    csNelson::csNelson
+    tclap::tclap
+    )
 
 cs_install_target(skiTrackerApp skiTrackerApp)
 
