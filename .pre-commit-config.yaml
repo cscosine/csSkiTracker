@@ -1,5 +1,5 @@
 repos:
-  - repo: git@github.com:simoneceriani/csPrecommit.git
+  - repo: git@github.com:cscosine/csPrecommit.git
     rev: v0.1
     hooks:
       - id: cs-hook
