@@ -1,5 +1,8 @@
 repos:
-  - repo: git@github.com:cscosine/csPrecommit.git
-    rev: v0.1
+  - repo: local
     hooks:
-      - id: cs-hook
+      - id: csPrecommit-cs-hook
+        name: csPrecommit/cs-hooks
+        language: script
+        entry: ../csPrecommit/run-cs-hooks
+        verbose: true
