@@ -1,0 +1,4 @@
+[autogenerate]
+gitignore = true
+gitattributes = true
+pre_commit_config = true
