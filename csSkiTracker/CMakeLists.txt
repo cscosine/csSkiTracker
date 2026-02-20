@@ -1,41 +1,23 @@
-project(csSkiTracker LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.31)
+project(csSkiTrackerSol VERSION 0.0.1 LANGUAGES CXX)
 
-# prepare custom project asserts, note: use standard find_package
-find_package(csCore REQUIRED COMPONENTS assert CONFIG)
+# add the csCMake system
+include(csCMake)
 
-# create a project assert include
-list(APPEND CMAKE_MODULE_PATH "${csCore_BASE_DIR}/cmake/csCore/assert/")
-include(csAssert)
-
-# set defaults for Paranoid additional configuration
-csSetAssertDefaultOnForConfig(${PROJECT_NAME} ASSERT RELEASE Paranoid ON)
-csSetAssertDefaultOnForConfig(${PROJECT_NAME} ASSERT RELWITHDEBINFO Paranoid ON)
-csSetAssertDefaultOnForConfig(${PROJECT_NAME} ASSERT DEBUG Paranoid ON)
-csSetAssertDefaultOnForConfig(${PROJECT_NAME} ASSERT PARANOID Paranoid ON)
-csSetAssertDefaultOnForConfig(${PROJECT_NAME} ASSERT SAFE_MATH Paranoid ON)
-
-csAssertGenerateProject(csSkiTracker csSkiTracker) #generate target csSkiTracker::csSkiTrackerAssert
-list(POP_BACK CMAKE_MODULE_PATH)
-
-cs_add_library(csSkiTracker INTERFACE)
-cs_add_library(csSkiTracker::csSkiTracker ALIAS csSkiTracker)
-
-cs_target_sources(csSkiTracker
-	PRIVATE_INSTALL
-	PRIVATE
+cs_initialize_project(csSkiTrackerSol CXX_STANDARD 17
+    # add the default configurations supported by this project
+    DEFAULT_CONFIG Debug
+    DEFAULT_CONFIG Release
+    DEFAULT_CONFIG_MAPPED RelWithDebInfo MAPPED_TO "RelWithDebInfo,Release,"
+    # and the custom configurations supported by this project,
+    # specifiying on which base configuration they are based as second value,
+    # e.g. CUSTOM_CONFIG Paranoid Debug
+    CUSTOM_CONFIG Paranoid BASED_ON "Debug,Release," POSTFIX "dp"
+    # STRICT_COMPILATION_ON_CONFIG Paranoid
 )
-
-cs_target_link_libraries(csSkiTracker
-	INTERFACE
-		csSkiTrackerSol::csSkiTrackerSol_csCMakeBaseInclude
-		csSkiTrackerSol::csSkiTrackerSol_csCMakeCompileOptionsDefault
-)
-
-cs_install_target(csSkiTracker csSkiTracker)
-
-cs_finalize_target(csSkiTracker)
 
 # add libs, executables, etc
-add_subdirectory(dataReader)
-add_subdirectory(skiTrackerApp)
-# add_subdirectory(...)
+add_subdirectory(csSkiTracker)
+
+# remember to add this at the end of the main cmake file
+cs_finalize_project(csSkiTracker)
