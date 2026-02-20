@@ -6,6 +6,7 @@ from typing import Dict, List
 def checkout_func():
     from csProjectManager.projectManager import (
         csGetRepository,
+        csAddCMakeUserPathFileDefault,
         csRunCommand,
         csGetPrecompiledLib,
     )
@@ -23,6 +24,8 @@ def checkout_func():
         command="./installRequirements-linux.sh",
         os_name="linux",
     )
+
+    csAddCMakeUserPathFileDefault(folder="csSkiTracker")
 
     csGetRepository(
         repo_cs_url,

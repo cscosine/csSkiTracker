@@ -15,6 +15,10 @@ fi
 
 packages=(
   # add required packages here
+  libgl1-mesa-dev
+  libopengl-dev
+  mesa-common-dev
+  libomp-dev #TODO(sc): should be only for LLVM case
 )
 
 missing=()

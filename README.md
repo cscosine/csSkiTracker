@@ -1,4 +1,4 @@
-# README standalone project
+# README standalone project csSkiTracker, what else
 
 TODO
 
