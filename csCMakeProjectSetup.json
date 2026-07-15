@@ -1,0 +1,90 @@
+{
+  "version": 10,
+  "include": [
+    "${sourceDir}/workspace/csCMake/presets/csCMakeProjectSetup-base-standalone.json"
+  ],
+  "configurePresets": [        
+      {
+          "name": "cscmake-project-setup",
+          "displayName": "csCMake Project Setup",
+          "description": "A preset to set up environment variables for csCMake project presets",
+          "inherits": "cscmake-project-setup-base",
+          "hidden": true
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu22.04-x64-generic-clang-default-ninja"
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu22.04-x64-generic-clang-default-ninjamulticonfig"
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu22.04-x64-generic-gcc-default-ninja"
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu22.04-x64-generic-gcc-default-ninjamulticonfig"
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu24.04-x64-generic-clang-default-ninja"
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu24.04-x64-generic-clang-default-ninjamulticonfig"
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu24.04-x64-generic-gcc-default-ninja"
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu24.04-x64-generic-gcc-default-ninjamulticonfig"
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu22.04-arm64-generic-clang-default-ninja"
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu22.04-arm64-generic-clang-default-ninjamulticonfig"
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu22.04-arm64-generic-gcc-default-ninja"
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu22.04-arm64-generic-gcc-default-ninjamulticonfig"
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu24.04-arm64-generic-clang-default-ninja"
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu24.04-arm64-generic-clang-default-ninjamulticonfig"
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu24.04-arm64-generic-gcc-default-ninja"
+      },
+      {
+          "name": "cscmake-project-setup-linux-ubuntu24.04-arm64-generic-gcc-default-ninjamulticonfig"
+      },
+
+      {
+            "name": "common-setup-windows",
+            "hidden": true,
+            "cacheVariables": {
+                "CUDA_TOOLKIT_ROOT_DIR": "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.3"
+            },
+            "environment": {
+                "CS_CMAKE_PREFIX_PATH_SUFFIX": "C:/Program Files/NVIDIA/CUDNN/v9.23/"
+            }
+        },
+        {
+            "name": "cscmake-project-setup-windows-v10-x64-generic-msvc-default-msvc2022",
+            "inherits": "common-setup-windows"
+        },
+        {
+            "name": "cscmake-project-setup-windows-v10-x64-generic-msvc-default-msvc2026",
+            "inherits": "common-setup-windows"
+        },
+        {
+            "name": "cscmake-project-setup-windows-v10-x64-generic-msvcclang-default-msvc2022",
+            "inherits": "common-setup-windows"
+        },
+        {
+            "name": "cscmake-project-setup-windows-v10-x64-generic-msvcclang-default-msvc2026",
+              "$comment": "opencv not compiled for windows with clang"
+        }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "version": 10,
+  "include": [
+    "${sourceDir}/workspace/csCMake/presets/csv1/cs-presets-all.json"
+  ]
+}
