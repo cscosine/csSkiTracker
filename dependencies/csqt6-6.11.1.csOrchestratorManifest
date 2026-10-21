@@ -1,0 +1,76 @@
+{
+  "csorchestrator_manifest": {
+    "additional_files": [
+      "csqt6_config.py"
+    ],
+    "dependencies": {
+      "qt6": []
+    },
+    "dependencies_dev": {
+      "qt6": []
+    },
+    "headers_only_packages": [],
+    "manifest_version": "1.0",
+    "output_bundle_file_name": "csqt6-6.11.1-bundle.tar.gz",
+    "packages": [
+      "qt6"
+    ],
+    "project_name": "csqt6",
+    "project_version": "6.11.1",
+    "variants": [
+      {
+        "entries": [
+          {
+            "name": "qt6",
+            "version": "6.11.1"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu22.04-x64-generic-gcc-default-ninja"
+      },
+      {
+        "entries": [
+          {
+            "name": "qt6",
+            "version": "6.11.1"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu22.04-arm64-generic-gcc-default-ninja"
+      },
+      {
+        "entries": [
+          {
+            "name": "qt6",
+            "version": "6.11.1"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu24.04-x64-generic-gcc-default-ninja"
+      },
+      {
+        "entries": [
+          {
+            "name": "qt6",
+            "version": "6.11.1"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu24.04-arm64-generic-gcc-default-ninja"
+      },
+      {
+        "entries": [
+          {
+            "name": "qt6",
+            "version": "6.11.1"
+          }
+        ],
+        "variant": "csv1-windows-v10-x64-generic-msvc-msvc_2022_17-ninja"
+      },
+      {
+        "entries": [],
+        "variant": "csv1-linux"
+      },
+      {
+        "entries": [],
+        "variant": "csv1-windows"
+      }
+    ]
+  }
+}

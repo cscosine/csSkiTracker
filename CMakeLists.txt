@@ -1,8 +1,5 @@
 cmake_minimum_required(VERSION 3.31)
-project(csSkiTrackerSol VERSION 0.0.1 LANGUAGES CXX)
-
-# add the additional cmake
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
+project(csSkiTrackerSol VERSION 0.1.0 LANGUAGES CXX)
 
 # add the csCMake system
 include(csCMake)

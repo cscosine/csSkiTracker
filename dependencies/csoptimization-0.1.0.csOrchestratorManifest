@@ -1,0 +1,192 @@
+{
+  "csorchestrator_manifest": {
+    "additional_files": [
+      "csoptimization_config.py"
+    ],
+    "dependencies": {
+      "csBlockMatrix": [],
+      "csNelson": [
+        "csBlockMatrix"
+      ]
+    },
+    "dependencies_dev": {
+      "csBlockMatrix": [],
+      "csNelson": []
+    },
+    "headers_only_packages": [],
+    "manifest_version": "1.0",
+    "output_bundle_file_name": "csoptimization-0.1.0-bundle.tar.gz",
+    "packages": [
+      "csNelson",
+      "csBlockMatrix"
+    ],
+    "project_name": "csoptimization",
+    "project_version": "0.1.0",
+    "variants": [
+      {
+        "entries": [
+          {
+            "name": "csBlockMatrix",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csNelson",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu22.04-x64-generic-gcc-default-ninjamulticonfig"
+      },
+      {
+        "entries": [
+          {
+            "name": "csBlockMatrix",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csNelson",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu22.04-x64-generic-clang-default-ninjamulticonfig"
+      },
+      {
+        "entries": [
+          {
+            "name": "csBlockMatrix",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csNelson",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu22.04-arm64-generic-gcc-default-ninja"
+      },
+      {
+        "entries": [
+          {
+            "name": "csBlockMatrix",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csNelson",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu22.04-arm64-generic-clang-default-ninja"
+      },
+      {
+        "entries": [
+          {
+            "name": "csBlockMatrix",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csNelson",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu24.04-x64-generic-gcc-default-ninjamulticonfig"
+      },
+      {
+        "entries": [
+          {
+            "name": "csBlockMatrix",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csNelson",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu24.04-x64-generic-clang-default-ninjamulticonfig"
+      },
+      {
+        "entries": [
+          {
+            "name": "csBlockMatrix",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csNelson",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu24.04-arm64-generic-gcc-default-ninja"
+      },
+      {
+        "entries": [
+          {
+            "name": "csBlockMatrix",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csNelson",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu24.04-arm64-generic-clang-default-ninja"
+      },
+      {
+        "entries": [
+          {
+            "name": "csBlockMatrix",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csNelson",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-windows-v10-x64-generic-msvc-default-msvc2022"
+      },
+      {
+        "entries": [
+          {
+            "name": "csBlockMatrix",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csNelson",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-windows-v10-x64-generic-msvc-default-msvc2026"
+      },
+      {
+        "entries": [
+          {
+            "name": "csBlockMatrix",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csNelson",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-windows-v10-x64-generic-msvcclang-default-msvc2022"
+      },
+      {
+        "entries": [
+          {
+            "name": "csBlockMatrix",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csNelson",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-windows-v10-x64-generic-msvcclang-default-msvc2026"
+      },
+      {
+        "entries": [],
+        "variant": "csv1-linux"
+      },
+      {
+        "entries": [],
+        "variant": "csv1-windows"
+      }
+    ]
+  }
+}
