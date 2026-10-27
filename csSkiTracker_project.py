@@ -64,18 +64,13 @@ def create_orchestrator() -> OptionalOrchestratorWithReport:
         repo_access_token="${{ secrets.ACTIONS_ORG_ACCESS }}",
     )
 
-    report.append_warning("-------------------------------------------------------")
-    report.append_warning("   download_dependencies_manifest_and_bundle = False   ")
-    report.append_warning("  REMEBER TO ENABLE WHEN install_requirements IS FIXED ")
-    report.append_warning("-------------------------------------------------------")
-
     report.append_report(
         install_csskitracker_build_dependencies(
             orchestrator=o,
             base_libs_dir=base_libs_dir,
             dependencies_config_path=Path("dependencies"),
             dev=True,
-            download_dependencies_manifest_and_bundle=False,
+            download_dependencies_manifest_and_bundle=True,
             mapping_function=identity_mapping_function,
             phase_name_suffix="csSkiTracker dependencies",
         )

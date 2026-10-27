@@ -25,10 +25,10 @@
     "manifest_version": "1.0",
     "output_bundle_file_name": "csfoundation-0.1.0-bundle.tar.gz",
     "packages": [
-      "csCore",
       "csVisOpenGL",
-      "csLie",
-      "csCamera"
+      "csCore",
+      "csCamera",
+      "csLie"
     ],
     "project_name": "csfoundation",
     "project_version": "0.1.0",

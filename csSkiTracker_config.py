@@ -49,7 +49,7 @@ def install_csskitracker_build_dependencies(
         git_repo="csfoundation",
         project_name="csfoundation",
         project_version="0.1.0",
-        release_tag="v0.1.0-rc5",
+        release_tag="v0.1.0-rc7",
     )
 
     csoptimization_provider = ManifestGithub(
@@ -58,7 +58,7 @@ def install_csskitracker_build_dependencies(
         git_repo="csoptimization",
         project_name="csoptimization",
         project_version="0.1.0",
-        release_tag="v0.1.0-rc2",
+        release_tag="v0.1.0-rc3",
     )
 
     csqt6_provider = ManifestGithub(
@@ -76,7 +76,7 @@ def install_csskitracker_build_dependencies(
         git_repo="csopencvcpu",
         project_name="csopencvcpu",
         project_version="5.0.0",
-        release_tag="v5.0.1-rc1",
+        release_tag="v5.0.1-rc2",
     )
 
     external_providers = [
@@ -123,7 +123,7 @@ def install_csskitracker_build_dependencies(
 
     external_dependencies_dev: dict[str, dict[str, list[str]]] = {}
 
-    provider_mapping_functions_names = {csqt6_provider.project_name: "qt6_mapping"}
+    provider_mapping_functions_names: dict[str, str | MappingFunction] = {csqt6_provider.project_name: "qt6_mapping"}
 
     # and the dependent external libraries
 

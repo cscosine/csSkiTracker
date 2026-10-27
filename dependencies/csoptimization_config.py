@@ -43,11 +43,11 @@ def install_requirements(
     _ = dev  # ignore dev, those packages are required both in development and as dependencies
 
     install_ubuntu_apt_packages(
-        orchestrator,
-        [
+        orchestrator=orchestrator,
+        packages=[
             "libomp-dev",
         ],
-        phase_name="Install Requirements (Linux-Ubuntu)" + phase_name_suffix,
+        phase_name_suffix=phase_name_suffix,
     )
 
 
@@ -76,7 +76,7 @@ def install_csoptimization_build_dependencies(
         git_repo="csfoundation",
         project_name="csfoundation",
         project_version="0.1.0",
-        release_tag="v0.1.0-rc5",
+        release_tag="v0.1.0-rc7",
     )
 
     third_party_base_libs_provider = ManifestGithub(
