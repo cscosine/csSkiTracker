@@ -20,20 +20,12 @@ list(POP_BACK CMAKE_MODULE_PATH)
 cs_add_library(csSkiTracker INTERFACE)
 cs_add_library(csSkiTracker::csSkiTracker ALIAS csSkiTracker)
 
-cs_target_sources(csSkiTracker
-	PRIVATE_INSTALL
-	PRIVATE
-)
-
 cs_target_link_libraries(csSkiTracker
 	INTERFACE
-		csSkiTrackerSol::csSkiTrackerSol_csCMakeBaseInclude
-		csSkiTrackerSol::csSkiTrackerSol_csCMakeCompileOptionsDefault
+		csSkiTracker::cscmake_base_include
 )
 
-cs_install_target(csSkiTracker csSkiTracker)
-
-cs_finalize_target(csSkiTracker)
+cs_install_target(csSkiTracker COMPONENT csSkiTracker DEFAULT)
 
 # add libs, executables, etc
 add_subdirectory(dataReader)

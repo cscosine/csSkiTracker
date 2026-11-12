@@ -65,6 +65,4 @@ cs_target_link_libraries(skiTrackerApp
     tclap::tclap
     )
 
-cs_install_target(skiTrackerApp skiTrackerApp)
-
-cs_finalize_target(skiTrackerApp)
+cs_install_target(skiTrackerApp COMPONENT skiTrackerApp DEFAULT)

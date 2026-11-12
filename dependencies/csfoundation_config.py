@@ -82,7 +82,7 @@ def install_csfoundation_build_dependencies(
         git_repo="third_party_base_libs",
         project_name="third_party_base_libs",
         project_version="0.1.0",
-        release_tag="v0.1.0-rc3",
+        release_tag="v0.1.0-rc6",
     )
 
     csqt6_provider = ManifestGithub(

@@ -16,11 +16,7 @@ from csorchestrator.application.recipes.checkout_build import (
 from csorchestrator.application.recipes.create_orchestrator import (
     create_default_orchestrator,
 )
-from csorchestrator.application.recipes.repos_config import (
-    RepoRefBuildPublishConfig,
-    RepoRefBuildPublishConfigDict,
-    extract_repo_ref_dict,
-)
+from csorchestrator.application.recipes.cscmake_release import create_cscmake_release_archive
 from csorchestrator.foundation.core.report import Report
 from csorchestrator.frontend.cscmake_presets.supported_variants import (
     BuildConfig,
@@ -38,17 +34,13 @@ def create_orchestrator() -> OptionalOrchestratorWithReport:
     base_target_dir = Path("workspace")
     base_install_dir = base_target_dir / Path("install")
     base_libs_dir = base_target_dir / Path("libs")
-    common_repo_ref = "dev"
+    cscmake_version = "1.0.0-rc2"
 
     o = create_orchestrator_factory_all_supported_cases(
         name="csSkiTracker",
         version="0.1.0",
         execution_matrix_name="orchestrator-matrix",
     )
-
-    repos: RepoRefBuildPublishConfigDict = {
-        "csCMake": RepoRefBuildPublishConfig(common_repo_ref, None),
-    }
 
     o = create_default_orchestrator(
         name="csSkiTracker",
@@ -60,8 +52,8 @@ def create_orchestrator() -> OptionalOrchestratorWithReport:
     checkout_repos(
         orchestrator=o,
         base_target_dir=base_target_dir,
-        repo_ref_dict=extract_repo_ref_dict(repos),
         repo_access_token="${{ secrets.ACTIONS_ORG_ACCESS }}",
+        release_archive_list=[create_cscmake_release_archive(cscmake_version)],
     )
 
     report.append_report(

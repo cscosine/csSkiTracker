@@ -1,6 +1,6 @@
 {
   "version": 10,
   "include": [
-    "${sourceDir}/workspace/csCMake/presets/csCMakeProjectSetup-default-standalone.json"
+    "${sourceDir}/workspace/csCMake/presets/layout/standalone.json"
   ]
 }

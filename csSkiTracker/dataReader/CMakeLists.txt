@@ -25,6 +25,4 @@ cs_target_link_libraries(dataReader
 
 add_subdirectory(samples)
 
-cs_install_target(dataReader dataReader)
-
-cs_finalize_target(dataReader)
+cs_install_target(dataReader COMPONENT dataReader DEFAULT)
