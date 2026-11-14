@@ -93,6 +93,7 @@ jobs:
       with:
         files: |-
           artifacts/**/*.tar.gz
+          artifacts/**/*.zip
           artifacts/generated-for-release/csSkiTracker-0.1.0.csOrchestratorManifest
       if: ${{ github.ref_type == 'tag' }}
   orchestrator-matrix:
@@ -254,17 +255,17 @@ jobs:
     steps:
     - name: Repo git self-checkout
       uses: actions/checkout@v6
-    - name: csCMake v1.0.0-rc2 release download tar.gz
+    - name: csCMake v1.0.0-rc4 release download tar.gz
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csCMake
-        tag: v1.0.0-rc2
-        fileName: csCMake-1.0.0-rc2.tar.gz
+        tag: v1.0.0-rc4
+        fileName: csCMake-1.0.0-rc4.tar.gz
         out-file-path: workspace
-    - name: csCMake v1.0.0-rc2 release extract tar.gz
+    - name: csCMake v1.0.0-rc4 release extract tar.gz
       run: |-
-        tar -xzf workspace/csCMake-1.0.0-rc2.tar.gz -C workspace
-        rm -f workspace/csCMake-1.0.0-rc2.tar.gz
+        tar -xzf workspace/csCMake-1.0.0-rc4.tar.gz -C workspace
+        rm -f workspace/csCMake-1.0.0-rc4.tar.gz
       shell: bash
     - name: Get Precompiled Lib eigen3 download tar.gz
       uses: robinraju/release-downloader@v1.13
@@ -688,6 +689,39 @@ jobs:
         tar -xzf workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csopencvcpu-5.0.0-opencv-5.0.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
         rm -f workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csopencvcpu-5.0.0-opencv-5.0.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
       shell: bash
+    - name: Run command install apt packages
+      run: |-
+        set -euo pipefail # enable strict mode
+
+
+        packages=(
+          libxcb-cursor0
+          libxcb-icccm4
+          libxcb-image0
+          libxcb-keysyms1
+          libxcb-render-util0
+          libxcb-shape0
+          libxcb-xkb1
+          libxkbcommon-x11-0
+        )
+
+        missing=()
+
+        for pkg in "${packages[@]}"; do
+          dpkg -s "$pkg" &>/dev/null || missing+=("$pkg")
+        done
+
+        if [ ${#missing[@]} -ne 0 ]; then
+
+          sudo apt update
+
+          echo "Need to install missing packages: ${missing[*]}"
+          sudo apt install -y "${missing[@]}"
+        else
+          echo "All packages already installed."
+        fi
+      if: ${{ matrix.os == 'linux' && startsWith(matrix.os_version, 'ubuntu') }}
+      shell: bash
     - name: cmake workflow on ./ CMake Workflow for config(s) debug-release-relWithDebInfo-paranoid
       run: |-
         set -e
@@ -779,3 +813,130 @@ jobs:
           workspace/install/*.tar.gz
           workspace/install/*.csOrchestratorManifest
         overwrite: true
+    - name: Create Deployment Archives
+      run: |-
+        import sys
+        from pathlib import Path
+        from typing import cast
+
+        from csorchestratorsdk.portable.deployments import create_deployment_archives
+
+        build_dir = Path('workspace/build/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}')
+        build_config = 'debug-release-relWithDebInfo-paranoid'
+        project_name = 'csSkiTracker'
+        project_name_and_version = 'csSkiTracker-0.1.0'
+        variant = 'csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}'
+        output_dir = Path('workspace/deploy-archives')
+
+        errors_list = create_deployment_archives(
+            build_dir=Path(build_dir),
+            build_config=build_config,
+            project_name=project_name,
+            project_name_and_version=project_name_and_version,
+            variant=variant,
+            output_dir=Path(output_dir),
+        )
+
+        if len(errors_list) > 0:
+            for e in errors_list:
+                print(e)
+            sys.exit("ERROR: archiving the deployments")
+      shell: python
+      env:
+        PYTHONPATH: ${{ github.workspace }}
+    - name: 'Create Deployment Archives: upload'
+      uses: actions/upload-artifact@v7
+      with:
+        name: csSkiTracker-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}-deployments
+        path: |-
+          workspace/deploy-archives/*.tar.gz
+          workspace/deploy-archives/*.zip
+        overwrite: true
+    - name: Run command install xvfb
+      run: |-
+        set -euo pipefail # enable strict mode
+
+
+        packages=(
+          xvfb
+          xauth
+        )
+
+        missing=()
+
+        for pkg in "${packages[@]}"; do
+          dpkg -s "$pkg" &>/dev/null || missing+=("$pkg")
+        done
+
+        if [ ${#missing[@]} -ne 0 ]; then
+
+          sudo apt update
+
+          echo "Need to install missing packages: ${missing[*]}"
+          sudo apt install -y "${missing[@]}"
+        else
+          echo "All packages already installed."
+        fi
+      if: ${{ matrix.os == 'linux' }}
+      shell: bash
+    - name: Run command install the software OpenGL of Mesa
+      run: |-
+        $ErrorActionPreference = "Stop"
+        $version = "25.2.6"
+        $url = "https://github.com/pal1000/mesa-dist-win/releases/download/$version/mesa3d-$version-release-msvc.7z"
+        Invoke-WebRequest -Uri $url -OutFile mesa.7z
+        7z e mesa.7z x64/opengl32.dll x64/libgallium_wgl.dll -omesa -y
+        Copy-Item mesa/opengl32.dll "$env:SystemRoot/System32/opengl32sw.dll"
+        Copy-Item mesa/libgallium_wgl.dll "$env:SystemRoot/System32/libgallium_wgl.dll"
+        Get-Item "$env:SystemRoot/System32/opengl32sw.dll", "$env:SystemRoot/System32/libgallium_wgl.dll"
+      if: ${{ matrix.os == 'windows' }}
+      shell: powershell
+    - name: Smoke run of the deployment app
+      run: |-
+        import sys
+        from pathlib import Path
+        from typing import cast
+
+        from csorchestratorsdk.portable.deployments import DeploymentArchives, DeploymentRun, run_deployment
+
+        build_dir = Path('workspace/build/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}')
+        build_config = 'debug-release-relWithDebInfo-paranoid'
+        deployment = 'app'
+        archives_dir = Path('workspace/deploy-archives')
+        project_name = 'csSkiTracker'
+        project_name_and_version = 'csSkiTracker-0.1.0'
+        variant = 'csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}'
+        commands = {'linux': ['sh', '-c', 'if command -v xvfb-run >/dev/null; then exec xvfb-run -a "$0" --smoke "$1"; else exec "$0" --smoke "$1"; fi', '{folder}/bin/skiTrackerApp', '{folder}/data/frame_data_bolshunov.std'], 'windows': ['{folder}/bin/skiTrackerApp.exe', '--smoke', '{folder}/data/frame_data_bolshunov.std']}
+        clean_environment = True
+        install_system_requirements = True
+        expect_exit_code = 0
+        timeout_seconds = 120.0
+        environment = {'QT_OPENGL': 'software', 'QT_FORCE_STDERR_LOGGING': '1', 'GALLIUM_DRIVER': 'llvmpipe'}
+
+        os_name = "windows" if sys.platform == "win32" else "macos" if sys.platform == "darwin" else "linux"
+        if os_name not in commands:
+            print(f"deployment {deployment}: no command on {os_name}, not run")
+            sys.exit(0)
+
+        errors_list = run_deployment(
+            Path(build_dir),
+            build_config,
+            DeploymentRun(
+                deployment=deployment,
+                command=commands[os_name],
+                clean_environment=clean_environment,
+                install_system_requirements=install_system_requirements,
+                expect_exit_code=expect_exit_code,
+                timeout_seconds=timeout_seconds,
+                environment=environment,
+            ),
+            DeploymentArchives(Path(archives_dir), project_name, project_name_and_version, variant),
+        )
+
+        if len(errors_list) > 0:
+            for e in errors_list:
+                print(e)
+            sys.exit(f"ERROR: running the deployment {deployment}")
+      shell: python
+      env:
+        PYTHONPATH: ${{ github.workspace }}
