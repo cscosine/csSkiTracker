@@ -49,3 +49,25 @@ equivalent.
 |---|---|---|
 | built on macOS 15 | [⬇](https://github.com/cscosine/csSkiTracker/releases/latest/download/csSkiTracker-0.1.0-csv1-macos-macos15-arm64-generic-appleclang-default-ninjamulticonfig-app-Release.tar.gz) | [⬇](https://github.com/cscosine/csSkiTracker/releases/latest/download/csSkiTracker-0.1.0-csv1-macos-macos15-arm64-generic-appleclang-default-xcode-app-Release.tar.gz) |
 | built on macOS 26 | [⬇](https://github.com/cscosine/csSkiTracker/releases/latest/download/csSkiTracker-0.1.0-csv1-macos-macos26-arm64-generic-appleclang-default-ninjamulticonfig-app-Release.tar.gz) | [⬇](https://github.com/cscosine/csSkiTracker/releases/latest/download/csSkiTracker-0.1.0-csv1-macos-macos26-arm64-generic-appleclang-default-xcode-app-Release.tar.gz) |
+
+## Licenses
+
+csSkiTracker is released under the [MIT License](LICENSE). The deployments of the releases also contain, or are built with:
+
+- **Qt 6.12** ([source](https://download.qt.io/official_releases/qt/6.12/), built by
+  [csqt6](https://github.com/cscosine/csqt6) without the GPL-only modules): [LGPL v3](https://www.gnu.org/licenses/lgpl-3.0.html),
+  as separate shared libraries that can be replaced.
+- **OpenCV 5** ([fork](https://github.com/cscosine/opencv), built by [csopencvcpu](https://github.com/cscosine/csopencvcpu)):
+  [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0); on Windows its libraries include libjpeg-turbo (this
+  software is based in part on the work of the Independent JPEG Group), libpng, libtiff, OpenJPEG, libwebp and zlib,
+  under their permissive licenses.
+- **Eigen** ([source](https://gitlab.com/libeigen/eigen)): [MPL 2.0](https://www.mozilla.org/MPL/2.0/), unmodified, header-only.
+- The libraries of [csfoundation](https://github.com/cscosine/csfoundation) and the third-party libraries of
+  [third_party_base_libs](https://github.com/cscosine/third_party_base_libs) (fmt, cpptrace, libassert, magic_enum,
+  ...: MIT and similar permissive licenses).
+- Windows: the Visual C++ runtime DLLs, redistributed under the Microsoft Visual Studio redistribution terms.
+- Linux: the system libraries listed in `system-requirements.txt` (installed from Ubuntu, not shipped), among them
+  FFmpeg, used by OpenCV to read videos.
+
+The archives do not include the license texts of these components yet; a `licenses/` folder in every deployment is
+planned.
