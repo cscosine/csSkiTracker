@@ -1,4 +1,9 @@
 cmake_minimum_required(VERSION 3.31)
+
+# before project(): the oldest macOS the binaries run on (Qt 6.12)
+include(csCMakeSetup)
+cs_macos_deployment_target(14.4)
+
 project(csSkiTrackerSol VERSION 0.1.0 LANGUAGES CXX)
 
 # add the csCMake system
