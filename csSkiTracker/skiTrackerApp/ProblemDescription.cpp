@@ -1,5 +1,7 @@
 #include "ProblemDescription.h"
 
+#include <cassert>
+
 #include <Eigen/Geometry>
 #include <array>
 

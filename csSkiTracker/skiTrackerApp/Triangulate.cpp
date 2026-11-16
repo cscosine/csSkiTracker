@@ -1,5 +1,7 @@
 #include "Triangulate.h"
 
+#include <cassert>
+
 #include <csBlockMatrix/DenseMatrixBlock_impl.hpp>
 #include <csNelson/EdgeUnary_impl.hpp>
 #include <csNelson/GaussNewton_impl.hpp>

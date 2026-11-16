@@ -1,5 +1,7 @@
 #include "Camera3dPointReprojectionError.h"
 
+#include <cassert>
+
 #include <csNelson/EdgeNary_impl.hpp>
 #include <csNelson/EdgeSectionBase_impl.hpp>
 

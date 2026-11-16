@@ -1,5 +1,7 @@
 #include "SkierModel.h"
 
+#include <cassert>
+
 #include "csLie/SO3.hpp"
 
 SkierModel::SkierModel() {}

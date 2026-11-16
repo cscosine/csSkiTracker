@@ -1,4 +1,5 @@
 #pragma once
+#include <cassert>
 #include "CameraNode.h"
 
 template <typename Derived>

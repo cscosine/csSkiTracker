@@ -1,4 +1,5 @@
 #pragma once
+#include <cassert>
 #include <csNelson/SingleSection_impl.hpp>
 
 #include "CameraNode.h"

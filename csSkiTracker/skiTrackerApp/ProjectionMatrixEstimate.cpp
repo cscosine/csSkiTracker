@@ -1,5 +1,7 @@
 #include "ProjectionMatrixEstimate.h"
 
+#include <cassert>
+
 #include <csCamera/Camera_impl.hpp>
 
 #include <Eigen/Dense>

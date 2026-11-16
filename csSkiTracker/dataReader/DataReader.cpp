@@ -1,5 +1,7 @@
 #include "DataReader.h"
 
+#include <cassert>
+
 #include <QFile>
 
 #include <iostream>

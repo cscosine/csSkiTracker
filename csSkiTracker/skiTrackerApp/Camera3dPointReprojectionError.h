@@ -1,4 +1,5 @@
 #pragma once
+#include <cassert>
 #include "CameraCalibSection.h"
 #include <csNelson/EdgeNary_impl.hpp>
 #include <csNelson/EdgeSectionBase_impl.hpp>

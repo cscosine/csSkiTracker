@@ -1,4 +1,7 @@
 #include "Visualizer.h"
+
+#include <cassert>
+
 #include <csVisOpenGL/Colors.hpp>
 #include <iostream>
 
