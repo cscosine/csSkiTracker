@@ -67,43 +67,13 @@ cs_target_link_libraries(skiTrackerApp
 
 cs_install_target(skiTrackerApp COMPONENT skiTrackerApp DEFAULT)
 
-# deployment: a folder that runs on another machine, made by the install (Release), with the Qt plugins it needs and
-# the sample dataset (data/), on which the smoke run starts the application
+# deployment: a folder that runs on another machine, made by the install (Release), with the Qt plugins of a GUI
+# application (csCMake cs_deployment_qt_gui, offscreen too) and the sample dataset (data/), on which the smoke run
+# starts the application
 cs_deployment(app TARGETS skiTrackerApp)
 cs_deployment(
   app
   FILES "${CMAKE_CURRENT_LIST_DIR}/../../datasets/frame_data_bolshunov.std"
   DESTINATION data
 )
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-  cs_deployment(
-    app
-    PLUGINS Qt6::QXcbIntegrationPlugin Qt6::QWaylandIntegrationPlugin Qt6::QOffscreenIntegrationPlugin
-    DESTINATION plugins/platforms
-  )
-  cs_deployment(
-    app
-    PLUGINS Qt6::QXcbGlxIntegrationPlugin Qt6::QXcbEglIntegrationPlugin
-    DESTINATION plugins/xcbglintegrations
-  )
-  cs_deployment(app PLUGINS Qt6::QWaylandXdgShellIntegrationPlugin DESTINATION plugins/wayland-shell-integration)
-  cs_deployment(
-    app
-    PLUGINS Qt6::QWaylandEglClientBufferPlugin
-    DESTINATION plugins/wayland-graphics-integration-client
-  )
-  cs_deployment(app PLUGINS Qt6::QWaylandBradientDecorationPlugin DESTINATION plugins/wayland-decoration-client)
-elseif(WIN32)
-  # Windows: next to the executable (bin/platforms), where Qt looks for them (the layout of windeployqt)
-  cs_deployment(
-    app
-    PLUGINS Qt6::QWindowsIntegrationPlugin Qt6::QOffscreenIntegrationPlugin
-    DESTINATION bin/platforms
-  )
-  # the software OpenGL of Qt (loaded at run time), for the machines without GPU (QT_OPENGL=software)
-  if(EXISTS "${QT6_INSTALL_PREFIX}/bin/opengl32sw.dll")
-    cs_deployment(app FILES "${QT6_INSTALL_PREFIX}/bin/opengl32sw.dll" DESTINATION bin)
-  else()
-    message(STATUS "opengl32sw.dll not in ${QT6_INSTALL_PREFIX}/bin: not deployed")
-  endif()
-endif()
+cs_deployment_qt_gui(app OFFSCREEN)

@@ -286,12 +286,184 @@
         "variant": "csv1-windows-v10-x64-generic-msvcclang-default-msvc2026"
       },
       {
+        "entries": [
+          {
+            "name": "csCore",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csLie",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csCamera",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csVisOpenGL",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu26.04-x64-generic-gcc-default-ninjamulticonfig"
+      },
+      {
+        "entries": [
+          {
+            "name": "csCore",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csLie",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csCamera",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csVisOpenGL",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu26.04-x64-generic-clang-default-ninjamulticonfig"
+      },
+      {
+        "entries": [
+          {
+            "name": "csCore",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csLie",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csCamera",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csVisOpenGL",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu26.04-arm64-generic-gcc-default-ninja"
+      },
+      {
+        "entries": [
+          {
+            "name": "csCore",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csLie",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csCamera",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csVisOpenGL",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-linux-ubuntu26.04-arm64-generic-clang-default-ninja"
+      },
+      {
+        "entries": [
+          {
+            "name": "csCore",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csLie",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csCamera",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csVisOpenGL",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-macos-macos15-arm64-generic-appleclang-default-ninjamulticonfig"
+      },
+      {
+        "entries": [
+          {
+            "name": "csCore",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csLie",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csCamera",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csVisOpenGL",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-macos-macos15-arm64-generic-appleclang-default-xcode"
+      },
+      {
+        "entries": [
+          {
+            "name": "csCore",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csLie",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csCamera",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csVisOpenGL",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-macos-macos26-arm64-generic-appleclang-default-ninjamulticonfig"
+      },
+      {
+        "entries": [
+          {
+            "name": "csCore",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csLie",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csCamera",
+            "version": "1.0.0"
+          },
+          {
+            "name": "csVisOpenGL",
+            "version": "1.0.0"
+          }
+        ],
+        "variant": "csv1-macos-macos26-arm64-generic-appleclang-default-xcode"
+      },
+      {
         "entries": [],
         "variant": "csv1-linux"
       },
       {
         "entries": [],
         "variant": "csv1-windows"
+      },
+      {
+        "entries": [],
+        "variant": "csv1-macos"
       }
     ]
   }

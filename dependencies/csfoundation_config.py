@@ -36,14 +36,25 @@ def install_requirements(
 ) -> None:
     """Install the Linux system requirements needed by the requested libraries.
 
-    The OpenGL system packages are only required by ``csVisOpenGL``, so they
-    are installed only when it is in ``lib_list`` (``None`` means all
-    libraries).
+    The OpenMP runtime of clang (``libomp-dev``) for every library (all depend on
+    ``csCore``, which uses OpenMP); the OpenGL system packages are only required
+    by ``csVisOpenGL``, so they are installed only when it is in ``lib_list``
+    (``None`` means all libraries).
     """
 
     lib_list = fill_in_library_list(lib_list, LIBRARY_LIST)
 
     _ = dev  # ignore dev, those packages are required both in development and as dependencies
+
+    # OpenMP runtime of clang (cs_target_use_openmp: csCore, and the libraries of the consumers through CS_OMP); GCC
+    # ships its own (libgomp), Apple Clang builds without OpenMP. Every library depends on csCore.
+    install_ubuntu_apt_packages(
+        orchestrator=orchestrator,
+        packages=["libomp-dev"],
+        phase_name_suffix=phase_name_suffix,
+        step_name="install the OpenMP runtime of clang",
+        phase_name="Install OpenMP (Linux-Ubuntu)",
+    )
 
     if "csVisOpenGL" in lib_list:
         install_ubuntu_apt_packages(
@@ -82,7 +93,7 @@ def install_csfoundation_build_dependencies(
         git_repo="third_party_base_libs",
         project_name="third_party_base_libs",
         project_version="0.1.0",
-        release_tag="v0.1.0-rc6",
+        release_tag="v0.1.0-rc8",
     )
 
     csqt6_provider = ManifestGithub(
@@ -90,8 +101,8 @@ def install_csfoundation_build_dependencies(
         org="cscosine",
         git_repo="csqt6",
         project_name="csqt6",
-        project_version="6.11.1",
-        release_tag="v6.11.1-rc3",
+        project_version="6.12.0",
+        release_tag="v6.12.0-rc1",
     )
 
     external_providers = [
@@ -107,7 +118,6 @@ def install_csfoundation_build_dependencies(
                 "fmt",
                 "fmt-eigen",
                 "libassert",
-                "pipes",
                 "NamedType",
                 "tl-expected",
                 "tl-optional",
