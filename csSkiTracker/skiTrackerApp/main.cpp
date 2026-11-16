@@ -5,6 +5,7 @@
 #include <QOpenGLWidget>
 #include <QTimer>
 
+#include <QDir>
 #include <QFileDialog>
 
 #include <cstdlib>
@@ -41,6 +42,14 @@ static void checkAndQuit(const Window &window) {
   std::_Exit(0);
 }
 
+// The folder the open dialog starts in: the sample data of the deployment
+// (data/ next to bin/, where cs_deployment puts the executable), when it
+// exists; else Qt's default.
+static QString defaultDataDir() {
+  const QDir dir(QCoreApplication::applicationDirPath() + "/../data");
+  return dir.exists() ? dir.absolutePath() : QString();
+}
+
 int main(int argc, char *argv[]) {
   Q_INIT_RESOURCE(vis);
 
@@ -56,7 +65,8 @@ int main(int argc, char *argv[]) {
     }
     QString filter = "Ski Tracker Data (*.std)";
     filename = QFileDialog::getOpenFileName(
-        nullptr, "Load Ski Tracker Data File", "", filter, &filter);
+        nullptr, "Load Ski Tracker Data File", defaultDataDir(), filter,
+        &filter);
   }
 
   csSkiTracker::dataReader::DataReader reader;
