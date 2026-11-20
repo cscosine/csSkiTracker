@@ -3,12 +3,8 @@ name: csSkiTracker
   push:
     branches:
     - main
-    - dev
     tags:
     - v*.*.*
-  pull_request:
-    branches:
-    - main
   workflow_dispatch: {}
   schedule:
   - cron: 0 3 * * 1
@@ -97,6 +93,7 @@ jobs:
           artifacts/**/*.tar.gz
           artifacts/**/*.zip
           generated-for-release/csSkiTracker-0.1.0.csOrchestratorManifest
+        prerelease: ${{ contains(github.ref_name, '-rc') }}
       if: ${{ github.ref_type == 'tag' }}
   orchestrator-matrix:
     runs-on: ${{ matrix.runner }}
@@ -361,23 +358,23 @@ jobs:
     steps:
     - name: Repo git self-checkout
       uses: actions/checkout@v6
-    - name: csCMake v1.0.0-rc7 release download tar.gz
+    - name: csCMake v1.0.0-rc8 release download tar.gz
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csCMake
-        tag: v1.0.0-rc7
-        fileName: csCMake-1.0.0-rc7.tar.gz
+        tag: v1.0.0-rc8
+        fileName: csCMake-1.0.0-rc8.tar.gz
         out-file-path: workspace
-    - name: csCMake v1.0.0-rc7 release extract tar.gz
+    - name: csCMake v1.0.0-rc8 release extract tar.gz
       run: |-
-        tar -xzf workspace/csCMake-1.0.0-rc7.tar.gz -C workspace
-        rm -f workspace/csCMake-1.0.0-rc7.tar.gz
+        tar -xzf workspace/csCMake-1.0.0-rc8.tar.gz -C workspace
+        rm -f workspace/csCMake-1.0.0-rc8.tar.gz
       shell: bash
     - name: Get Precompiled Lib eigen3 download tar.gz
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0-rc8
+        tag: v0.1.0-rc10
         fileName: third_party_base_libs-0.1.0-eigen3-5.0.1-csv1-${{ matrix.os }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib eigen3 extract tar.gz
@@ -389,7 +386,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0-rc8
+        tag: v0.1.0-rc10
         fileName: third_party_base_libs-0.1.0-tclap-1.0.0-csv1-${{ matrix.os }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib tclap extract tar.gz
@@ -455,7 +452,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0-rc8
+        tag: v0.1.0-rc10
         fileName: third_party_base_libs-0.1.0-Catch2-3.16.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib Catch2 extract tar.gz
@@ -467,7 +464,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0-rc8
+        tag: v0.1.0-rc10
         fileName: third_party_base_libs-0.1.0-NamedType-1.1.0-csv1-${{ matrix.os }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib NamedType extract tar.gz
@@ -479,7 +476,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0-rc8
+        tag: v0.1.0-rc10
         fileName: third_party_base_libs-0.1.0-cpptrace-1.0.4-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib cpptrace extract tar.gz
@@ -491,7 +488,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0-rc8
+        tag: v0.1.0-rc10
         fileName: third_party_base_libs-0.1.0-fmt-12.2.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib fmt extract tar.gz
@@ -503,7 +500,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0-rc8
+        tag: v0.1.0-rc10
         fileName: third_party_base_libs-0.1.0-fmt-eigen-1.0.0-csv1-${{ matrix.os }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib fmt-eigen extract tar.gz
@@ -515,7 +512,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0-rc8
+        tag: v0.1.0-rc10
         fileName: third_party_base_libs-0.1.0-libassert-2.2.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib libassert extract tar.gz
@@ -527,7 +524,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0-rc8
+        tag: v0.1.0-rc10
         fileName: third_party_base_libs-0.1.0-tl-expected-1.3.1-csv1-${{ matrix.os }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib tl-expected extract tar.gz
@@ -539,7 +536,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0-rc8
+        tag: v0.1.0-rc10
         fileName: third_party_base_libs-0.1.0-tl-optional-1.1.0-csv1-${{ matrix.os }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib tl-optional extract tar.gz
@@ -643,7 +640,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csfoundation
-        tag: v0.1.0-rc9
+        tag: v0.1.0-rc10
         fileName: csfoundation-0.1.0-csCamera-1.0.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib csCamera extract tar.gz
@@ -655,7 +652,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csfoundation
-        tag: v0.1.0-rc9
+        tag: v0.1.0-rc10
         fileName: csfoundation-0.1.0-csCore-1.0.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib csCore extract tar.gz
@@ -667,7 +664,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csfoundation
-        tag: v0.1.0-rc9
+        tag: v0.1.0-rc10
         fileName: csfoundation-0.1.0-csLie-1.0.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib csLie extract tar.gz
@@ -679,7 +676,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csfoundation
-        tag: v0.1.0-rc9
+        tag: v0.1.0-rc10
         fileName: csfoundation-0.1.0-csVisOpenGL-1.0.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib csVisOpenGL extract tar.gz
@@ -743,7 +740,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csoptimization
-        tag: v0.1.0-rc5
+        tag: v0.1.0-rc6
         fileName: csoptimization-0.1.0-csBlockMatrix-1.0.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib csBlockMatrix extract tar.gz
@@ -755,7 +752,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csoptimization
-        tag: v0.1.0-rc5
+        tag: v0.1.0-rc6
         fileName: csoptimization-0.1.0-csNelson-1.0.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib csNelson extract tar.gz
@@ -901,7 +898,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csopencvcpu
-        tag: v5.0.1-rc5
+        tag: v5.0.0-cpu.1-rc1
         fileName: csopencvcpu-5.0.0-opencv-5.0.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: workspace/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib opencv extract tar.gz
@@ -1072,6 +1069,9 @@ jobs:
         $version = "25.2.6"
         $url = "https://github.com/pal1000/mesa-dist-win/releases/download/$version/mesa3d-$version-release-msvc.7z"
         Invoke-WebRequest -Uri $url -OutFile mesa.7z
+        $expected = "4d21205818fb946c3a94ae2552364a1ef14d3f8a907ccd98585907cf536510a5"
+        $actual = (Get-FileHash mesa.7z -Algorithm SHA256).Hash.ToLower()
+        if ($actual -ne $expected) { throw "mesa.7z: SHA-256 $actual, expected $expected" }
         7z e mesa.7z x64/opengl32.dll x64/libgallium_wgl.dll -omesa -y
         Copy-Item mesa/opengl32.dll "$env:SystemRoot/System32/opengl32sw.dll"
         Copy-Item mesa/libgallium_wgl.dll "$env:SystemRoot/System32/libgallium_wgl.dll"

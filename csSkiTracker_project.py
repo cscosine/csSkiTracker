@@ -41,7 +41,7 @@ def create_orchestrator() -> OptionalOrchestratorWithReport:
     base_build_dir = base_target_dir / Path("build")
     deploy_archives_dir = base_target_dir / Path("deploy-archives")
     build_config = BuildConfig.DEBUG_RELEASE_RELWITHDEBINFO_PARANOID
-    cscmake_version = "1.0.0-rc7"
+    cscmake_version = "1.0.0-rc8"
 
     o = create_orchestrator_factory_all_supported_cases(
         name="csSkiTracker",
@@ -65,7 +65,6 @@ def create_orchestrator() -> OptionalOrchestratorWithReport:
     checkout_repos(
         orchestrator=o,
         base_target_dir=base_target_dir,
-        repo_access_token="${{ secrets.ACTIONS_ORG_ACCESS }}",
         release_archive_list=[create_cscmake_release_archive(cscmake_version)],
     )
 

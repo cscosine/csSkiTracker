@@ -17,8 +17,8 @@
     "manifest_version": "1.0",
     "output_bundle_file_name": "csoptimization-0.1.0-bundle.tar.gz",
     "packages": [
-      "csNelson",
-      "csBlockMatrix"
+      "csBlockMatrix",
+      "csNelson"
     ],
     "project_name": "csoptimization",
     "project_version": "0.1.0",

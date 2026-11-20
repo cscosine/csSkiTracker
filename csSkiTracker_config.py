@@ -40,7 +40,7 @@ def install_csskitracker_build_dependencies(
         git_repo="third_party_base_libs",
         project_name="third_party_base_libs",
         project_version="0.1.0",
-        release_tag="v0.1.0-rc8",
+        release_tag="v0.1.0-rc10",
     )
 
     csfoundation_provider = ManifestGithub(
@@ -49,7 +49,7 @@ def install_csskitracker_build_dependencies(
         git_repo="csfoundation",
         project_name="csfoundation",
         project_version="0.1.0",
-        release_tag="v0.1.0-rc9",
+        release_tag="v0.1.0-rc10",
     )
 
     csoptimization_provider = ManifestGithub(
@@ -58,7 +58,7 @@ def install_csskitracker_build_dependencies(
         git_repo="csoptimization",
         project_name="csoptimization",
         project_version="0.1.0",
-        release_tag="v0.1.0-rc5",
+        release_tag="v0.1.0-rc6",
     )
 
     csqt6_provider = ManifestGithub(
@@ -76,7 +76,7 @@ def install_csskitracker_build_dependencies(
         git_repo="csopencvcpu",
         project_name="csopencvcpu",
         project_version="5.0.0",
-        release_tag="v5.0.1-rc5",
+        release_tag="v5.0.0-cpu.1-rc1",
     )
 
     external_providers = [
