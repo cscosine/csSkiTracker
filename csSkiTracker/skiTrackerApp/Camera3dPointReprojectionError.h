@@ -1,6 +1,6 @@
 #pragma once
-#include <cassert>
 #include "CameraCalibSection.h"
+#include <cassert>
 #include <csNelson/EdgeNary_impl.hpp>
 #include <csNelson/EdgeSectionBase_impl.hpp>
 
@@ -22,13 +22,13 @@ class Camera3dPointReprojectionError : public CameraCalibSection::EdgeNary<Camer
   Eigen::Matrix<double, 6, Eigen::Dynamic> H_pose_point;
 
 public:
-  Camera3dPointReprojectionError(const Eigen::Vector2d& imgMeasPoint);
+  Camera3dPointReprojectionError(const Eigen::Vector2d &imgMeasPoint);
   virtual ~Camera3dPointReprojectionError();
 
   void update(bool hessians) override;
 
   template <class Derived1, class Derived2>
-  void updateHBlock(int i, Eigen::MatrixBase<Derived1>& H, Eigen::MatrixBase<Derived2>& b) {
+  void updateHBlock(int i, Eigen::MatrixBase<Derived1> &H, Eigen::MatrixBase<Derived2> &b) {
     if (i == 0) {
       H.noalias() += H_camParams;
       b.noalias() += b_camParams;
@@ -41,8 +41,7 @@ public:
     } else
       assert(false);
   }
-  template <class Derived>
-  void updateHBlock(int i, int j, Eigen::MatrixBase<Derived>& H, bool transpose) {
+  template <class Derived> void updateHBlock(int i, int j, Eigen::MatrixBase<Derived> &H, bool transpose) {
     if (i == 0 && j == 1) {
       if (!transpose) {
         H.noalias() += H_camParams_pose;

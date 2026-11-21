@@ -39,25 +39,23 @@ class DataReader {
 
   QString _error;
 
-  static QString getLine(QFile& file, int& lineCount);
-  static bool parseNameValuePair(const QString& input, const QString& name, int& v, QString& error);
-  static bool parseName2ValuesPair(const QString& input, const QString& name, int& v1, int& v2, QString& error);
+  static QString getLine(QFile &file, int &lineCount);
+  static bool parseNameValuePair(const QString &input, const QString &name, int &v, QString &error);
+  static bool parseName2ValuesPair(const QString &input, const QString &name, int &v1, int &v2, QString &error);
 
-  static bool readCalibSection(CalibPoints& cp, const QString& header, QFile& file, int& lineCount, QString& error,
-                               const Eigen::Matrix3Xd& allWorldPoints);
+  static bool readCalibSection(CalibPoints &cp, const QString &header, QFile &file, int &lineCount, QString &error,
+                               const Eigen::Matrix3Xd &allWorldPoints);
 
   template <class T>
-  static bool readMatrix(Eigen::Ref<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> dest, QFile& file, int& lineCount,
-                         QString& error);
+  static bool readMatrix(Eigen::Ref<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> dest, QFile &file, int &lineCount,
+                         QString &error);
 
 public:
   DataReader();
   virtual ~DataReader();
 
-  std::shared_ptr<const ProblemData> readFromFile(const QString& filename);
-  const QString& error() const {
-    return _error;
-  }
+  std::shared_ptr<const ProblemData> readFromFile(const QString &filename);
+  const QString &error() const { return _error; }
 };
 
 } // namespace dataReader

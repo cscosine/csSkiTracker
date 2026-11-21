@@ -9,16 +9,17 @@
 #include <iostream>
 
 // #define DEBUGME_EST
-#define DEBUGME_EST_COUT \
-  if (false)             \
+#define DEBUGME_EST_COUT                                                                                               \
+  if (false)                                                                                                           \
   std::cout
 
 // #define DEBUGME_DECOMP
-#define DEBUGME_DECOMP_COUT \
-  if (false)                \
+#define DEBUGME_DECOMP_COUT                                                                                            \
+  if (false)                                                                                                           \
   std::cout
 
-ProjectionMatrix ProjectionMatrixEstimate::estimateProjMatrix(const Eigen::Matrix2Xd& imgPoints, const Eigen::Matrix3Xd& worldPoints) {
+ProjectionMatrix ProjectionMatrixEstimate::estimateProjMatrix(const Eigen::Matrix2Xd &imgPoints,
+                                                              const Eigen::Matrix3Xd &worldPoints) {
   assert(imgPoints.cols() == worldPoints.cols());
   using MatSolve = Eigen::Matrix<double, Eigen::Dynamic, 12>;
   using VecSolve = Eigen::Matrix<double, 12, 1>;
@@ -72,8 +73,8 @@ ProjectionMatrix ProjectionMatrixEstimate::estimateProjMatrix(const Eigen::Matri
   return ret;
 }
 
-void ProjectionMatrixEstimate::decomposeProjMatrix(const ProjectionMatrix& P, std::array<Eigen::Isometry3d, 4>& Rts,
-                                                   csCamera::Camerad& camera) {
+void ProjectionMatrixEstimate::decomposeProjMatrix(const ProjectionMatrix &P, std::array<Eigen::Isometry3d, 4> &Rts,
+                                                   csCamera::Camerad &camera) {
   const Eigen::Matrix3d A = P.block<3, 3>(0, 0);
   double rhoPlus = 1.0 / A.row(2).norm();
   double rhoMinus = -rhoPlus;
@@ -147,8 +148,8 @@ void ProjectionMatrixEstimate::decomposeProjMatrix(const ProjectionMatrix& P, st
 #endif
 }
 
-Eigen::Vector2d ProjectionMatrixEstimate::proj3DPoints2img(const ProjectionMatrix& P, const Eigen::Vector3d& worldPoint,
-                                                           Eigen::Matrix<double, 2, 3>& d_e_d_worldPoint) {
+Eigen::Vector2d ProjectionMatrixEstimate::proj3DPoints2img(const ProjectionMatrix &P, const Eigen::Vector3d &worldPoint,
+                                                           Eigen::Matrix<double, 2, 3> &d_e_d_worldPoint) {
 
   Eigen::Vector3d uvw = P.block<3, 3>(0, 0) * worldPoint + P.col(3);
 
@@ -169,7 +170,8 @@ Eigen::Vector2d ProjectionMatrixEstimate::proj3DPoints2img(const ProjectionMatri
   return uv;
 }
 
-Eigen::Matrix2Xd ProjectionMatrixEstimate::proj3DPoints2img(const ProjectionMatrix& P, const Eigen::Matrix3Xd& worldPoints) {
+Eigen::Matrix2Xd ProjectionMatrixEstimate::proj3DPoints2img(const ProjectionMatrix &P,
+                                                            const Eigen::Matrix3Xd &worldPoints) {
   Eigen::Matrix4Xd w(4, worldPoints.cols());
   w.row(3).setConstant(1);
   w.topRows<3>() = worldPoints;
@@ -183,25 +185,27 @@ Eigen::Matrix2Xd ProjectionMatrixEstimate::proj3DPoints2img(const ProjectionMatr
   return uv;
 }
 
-ProjectionMatrix ProjectionMatrixEstimate::createP(const Eigen::Matrix3d& K, const Eigen::Isometry3d& Rt) {
+ProjectionMatrix ProjectionMatrixEstimate::createP(const Eigen::Matrix3d &K, const Eigen::Isometry3d &Rt) {
   ProjectionMatrix ret;
   ret.block<3, 3>(0, 0) = K * Rt.linear();
   ret.col(3) = K * Rt.translation();
   return ret;
 }
 
-ProjectionMatrix ProjectionMatrixEstimate::createP(const csCamera::Camerad& camera, const Eigen::Isometry3d& Rt) {
+ProjectionMatrix ProjectionMatrixEstimate::createP(const csCamera::Camerad &camera, const Eigen::Isometry3d &Rt) {
   return createP(camera.K(), Rt);
 }
 
-Eigen::Isometry3d ProjectionMatrixEstimate::selectBestRt(const std::array<Eigen::Isometry3d, 4>& Rts, const csCamera::Camerad& camera,
-                                                         const Eigen::Matrix2Xd& imgPoints, const Eigen::Matrix3Xd& worldPoints) {
+Eigen::Isometry3d ProjectionMatrixEstimate::selectBestRt(const std::array<Eigen::Isometry3d, 4> &Rts,
+                                                         const csCamera::Camerad &camera,
+                                                         const Eigen::Matrix2Xd &imgPoints,
+                                                         const Eigen::Matrix3Xd &worldPoints) {
   double minErr = Eigen::NumTraits<double>::highest();
   Eigen::Isometry3d ret;
 
   Eigen::Matrix3d K = camera.K();
 
-  for (const auto& Rt : Rts) {
+  for (const auto &Rt : Rts) {
     ProjectionMatrix P = createP(K, Rt);
 
     Eigen::Matrix<double, 4, Eigen::Dynamic> wH(4, worldPoints.cols());
@@ -224,8 +228,9 @@ Eigen::Isometry3d ProjectionMatrixEstimate::selectBestRt(const std::array<Eigen:
   return ret;
 }
 
-void ProjectionMatrixEstimate::estimateCameraAndRt(const Eigen::Matrix2Xd& imgPoints, const Eigen::Matrix3Xd& worldPoints,
-                                                   csCamera::Camerad& camera, Eigen::Isometry3d& Rt) {
+void ProjectionMatrixEstimate::estimateCameraAndRt(const Eigen::Matrix2Xd &imgPoints,
+                                                   const Eigen::Matrix3Xd &worldPoints, csCamera::Camerad &camera,
+                                                   Eigen::Isometry3d &Rt) {
   auto P = estimateProjMatrix(imgPoints, worldPoints);
 
   std::array<Eigen::Isometry3d, 4> Rts;

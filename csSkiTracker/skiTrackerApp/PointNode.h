@@ -11,15 +11,11 @@ class PointNode : public CameraPosePointNodeBase {
 public:
   PointNode();
 
-  PointNode(const Eigen::Vector3d& point);
+  PointNode(const Eigen::Vector3d &point);
   virtual ~PointNode();
 
-  const Eigen::Vector3d& point() const {
-    return _point;
-  }
-  void setPoint(const Eigen::Vector3d& v) {
-    _point = v;
-  }
+  const Eigen::Vector3d &point() const { return _point; }
+  void setPoint(const Eigen::Vector3d &v) { _point = v; }
 };
 
 class PointXYNode : public CameraPosePointNodeBase {
@@ -29,19 +25,11 @@ class PointXYNode : public CameraPosePointNodeBase {
 public:
   PointXYNode();
 
-  PointXYNode(const Eigen::Isometry3d& T_W_planeOrigin, const Eigen::Vector2d& pointXY);
+  PointXYNode(const Eigen::Isometry3d &T_W_planeOrigin, const Eigen::Vector2d &pointXY);
 
-  const Eigen::Vector2d& point() const {
-    return _pointXY;
-  }
-  Eigen::Vector3d point3d() const {
-    return Eigen::Vector3d(_pointXY.x(), _pointXY.y(), 0);
-  }
-  void setPoint(const Eigen::Vector2d& v) {
-    _pointXY = v;
-  }
+  const Eigen::Vector2d &point() const { return _pointXY; }
+  Eigen::Vector3d point3d() const { return Eigen::Vector3d(_pointXY.x(), _pointXY.y(), 0); }
+  void setPoint(const Eigen::Vector2d &v) { _pointXY = v; }
 
-  const Eigen::Isometry3d& T_W_planeOrigin() const {
-    return _T_W_planeOrigin;
-  }
+  const Eigen::Isometry3d &T_W_planeOrigin() const { return _T_W_planeOrigin; }
 };

@@ -9,12 +9,12 @@
 
 #include <iostream>
 
-#define DEBUGME \
-  if (false)    \
+#define DEBUGME                                                                                                        \
+  if (false)                                                                                                           \
   std::cout <<
 
-Eigen::Vector3d Triangulate::triangulateLinear(const ProjectionMatrix& P1, const Eigen::Vector2d& i1, const ProjectionMatrix& P2,
-                                               const Eigen::Vector2d& i2) {
+Eigen::Vector3d Triangulate::triangulateLinear(const ProjectionMatrix &P1, const Eigen::Vector2d &i1,
+                                               const ProjectionMatrix &P2, const Eigen::Vector2d &i2) {
 
   Eigen::Matrix4d A;
 
@@ -38,32 +38,26 @@ Eigen::Vector3d Triangulate::triangulateLinear(const ProjectionMatrix& P1, const
 class SinglePointSection
     : public csNelson::SingleSection<SinglePointSection, Eigen::Vector3d, csBlockMatrix::BlockDense, double, 3, 1> {
   Eigen::Vector3d _point;
-  using SingleSection = csNelson::SingleSection<SinglePointSection, Eigen::Vector3d, csBlockMatrix::BlockDense, double, 3, 1>;
+  using SingleSection =
+      csNelson::SingleSection<SinglePointSection, Eigen::Vector3d, csBlockMatrix::BlockDense, double, 3, 1>;
 
 public:
-  SinglePointSection(const Eigen::Vector3d& point)
-      : _point(point) {
-    this->parametersReady();
-  }
+  SinglePointSection(const Eigen::Vector3d &point) : _point(point) { this->parametersReady(); }
 
-  virtual const Eigen::Vector3d& parameter(csNelson::NodeId i) const {
+  virtual const Eigen::Vector3d &parameter(csNelson::NodeId i) const {
     assert(i.id() == 0);
     assert(i.type() == csNelson::NodeType::Variable);
     return _point;
   }
-  virtual Eigen::Vector3d& parameter(csNelson::NodeId i) {
+  virtual Eigen::Vector3d &parameter(csNelson::NodeId i) {
     assert(i.id() == 0);
     assert(i.type() == csNelson::NodeType::Variable);
     return _point;
   }
 
-  void oplus(const typename SingleSection::HessianVecType& inc) {
-    _point += inc.segment(0);
-  }
+  void oplus(const typename SingleSection::HessianVecType &inc) { _point += inc.segment(0); }
 
-  Eigen::Vector3d point() const {
-    return _point;
-  }
+  Eigen::Vector3d point() const { return _point; }
 };
 
 class ReprojErr : public SinglePointSection::EdgeUnary<ReprojErr> {
@@ -75,9 +69,7 @@ class ReprojErr : public SinglePointSection::EdgeUnary<ReprojErr> {
   Eigen::Vector2d error;
 
 public:
-  ReprojErr(const Eigen::Vector2d& imgPoint, const ProjectionMatrix& Pmat)
-      : imgPoint(imgPoint)
-      , Pmat(Pmat) {}
+  ReprojErr(const Eigen::Vector2d &imgPoint, const ProjectionMatrix &Pmat) : imgPoint(imgPoint), Pmat(Pmat) {}
 
   virtual ~ReprojErr() {}
 
@@ -94,14 +86,15 @@ public:
   }
 
   template <class Derived1, class Derived2>
-  void updateHBlock(Eigen::MatrixBase<Derived1>& H, Eigen::MatrixBase<Derived2>& b) {
+  void updateHBlock(Eigen::MatrixBase<Derived1> &H, Eigen::MatrixBase<Derived2> &b) {
     H.noalias() += jacobian.transpose() * jacobian;
     b.noalias() += jacobian.transpose() * error;
   }
 };
 
-Eigen::Vector3d Triangulate::triangulateNonLinear(const ProjectionMatrix& P1, const Eigen::Vector2d& i1, const ProjectionMatrix& P2,
-                                                  const Eigen::Vector2d& i2, const Eigen::Vector3d& guess) {
+Eigen::Vector3d Triangulate::triangulateNonLinear(const ProjectionMatrix &P1, const Eigen::Vector2d &i1,
+                                                  const ProjectionMatrix &P2, const Eigen::Vector2d &i2,
+                                                  const Eigen::Vector3d &guess) {
 
   SinglePointSection optProb(guess);
   optProb.addEdge(0, new ReprojErr(i1, P1));
@@ -111,8 +104,8 @@ Eigen::Vector3d Triangulate::triangulateNonLinear(const ProjectionMatrix& P1, co
 
   optProb.update(true);
   double chi2 = optProb.hessian().chi2();
-  csNelson::GaussNewton<
-      typename csNelson::SolverTraits<csNelson::solverCholeskyDense>::Solver<typename SinglePointSection::Hessian::Traits>>
+  csNelson::GaussNewton<typename csNelson::SolverTraits<csNelson::solverCholeskyDense>::Solver<
+      typename SinglePointSection::Hessian::Traits>>
       gn;
 
   gn.settings().epsBVector = 1e-6;

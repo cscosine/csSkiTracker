@@ -9,29 +9,29 @@
 #include <csCamera/Camera_impl.hpp>
 #include <csCamera/Utils_impl.hpp>
 
-Camera3dPointReprojectionError::Camera3dPointReprojectionError(const Eigen::Vector2d& imgMeasPoint)
+Camera3dPointReprojectionError::Camera3dPointReprojectionError(const Eigen::Vector2d &imgMeasPoint)
     : _imgMeasPoint(imgMeasPoint) {}
 Camera3dPointReprojectionError::~Camera3dPointReprojectionError() {}
 
 void Camera3dPointReprojectionError::update(bool hessians) {
 #ifndef NDEBUG
-#  define CAST_TYPE dynamic_cast
+#define CAST_TYPE dynamic_cast
 #else
-#  define CAST_TYPE static_cast
+#define CAST_TYPE static_cast
 #endif
-  const CameraNode& camera = CAST_TYPE<const CameraNode&>(this->parameter(0));
-  const PoseNode& pose = CAST_TYPE<const PoseNode&>(this->parameter(1));
+  const CameraNode &camera = CAST_TYPE<const CameraNode &>(this->parameter(0));
+  const PoseNode &pose = CAST_TYPE<const PoseNode &>(this->parameter(1));
 
-  const PointNode* point3d = nullptr;
-  const PointXYNode* pointXY = nullptr;
+  const PointNode *point3d = nullptr;
+  const PointXYNode *pointXY = nullptr;
   int pointSize;
   Eigen::Vector3d point3dCoord;
   if (this->parameter(2).type() == CameraPosePointNodeBaseType::Point) {
-    point3d = &CAST_TYPE<const PointNode&>(this->parameter(2));
+    point3d = &CAST_TYPE<const PointNode &>(this->parameter(2));
     point3dCoord = point3d->point();
     pointSize = 3;
   } else if (this->parameter(2).type() == CameraPosePointNodeBaseType::PointXY) {
-    pointXY = &CAST_TYPE<const PointXYNode&>(this->parameter(2));
+    pointXY = &CAST_TYPE<const PointXYNode &>(this->parameter(2));
     point3dCoord = pointXY->T_W_planeOrigin() * pointXY->point3d();
     pointSize = 2;
   } else
@@ -74,8 +74,8 @@ void Camera3dPointReprojectionError::update(bool hessians) {
     Eigen::Matrix<double, 2, 3> d_pz1d_d_k123, d_pz1d_d_k456;
     Eigen::Matrix2d d_pz1d_d_p12;
     Eigen::Matrix<double, 2, 4> d_pz1d_d_s1234;
-    Eigen::Vector2d pz1d =
-        camera.distModel().distort_jacobians(pz1, d_pz1d_d_pz1, d_pz1d_d_k123, d_pz1d_d_k456, d_pz1d_d_p12, d_pz1d_d_s1234);
+    Eigen::Vector2d pz1d = camera.distModel().distort_jacobians(pz1, d_pz1d_d_pz1, d_pz1d_d_k123, d_pz1d_d_k456,
+                                                                d_pz1d_d_p12, d_pz1d_d_s1234);
 
     // reproj
     Eigen::Matrix<double, 2, 4> d_repr_d_camparams;

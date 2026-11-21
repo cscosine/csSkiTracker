@@ -22,26 +22,24 @@
 #include <csNelson/LevenbergMarquardt_impl.hpp>
 #include <csNelson/SingleSection_impl.hpp>
 
-#define DEBUGME_CLOSEST \
-  if (false)            \
+#define DEBUGME_CLOSEST                                                                                                \
+  if (false)                                                                                                           \
   std::cout
-#define DEBUGME_VIEWRAYS \
-  if (false)             \
+#define DEBUGME_VIEWRAYS                                                                                               \
+  if (false)                                                                                                           \
   std::cout
-#define DEBUGME \
-  if (true)     \
+#define DEBUGME                                                                                                        \
+  if (true)                                                                                                            \
   std::cout <<
 
-Eigen::Vector2d CameraDistModel::undistImagePoint(const Eigen::Vector2d& imgPoint) const {
+Eigen::Vector2d CameraDistModel::undistImagePoint(const Eigen::Vector2d &imgPoint) const {
   Eigen::Vector2d pz1 = this->cameraModel.pointsImage_to_Z1(imgPoint);
   Eigen::Vector2d pz1_und = this->distModel.undistortSinglePoint(pz1);
   Eigen::Vector2d pimg = this->cameraModel.pointsZ1_to_image(pz1_und);
   return pimg;
 }
 
-Eigen::Matrix2Xd ImgCalibPoints::reprojErr() const {
-  return reprojPoints - imgPoints;
-}
+Eigen::Matrix2Xd ImgCalibPoints::reprojErr() const { return reprojPoints - imgPoints; }
 
 std::vector<int> ImgCalibPoints::indexesVec() const {
   std::vector<int> ret(this->indexes.size());
@@ -51,14 +49,14 @@ std::vector<int> ImgCalibPoints::indexesVec() const {
   return ret;
 }
 
-void ImgCalibPoints::reprojErrMeanMax(double& mean, double& max) const {
+void ImgCalibPoints::reprojErrMeanMax(double &mean, double &max) const {
   Eigen::Matrix2Xd err = reprojErr();
   Eigen::VectorXd dist = err.colwise().norm();
   mean = dist.mean();
   max = (dist.array() - mean).cwiseAbs().maxCoeff();
 }
 
-void ImgCalibPoints::reprojErr2Vec(std::vector<double>& ex, std::vector<double>& ey) const {
+void ImgCalibPoints::reprojErr2Vec(std::vector<double> &ex, std::vector<double> &ey) const {
   auto err = this->reprojErr();
   ex.resize(err.cols());
   ey.resize(err.cols());
@@ -68,7 +66,7 @@ void ImgCalibPoints::reprojErr2Vec(std::vector<double>& ex, std::vector<double>&
   }
 }
 
-Eigen::Matrix3Xd ImgCalibPoints::viewRaysZ1(const CameraDistModel& camera) const {
+Eigen::Matrix3Xd ImgCalibPoints::viewRaysZ1(const CameraDistModel &camera) const {
   Eigen::Matrix3Xd ret(3, imgPoints.cols());
   // Eigen::Matrix3Xd Kinv = camera.K().inverse();
 
@@ -85,7 +83,7 @@ Eigen::Matrix3Xd ImgCalibPoints::viewRaysZ1(const CameraDistModel& camera) const
   return ret;
 }
 
-Eigen::Matrix3Xd ImgCalibPoints::viewRaysUnit(const CameraDistModel& camera) const {
+Eigen::Matrix3Xd ImgCalibPoints::viewRaysUnit(const CameraDistModel &camera) const {
   Eigen::Matrix3Xd ret = viewRaysZ1(camera);
   DEBUGME_VIEWRAYS << "ret " << ret.transpose() << std::endl;
   Eigen::Matrix3Xd ret2 = ret.colwise().normalized();
@@ -95,25 +93,18 @@ Eigen::Matrix3Xd ImgCalibPoints::viewRaysUnit(const CameraDistModel& camera) con
 
 //---------------------------------------------------------------------------------------------------------
 
-Problem::Problem(int nMovingCameras, const Eigen::Matrix3Xd& calibWorldPoints, const QString& f1, int s1, const QString& f2, int s2)
-    : _T_W_wrt_view2(nMovingCameras, std::make_pair(false, Eigen::Isometry3d::Identity()))
-    , _view2CamPar(nMovingCameras)
-    , _view2CalibPoints(nMovingCameras)
-    , _calibWorldPoints(calibWorldPoints)
-    , _framesMeas(nMovingCameras)
-    , _framesSkierPoints(nMovingCameras)
-    , _framesSkierModel(nMovingCameras)
-    , pole_tol(.2)
-    , _folderPathView1(f1)
-    , _s1(s1)
-    , _folderPathView2(f2)
-    , _s2(s2) {
+Problem::Problem(int nMovingCameras, const Eigen::Matrix3Xd &calibWorldPoints, const QString &f1, int s1,
+                 const QString &f2, int s2)
+    : _T_W_wrt_view2(nMovingCameras, std::make_pair(false, Eigen::Isometry3d::Identity())),
+      _view2CamPar(nMovingCameras), _view2CalibPoints(nMovingCameras), _calibWorldPoints(calibWorldPoints),
+      _framesMeas(nMovingCameras), _framesSkierPoints(nMovingCameras), _framesSkierModel(nMovingCameras), pole_tol(.2),
+      _folderPathView1(f1), _s1(s1), _folderPathView2(f2), _s2(s2) {
   this->identifyPoles();
 }
 
 Problem::~Problem() {}
 
-Eigen::Matrix3Xd Problem::recoverPoints(const Eigen::ArrayXi& idx, const Eigen::Matrix3Xd& source) {
+Eigen::Matrix3Xd Problem::recoverPoints(const Eigen::ArrayXi &idx, const Eigen::Matrix3Xd &source) {
   Eigen::Matrix3Xd ret(3, idx.size());
   for (int i = 0; i < ret.cols(); i++) {
     ret.col(i) = source.col(idx(i));
@@ -121,8 +112,8 @@ Eigen::Matrix3Xd Problem::recoverPoints(const Eigen::ArrayXi& idx, const Eigen::
   return ret;
 }
 
-Eigen::Matrix3Xd Problem::computeClosest3DPoint(const Eigen::Isometry3d& T_W_wrt_C, const Eigen::Matrix3Xd& wp,
-                                                const Eigen::Matrix3Xd& unitView_C) {
+Eigen::Matrix3Xd Problem::computeClosest3DPoint(const Eigen::Isometry3d &T_W_wrt_C, const Eigen::Matrix3Xd &wp,
+                                                const Eigen::Matrix3Xd &unitView_C) {
   Eigen::Matrix3Xd cp = T_W_wrt_C * wp;
 
   Eigen::Matrix3Xd ret(3, unitView_C.cols());
@@ -146,21 +137,24 @@ Eigen::Matrix3Xd Problem::computeClosest3DPoint(const Eigen::Isometry3d& T_W_wrt
   return ret;
 }
 
-void Problem::initView1(const Eigen::Matrix2Xd& imgPoints, const Eigen::ArrayXi& worldPointIndexes, Eigen::Vector2i imgSize) {
+void Problem::initView1(const Eigen::Matrix2Xd &imgPoints, const Eigen::ArrayXi &worldPointIndexes,
+                        Eigen::Vector2i imgSize) {
   this->_view1CalibPoints.imgPoints = imgPoints;
   this->_view1CalibPoints.indexes = worldPointIndexes;
   Eigen::Matrix3Xd worldPoints = recoverPoints(worldPointIndexes, _calibWorldPoints);
 
   this->_view1CamPar.cameraModel.setImageSize(imgSize.x(), imgSize.y());
-  ProjectionMatrixEstimate::estimateCameraAndRt(imgPoints, worldPoints, this->_view1CamPar.cameraModel, this->_T_W_wrt_view1);
+  ProjectionMatrixEstimate::estimateCameraAndRt(imgPoints, worldPoints, this->_view1CamPar.cameraModel,
+                                                this->_T_W_wrt_view1);
 
-  this->_view1CalibPoints.reprojPoints =
-      this->_view1CamPar.cameraModel.points3D_to_image(this->_T_W_wrt_view1 * worldPoints, this->_view1CamPar.distModel);
+  this->_view1CalibPoints.reprojPoints = this->_view1CamPar.cameraModel.points3D_to_image(
+      this->_T_W_wrt_view1 * worldPoints, this->_view1CamPar.distModel);
   this->_view1CalibPoints.p3d_wrt_cam_closest =
       computeClosest3DPoint(_T_W_wrt_view1, worldPoints, _view1CalibPoints.viewRaysUnit(_view1CamPar));
 }
 
-void Problem::initView2(int i, const Eigen::Matrix2Xd& imgPoints, const Eigen::ArrayXi& worldPointIndexes, Eigen::Vector2i imgSize) {
+void Problem::initView2(int i, const Eigen::Matrix2Xd &imgPoints, const Eigen::ArrayXi &worldPointIndexes,
+                        Eigen::Vector2i imgSize) {
   this->_view2CalibPoints[i].imgPoints = imgPoints;
   this->_view2CalibPoints[i].indexes = worldPointIndexes;
   Eigen::Matrix3Xd worldPoints = recoverPoints(worldPointIndexes, _calibWorldPoints);
@@ -174,8 +168,8 @@ void Problem::initView2(int i, const Eigen::Matrix2Xd& imgPoints, const Eigen::A
 
     this->_view2CalibPoints[i].reprojPoints = this->view2CamPar(i).cameraModel.points3D_to_image(
         this->_T_W_wrt_view2[i].second * worldPoints, this->view2CamPar(i).distModel);
-    this->_view2CalibPoints[i].p3d_wrt_cam_closest =
-        computeClosest3DPoint(this->_T_W_wrt_view2[i].second, worldPoints, _view2CalibPoints[i].viewRaysUnit(view2CamPar(i)));
+    this->_view2CalibPoints[i].p3d_wrt_cam_closest = computeClosest3DPoint(
+        this->_T_W_wrt_view2[i].second, worldPoints, _view2CalibPoints[i].viewRaysUnit(view2CamPar(i)));
 
   } else {
     this->_T_W_wrt_view2[i].first = false;
@@ -184,7 +178,7 @@ void Problem::initView2(int i, const Eigen::Matrix2Xd& imgPoints, const Eigen::A
   }
 }
 
-void Problem::setImgSkierPoints(int i, const Eigen::Matrix2Xd& view1_meas, const Eigen::Matrix2Xd& view2_meas) {
+void Problem::setImgSkierPoints(int i, const Eigen::Matrix2Xd &view1_meas, const Eigen::Matrix2Xd &view2_meas) {
   this->_framesSkierPoints[i].resize(view1_meas.cols());
   this->_framesSkierPoints[i].view1Points = view1_meas;
   this->_framesSkierPoints[i].view2Points = view2_meas;
@@ -251,7 +245,7 @@ void Problem::recomputeImgSkierTriangulation() {
   }
 }
 
-void Problem::setImgMatchingPoints(int i, const Eigen::Matrix2Xd& view1_meas, const Eigen::Matrix2Xd& view2_meas) {
+void Problem::setImgMatchingPoints(int i, const Eigen::Matrix2Xd &view1_meas, const Eigen::Matrix2Xd &view2_meas) {
   this->_framesMeas[i].resize(view1_meas.cols());
   this->_framesMeas[i].view1Points = view1_meas;
   this->_framesMeas[i].view2Points = view2_meas;
@@ -383,7 +377,7 @@ std::vector<Eigen::Isometry3d> Problem::collect_T_W_wrt_view2() const {
   return ret;
 }
 
-double median(const std::vector<double>& valuesIn) {
+double median(const std::vector<double> &valuesIn) {
   std::vector<double> values = valuesIn;
   std::sort(values.begin(), values.end());
   assert(values.size() > 0);
@@ -419,7 +413,8 @@ Eigen::VectorXi Problem::indexesCalibrationPointsVisibleMultipleTimes(int minN) 
     }
   }
 
-  Eigen::VectorXi common = ((countView1 + countView2).array() > minN).select(Eigen::VectorXi::Ones(_calibWorldPoints.cols()), 0);
+  Eigen::VectorXi common =
+      ((countView1 + countView2).array() > minN).select(Eigen::VectorXi::Ones(_calibWorldPoints.cols()), 0);
   Eigen::VectorXi pointEstimateIndexes(common.sum());
   int count = 0;
   for (int i = 0; i < common.size(); i++) {
@@ -442,7 +437,7 @@ Eigen::VectorXi Problem::indexesCalibrationPointsVisibleMultipleTimes(int minN) 
   return pointEstimateIndexes;
 }
 
-Eigen::VectorXi Problem::applyMask2CalibPoints(const Eigen::VectorXi& sel) {
+Eigen::VectorXi Problem::applyMask2CalibPoints(const Eigen::VectorXi &sel) {
   auto mask = this->selectedVectorToBoolMask(sel);
 
   Eigen::VectorXi oldCalibId2NewCalibId(_calibWorldPoints.cols());
@@ -507,7 +502,7 @@ Eigen::VectorXi Problem::applyMask2CalibPoints(const Eigen::VectorXi& sel) {
   return oldCalibId2NewCalibId;
 }
 
-Eigen::Matrix<bool, Eigen::Dynamic, 1> Problem::selectedVectorToBoolMask(const Eigen::VectorXi& sel) const {
+Eigen::Matrix<bool, Eigen::Dynamic, 1> Problem::selectedVectorToBoolMask(const Eigen::VectorXi &sel) const {
   Eigen::Matrix<bool, Eigen::Dynamic, 1> selectedBin = Eigen::Matrix<bool, Eigen::Dynamic, 1>(_calibWorldPoints.cols());
   selectedBin.setConstant(false);
   for (int i = 0; i < sel.size(); i++) {
@@ -517,7 +512,7 @@ Eigen::Matrix<bool, Eigen::Dynamic, 1> Problem::selectedVectorToBoolMask(const E
   return selectedBin;
 }
 
-Eigen::VectorXi Problem::indexCalibrationPointsNotSelected(const Eigen::VectorXi& sel) const {
+Eigen::VectorXi Problem::indexCalibrationPointsNotSelected(const Eigen::VectorXi &sel) const {
   auto selectedBin = selectedVectorToBoolMask(sel);
 
   Eigen::VectorXi ret(_calibWorldPoints.cols() - sel.size());
@@ -600,19 +595,20 @@ Eigen::Vector3i Problem::recomputeCameraParamsPosesPoints3Fixed(int minViews, Ei
 
   auto view2fxfyMedian = this->view2fxfyMedian();
   auto view2cxcyMedian = this->view2cxcyMedian();
-  CameraNode camera2(this->uniqueCamParamsView2()
-                         ? this->view2CamPar(0).cameraModel
-                         : csCamera::Camerad(view2fxfyMedian.x(), view2fxfyMedian.y(), view2cxcyMedian.x(), view2cxcyMedian.y(),
-                                             this->view2CamPar(0).cameraModel.w(), this->view2CamPar(0).cameraModel.h()),
-                     this->uniqueCamParamsView2() ? this->view2CamPar(0).distModel
-                                                  : csCamera::CameraDistortionModeld(0, 0, 0,   // k123
-                                                                                     0, 0,      // p12
-                                                                                     0, 0, 0,   // k456
-                                                                                     0, 0, 0, 0 // s1234
-                                                                                     ),
-                     CameraNode::FocalEstimation::Both, {false, false}, // center
-                     k_flags_fixed, p_flags_fixed,
-                     s_flags_fixed // s1234
+  CameraNode camera2(
+      this->uniqueCamParamsView2()
+          ? this->view2CamPar(0).cameraModel
+          : csCamera::Camerad(view2fxfyMedian.x(), view2fxfyMedian.y(), view2cxcyMedian.x(), view2cxcyMedian.y(),
+                              this->view2CamPar(0).cameraModel.w(), this->view2CamPar(0).cameraModel.h()),
+      this->uniqueCamParamsView2() ? this->view2CamPar(0).distModel
+                                   : csCamera::CameraDistortionModeld(0, 0, 0,   // k123
+                                                                      0, 0,      // p12
+                                                                      0, 0, 0,   // k456
+                                                                      0, 0, 0, 0 // s1234
+                                                                      ),
+      CameraNode::FocalEstimation::Both, {false, false}, // center
+      k_flags_fixed, p_flags_fixed,
+      s_flags_fixed // s1234
   );
 
   Eigen::VectorXi movablePointsIndexesAll;
@@ -687,8 +683,8 @@ Eigen::Vector3i Problem::recomputeCameraParamsPosesPoints3Fixed(int minViews, Ei
     }
   }
 
-  CameraCalibSection section = CameraCalibSection(camera1, camera2, this->T_W_wrt_view1(), this->collect_T_W_wrt_view2(),
-                                                  movablePoints, fixedPoints, skierPoints);
+  CameraCalibSection section = CameraCalibSection(
+      camera1, camera2, this->T_W_wrt_view1(), this->collect_T_W_wrt_view2(), movablePoints, fixedPoints, skierPoints);
 
   // add repr error of first camera
   for (int i = 0; i < this->view1CalibPoints().imgPoints.cols(); i++) {
@@ -803,8 +799,8 @@ Eigen::Vector3i Problem::recomputeCameraParamsPosesPoints3Fixed(int minViews, Ei
 
         this->_view2CalibPoints[i].reprojPoints = this->view2CamPar(i).cameraModel.points3D_to_image(
             this->_T_W_wrt_view2[i].second * worldPoints, this->view2CamPar(i).distModel);
-        this->_view2CalibPoints[i].p3d_wrt_cam_closest =
-            computeClosest3DPoint(this->_T_W_wrt_view2[i].second, worldPoints, _view2CalibPoints[i].viewRaysUnit(_view2CamPar[0]));
+        this->_view2CalibPoints[i].p3d_wrt_cam_closest = computeClosest3DPoint(
+            this->_T_W_wrt_view2[i].second, worldPoints, _view2CalibPoints[i].viewRaysUnit(_view2CamPar[0]));
       }
       si++;
     }
@@ -821,8 +817,8 @@ Eigen::Vector3i Problem::recomputeCameraParamsPosesPoints3Fixed(int minViews, Ei
 
   // update points repr
   Eigen::Matrix3Xd worldPoints = recoverPoints(this->_view1CalibPoints.indexes, _calibWorldPoints);
-  this->_view1CalibPoints.reprojPoints =
-      this->_view1CamPar.cameraModel.points3D_to_image(this->_T_W_wrt_view1 * worldPoints, this->_view1CamPar.distModel);
+  this->_view1CalibPoints.reprojPoints = this->_view1CamPar.cameraModel.points3D_to_image(
+      this->_T_W_wrt_view1 * worldPoints, this->_view1CamPar.distModel);
   this->_view1CalibPoints.p3d_wrt_cam_closest =
       computeClosest3DPoint(_T_W_wrt_view1, worldPoints, _view1CalibPoints.viewRaysUnit(_view1CamPar));
 
@@ -852,19 +848,20 @@ Eigen::Vector3i Problem::recomputeCameraParamsPosesPoints2Fixed(int minViews, Ei
 
   auto view2fxfyMedian = this->view2fxfyMedian();
   auto view2cxcyMedian = this->view2cxcyMedian();
-  CameraNode camera2(this->uniqueCamParamsView2()
-                         ? this->view2CamPar(0).cameraModel
-                         : csCamera::Camerad(view2fxfyMedian.x(), view2fxfyMedian.y(), view2cxcyMedian.x(), view2cxcyMedian.y(),
-                                             this->view2CamPar(0).cameraModel.w(), this->view2CamPar(0).cameraModel.h()),
-                     this->uniqueCamParamsView2() ? this->view2CamPar(0).distModel
-                                                  : csCamera::CameraDistortionModeld(0, 0, 0,   // k123
-                                                                                     0, 0,      // p12
-                                                                                     0, 0, 0,   // k456
-                                                                                     0, 0, 0, 0 // s1234
-                                                                                     ),
-                     CameraNode::FocalEstimation::Both, {false, false}, // center
-                     k_flags_fixed, p_flags_fixed,
-                     s_flags_fixed // s1234
+  CameraNode camera2(
+      this->uniqueCamParamsView2()
+          ? this->view2CamPar(0).cameraModel
+          : csCamera::Camerad(view2fxfyMedian.x(), view2fxfyMedian.y(), view2cxcyMedian.x(), view2cxcyMedian.y(),
+                              this->view2CamPar(0).cameraModel.w(), this->view2CamPar(0).cameraModel.h()),
+      this->uniqueCamParamsView2() ? this->view2CamPar(0).distModel
+                                   : csCamera::CameraDistortionModeld(0, 0, 0,   // k123
+                                                                      0, 0,      // p12
+                                                                      0, 0, 0,   // k456
+                                                                      0, 0, 0, 0 // s1234
+                                                                      ),
+      CameraNode::FocalEstimation::Both, {false, false}, // center
+      k_flags_fixed, p_flags_fixed,
+      s_flags_fixed // s1234
   );
 
   Eigen::VectorXi movablePointsIndexesAll;
@@ -1074,8 +1071,8 @@ Eigen::Vector3i Problem::recomputeCameraParamsPosesPoints2Fixed(int minViews, Ei
 
         this->_view2CalibPoints[i].reprojPoints = this->view2CamPar(i).cameraModel.points3D_to_image(
             this->_T_W_wrt_view2[i].second * worldPoints, this->view2CamPar(i).distModel);
-        this->_view2CalibPoints[i].p3d_wrt_cam_closest =
-            computeClosest3DPoint(this->_T_W_wrt_view2[i].second, worldPoints, _view2CalibPoints[i].viewRaysUnit(_view2CamPar[0]));
+        this->_view2CalibPoints[i].p3d_wrt_cam_closest = computeClosest3DPoint(
+            this->_T_W_wrt_view2[i].second, worldPoints, _view2CalibPoints[i].viewRaysUnit(_view2CamPar[0]));
       }
       si++;
     }
@@ -1088,8 +1085,8 @@ Eigen::Vector3i Problem::recomputeCameraParamsPosesPoints2Fixed(int minViews, Ei
 
   // update points repr
   Eigen::Matrix3Xd worldPoints = recoverPoints(this->_view1CalibPoints.indexes, _calibWorldPoints);
-  this->_view1CalibPoints.reprojPoints =
-      this->_view1CamPar.cameraModel.points3D_to_image(this->_T_W_wrt_view1 * worldPoints, this->_view1CamPar.distModel);
+  this->_view1CalibPoints.reprojPoints = this->_view1CamPar.cameraModel.points3D_to_image(
+      this->_T_W_wrt_view1 * worldPoints, this->_view1CamPar.distModel);
   this->_view1CalibPoints.p3d_wrt_cam_closest =
       computeClosest3DPoint(_T_W_wrt_view1, worldPoints, _view1CalibPoints.viewRaysUnit(_view1CamPar));
 
@@ -1118,23 +1115,25 @@ void Problem::recomputeCameraParamsPoses() {
 
   auto view2fxfyMedian = this->view2fxfyMedian();
   auto view2cxcyMedian = this->view2cxcyMedian();
-  CameraNode camera2(this->uniqueCamParamsView2()
-                         ? this->view2CamPar(0).cameraModel
-                         : csCamera::Camerad(view2fxfyMedian.x(), view2fxfyMedian.y(), view2cxcyMedian.x(), view2cxcyMedian.y(),
-                                             this->view2CamPar(0).cameraModel.w(), this->view2CamPar(0).cameraModel.h()),
-                     this->uniqueCamParamsView2() ? this->view2CamPar(0).distModel
-                                                  : csCamera::CameraDistortionModeld(0, 0, 0,   // k123
-                                                                                     0, 0,      // p12
-                                                                                     0, 0, 0,   // k456
-                                                                                     0, 0, 0, 0 // s1234
-                                                                                     ),
-                     CameraNode::FocalEstimation::Both, {false, false}, // center
-                     k_flags_fixed, p_flags_fixed,
-                     s_flags_fixed // s1234
+  CameraNode camera2(
+      this->uniqueCamParamsView2()
+          ? this->view2CamPar(0).cameraModel
+          : csCamera::Camerad(view2fxfyMedian.x(), view2fxfyMedian.y(), view2cxcyMedian.x(), view2cxcyMedian.y(),
+                              this->view2CamPar(0).cameraModel.w(), this->view2CamPar(0).cameraModel.h()),
+      this->uniqueCamParamsView2() ? this->view2CamPar(0).distModel
+                                   : csCamera::CameraDistortionModeld(0, 0, 0,   // k123
+                                                                      0, 0,      // p12
+                                                                      0, 0, 0,   // k456
+                                                                      0, 0, 0, 0 // s1234
+                                                                      ),
+      CameraNode::FocalEstimation::Both, {false, false}, // center
+      k_flags_fixed, p_flags_fixed,
+      s_flags_fixed // s1234
   );
 
-  CameraCalibSection section = CameraCalibSection(camera1, camera2, this->T_W_wrt_view1(), this->collect_T_W_wrt_view2(),
-                                                  Eigen::Matrix3Xd(), _calibWorldPoints, std::vector<Eigen::Matrix3Xd>());
+  CameraCalibSection section =
+      CameraCalibSection(camera1, camera2, this->T_W_wrt_view1(), this->collect_T_W_wrt_view2(), Eigen::Matrix3Xd(),
+                         _calibWorldPoints, std::vector<Eigen::Matrix3Xd>());
   // enable this line to optimize only view 1 (debugging...)
   // CameraCalibSection section = CameraCalibSection(camera1, camera2, this->T_W_wrt_view1(), {});
 
@@ -1189,10 +1188,10 @@ void Problem::recomputeCameraParamsPoses() {
   auto tc = lm.solve(section);
   auto t1 = std::chrono::steady_clock::now();
 
-  DEBUGME "--- recomputeCameraParamsPoses ---" << "- termination: " << csNelson::LevenbergMarquardtUtils::toString(tc) << std::endl
-                                               << lm.stats().toString() << "TIME " << std::chrono::duration<double>(t1 - t0).count()
-                                               << std::endl
-                                               << std::endl;
+  DEBUGME "--- recomputeCameraParamsPoses ---"
+      << "- termination: " << csNelson::LevenbergMarquardtUtils::toString(tc) << std::endl
+      << lm.stats().toString() << "TIME " << std::chrono::duration<double>(t1 - t0).count() << std::endl
+      << std::endl;
 
   // update view1
   _view1CamPar.cameraModel = section.view1Camera();
@@ -1218,8 +1217,8 @@ void Problem::recomputeCameraParamsPoses() {
 
   // update points repr
   Eigen::Matrix3Xd worldPoints = recoverPoints(this->_view1CalibPoints.indexes, _calibWorldPoints);
-  this->_view1CalibPoints.reprojPoints =
-      this->_view1CamPar.cameraModel.points3D_to_image(this->_T_W_wrt_view1 * worldPoints, this->_view1CamPar.distModel);
+  this->_view1CalibPoints.reprojPoints = this->_view1CamPar.cameraModel.points3D_to_image(
+      this->_T_W_wrt_view1 * worldPoints, this->_view1CamPar.distModel);
   this->_view1CalibPoints.p3d_wrt_cam_closest =
       computeClosest3DPoint(_T_W_wrt_view1, worldPoints, _view1CalibPoints.viewRaysUnit(_view1CamPar));
 
