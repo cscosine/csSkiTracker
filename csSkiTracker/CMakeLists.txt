@@ -8,22 +8,19 @@ list(APPEND CMAKE_MODULE_PATH "${csCore_BASE_DIR}/cmake/csCore/assert/")
 include(csAssert)
 
 # set defaults for Paranoid additional configuration
-csSetAssertDefaultOnForConfig(${PROJECT_NAME} ASSERT RELEASE Paranoid ON)
-csSetAssertDefaultOnForConfig(${PROJECT_NAME} ASSERT RELWITHDEBINFO Paranoid ON)
-csSetAssertDefaultOnForConfig(${PROJECT_NAME} ASSERT DEBUG Paranoid ON)
-csSetAssertDefaultOnForConfig(${PROJECT_NAME} ASSERT PARANOID Paranoid ON)
-csSetAssertDefaultOnForConfig(${PROJECT_NAME} ASSERT SAFE_MATH Paranoid ON)
+cssetassertdefaultonforconfig(${PROJECT_NAME} ASSERT RELEASE Paranoid ON)
+cssetassertdefaultonforconfig(${PROJECT_NAME} ASSERT RELWITHDEBINFO Paranoid ON)
+cssetassertdefaultonforconfig(${PROJECT_NAME} ASSERT DEBUG Paranoid ON)
+cssetassertdefaultonforconfig(${PROJECT_NAME} ASSERT PARANOID Paranoid ON)
+cssetassertdefaultonforconfig(${PROJECT_NAME} ASSERT SAFE_MATH Paranoid ON)
 
-csAssertGenerateProject(csSkiTracker csSkiTracker) #generate target csSkiTracker::csSkiTrackerAssert
+cs_assert_generate_project(csSkiTracker csSkiTracker) #generate target csSkiTracker::csSkiTrackerAssert
 list(POP_BACK CMAKE_MODULE_PATH)
 
 cs_add_library(csSkiTracker INTERFACE)
 cs_add_library(csSkiTracker::csSkiTracker ALIAS csSkiTracker)
 
-cs_target_link_libraries(csSkiTracker
-	INTERFACE
-		csSkiTracker::cscmake_base_include
-)
+cs_target_link_libraries(csSkiTracker INTERFACE csSkiTracker::cscmake_base_include)
 
 cs_install_target(csSkiTracker COMPONENT csSkiTracker DEFAULT)
 

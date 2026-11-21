@@ -11,18 +11,18 @@
     },
     "headers_only_packages": [],
     "manifest_version": "1.0",
-    "output_bundle_file_name": "csopencvcpu-5.0.0-bundle.tar.gz",
+    "output_bundle_file_name": "csopencvcpu-5.1.0-bundle.tar.gz",
     "packages": [
       "opencv"
     ],
     "project_name": "csopencvcpu",
-    "project_version": "5.0.0",
+    "project_version": "5.1.0",
     "variants": [
       {
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu22.04-x64-generic-gcc-default-ninjamulticonfig"
@@ -31,7 +31,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu22.04-x64-generic-clang-default-ninjamulticonfig"
@@ -40,7 +40,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu22.04-arm64-generic-gcc-default-ninja"
@@ -49,7 +49,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu22.04-arm64-generic-clang-default-ninja"
@@ -58,7 +58,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu24.04-x64-generic-gcc-default-ninjamulticonfig"
@@ -67,7 +67,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu24.04-x64-generic-clang-default-ninjamulticonfig"
@@ -76,7 +76,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu24.04-arm64-generic-gcc-default-ninja"
@@ -85,7 +85,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu24.04-arm64-generic-clang-default-ninja"
@@ -94,7 +94,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-windows-v10-x64-generic-msvc-default-msvc2022"
@@ -103,7 +103,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-windows-v10-x64-generic-msvc-default-msvc2026"
@@ -112,7 +112,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-windows-v10-x64-generic-msvcclang-default-msvc2022"
@@ -121,7 +121,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-windows-v10-x64-generic-msvcclang-default-msvc2026"
@@ -130,7 +130,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu26.04-x64-generic-gcc-default-ninjamulticonfig"
@@ -139,7 +139,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu26.04-x64-generic-clang-default-ninjamulticonfig"
@@ -148,7 +148,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu26.04-arm64-generic-gcc-default-ninja"
@@ -157,7 +157,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu26.04-arm64-generic-clang-default-ninja"
@@ -166,7 +166,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-macos-macos15-arm64-generic-appleclang-default-ninjamulticonfig"
@@ -175,7 +175,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-macos-macos15-arm64-generic-appleclang-default-xcode"
@@ -184,7 +184,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-macos-macos26-arm64-generic-appleclang-default-ninjamulticonfig"
@@ -193,7 +193,7 @@
         "entries": [
           {
             "name": "opencv",
-            "version": "5.0.0"
+            "version": "5.1.0"
           }
         ],
         "variant": "csv1-macos-macos26-arm64-generic-appleclang-default-xcode"

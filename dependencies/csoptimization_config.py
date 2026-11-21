@@ -76,7 +76,7 @@ def install_csoptimization_build_dependencies(
         git_repo="csfoundation",
         project_name="csfoundation",
         project_version="0.1.0",
-        release_tag="v0.1.0-rc10",
+        release_tag="v0.1.0-rc11",
     )
 
     third_party_base_libs_provider = ManifestGithub(
