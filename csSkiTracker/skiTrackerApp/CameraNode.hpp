@@ -1,9 +1,8 @@
 #pragma once
-#include <cassert>
 #include "CameraNode.h"
+#include <cassert>
 
-template <typename Derived>
-void CameraNode::oplus(const Eigen::MatrixBase<Derived>& oplus) {
+template <typename Derived> void CameraNode::oplus(const Eigen::MatrixBase<Derived> &oplus) {
   assert(oplus.size() == _numParams);
 
   int np = 0;
@@ -42,8 +41,8 @@ void CameraNode::oplus(const Eigen::MatrixBase<Derived>& oplus) {
   double newS4 = _distModel.s4y() + (_fixSs[3] ? 0 : oplus(np++));
 
   csCamera::Camerad newCamera = csCamera::Camerad(new_fx, new_fy, new_cx, new_cy, _camera.w(), _camera.h());
-  csCamera::CameraDistortionModeld newDistModel =
-      csCamera::CameraDistortionModeld(newK1, newK2, newK3, newP1, newP2, newK4, newK5, newK6, newS1, newS2, newS3, newS4);
+  csCamera::CameraDistortionModeld newDistModel = csCamera::CameraDistortionModeld(
+      newK1, newK2, newK3, newP1, newP2, newK4, newK5, newK6, newS1, newS2, newS3, newS4);
 
   this->_camera = newCamera;
   this->_distModel = newDistModel;

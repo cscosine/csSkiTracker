@@ -17,13 +17,9 @@
 
 #include <iostream>
 
-Window::Window(Problem& p, const CommandLineOptions& cmd, QWidget* parent)
-    : QMainWindow(parent)
-    , ui(new Ui::Window())
-    , problem(p)
-    , vis(std::make_shared<Visualizer>())
-    , m_cameraController(std::make_shared<csVisOpenGL::OrbitCameraController>())
-    , _initialized(false) {
+Window::Window(Problem &p, const CommandLineOptions &cmd, QWidget *parent)
+    : QMainWindow(parent), ui(new Ui::Window()), problem(p), vis(std::make_shared<Visualizer>()),
+      m_cameraController(std::make_shared<csVisOpenGL::OrbitCameraController>()), _initialized(false) {
   ui->setupUi(this);
 
   m_cameraController->setRadius(10);
@@ -38,8 +34,9 @@ Window::Window(Problem& p, const CommandLineOptions& cmd, QWidget* parent)
 
   vis->setWidgetSize(ui->preview->width(), ui->preview->height());
 
-  vis->setWorldPoints(problem.calibWorldPoints().cast<float>(), problem.polesPointPairs().cast<float>(),
-                      Eigen::ArrayXi::LinSpaced(problem.calibWorldPoints().cols(), 0, problem.calibWorldPoints().cols() - 1));
+  vis->setWorldPoints(
+      problem.calibWorldPoints().cast<float>(), problem.polesPointPairs().cast<float>(),
+      Eigen::ArrayXi::LinSpaced(problem.calibWorldPoints().cols(), 0, problem.calibWorldPoints().cols() - 1));
 
   std::vector<Eigen::Isometry3f> T_c_wrt_W;
   auto c2 = problem.collect_T_W_wrt_view2();
@@ -49,8 +46,8 @@ Window::Window(Problem& p, const CommandLineOptions& cmd, QWidget* parent)
 
   vis->setCameraPoses(problem.T_W_wrt_view1().inverse().cast<float>(), T_c_wrt_W);
 
-  vis->setFixCameraImgPoints(problem.view1CalibPoints().imgPoints.cast<float>(), problem.view1CalibPoints().reprojPoints.cast<float>(),
-                             problem.view1CalibPoints().indexes);
+  vis->setFixCameraImgPoints(problem.view1CalibPoints().imgPoints.cast<float>(),
+                             problem.view1CalibPoints().reprojPoints.cast<float>(), problem.view1CalibPoints().indexes);
 
   // calib points of fix camera
   vis->setFixCameraWorldPoints(problem.T_W_wrt_view1().inverse().cast<float>(),
@@ -111,7 +108,8 @@ void Window::on_horizontalSlider_valueChanged(int n) {
 
     fixImg = problem.imageView1(n);
     if (fixImg.isNull()) {
-      fixImg = QImage(problem.view1CamPar().cameraModel.w(), problem.view1CamPar().cameraModel.h(), QImage::Format::Format_RGB888);
+      fixImg = QImage(problem.view1CamPar().cameraModel.w(), problem.view1CamPar().cameraModel.h(),
+                      QImage::Format::Format_RGB888);
       fixImg.fill(Qt::white);
     }
 
@@ -122,7 +120,8 @@ void Window::on_horizontalSlider_valueChanged(int n) {
 
     movImg = problem.imageView2(n);
     if (movImg.isNull()) {
-      movImg = QImage(problem.view1CamPar().cameraModel.w(), problem.view1CamPar().cameraModel.h(), QImage::Format::Format_RGB888);
+      movImg = QImage(problem.view1CamPar().cameraModel.w(), problem.view1CamPar().cameraModel.h(),
+                      QImage::Format::Format_RGB888);
       movImg.fill(Qt::white);
     }
 
@@ -130,7 +129,8 @@ void Window::on_horizontalSlider_valueChanged(int n) {
   }
 
   vis->setMovCameraImgPoints(problem.view2CalibPoints(n).imgPoints.cast<float>(),
-                             problem.view2CalibPoints(n).reprojPoints.cast<float>(), problem.view2CalibPoints(n).indexes);
+                             problem.view2CalibPoints(n).reprojPoints.cast<float>(),
+                             problem.view2CalibPoints(n).indexes);
 
   // calib points of mov camera
   vis->setMovCameraWorldPoints(problem.T_W_wrt_view2(n).second.inverse().cast<float>(),
@@ -139,18 +139,18 @@ void Window::on_horizontalSlider_valueChanged(int n) {
   vis->setMovCameraPose(problem.T_W_wrt_view2(n).second.inverse().cast<float>());
 
   // correspondences
-  const auto& f = problem.framesMeas(n);
+  const auto &f = problem.framesMeas(n);
   vis->setCorrespondences(f.view1Points.cast<float>(), f.view1Points_repr.cast<float>(), f.view2Points.cast<float>(),
                           f.view2Points_repr.cast<float>());
 
   vis->setReconstructedPoints(f.p3d_est.cast<float>());
 
-  const auto& s = problem.skierModel(n);
+  const auto &s = problem.skierModel(n);
   vis->setSkierModel(s);
 
-  const auto& fs = problem.framesSkierMeas(n);
-  vis->setSkierCorrespondences(fs.view1Points.cast<float>(), fs.view1Points_repr.cast<float>(), fs.view2Points.cast<float>(),
-                               fs.view2Points_repr.cast<float>());
+  const auto &fs = problem.framesSkierMeas(n);
+  vis->setSkierCorrespondences(fs.view1Points.cast<float>(), fs.view1Points_repr.cast<float>(),
+                               fs.view2Points.cast<float>(), fs.view2Points_repr.cast<float>());
 
   // autoplay
   QTimer::singleShot(50, this, [this] {
@@ -164,7 +164,7 @@ void Window::on_horizontalSlider_valueChanged(int n) {
   });
 }
 
-bool Window::gui2fixedPoints(Eigen::Vector3i& fixedPointsIds, QString& errmsg) const {
+bool Window::gui2fixedPoints(Eigen::Vector3i &fixedPointsIds, QString &errmsg) const {
   bool ok = true;
 
   QString sfixed = ui->lineEditFixedPointsIds->text();
@@ -202,7 +202,7 @@ bool Window::gui2fixedPoints(Eigen::Vector3i& fixedPointsIds, QString& errmsg) c
   return ok;
 }
 
-void Window::fixedPoints2gui(const Eigen::Vector3i& newFixedPointsIds) {
+void Window::fixedPoints2gui(const Eigen::Vector3i &newFixedPointsIds) {
   QString newText = QString("%1, %2, %3").arg(newFixedPointsIds(0)).arg(newFixedPointsIds(1)).arg(newFixedPointsIds(2));
   ui->lineEditFixedPointsIds->setText(newText);
 }
@@ -217,16 +217,17 @@ void Window::on_pushButtonNonLinearRefinePoints3Fix_clicked() {
     return;
   }
 
-  Eigen::Vector3i newFixedPointsIds = problem.recomputeCameraParamsPosesPoints3Fixed(ui->spinBoxMinNumViews->value(), fixedPointsIds,
-                                                                                     ui->checkBoxEstimateSkier->isChecked());
+  Eigen::Vector3i newFixedPointsIds = problem.recomputeCameraParamsPosesPoints3Fixed(
+      ui->spinBoxMinNumViews->value(), fixedPointsIds, ui->checkBoxEstimateSkier->isChecked());
   if (!(newFixedPointsIds.array() >= 0).all()) {
     // some point selected is not valid
     QMessageBox::critical(this, "Error", "Some index of points selected is not valid, change it");
   }
   fixedPoints2gui(newFixedPointsIds);
 
-  vis->setWorldPoints(problem.calibWorldPoints().cast<float>(), problem.polesPointPairs().cast<float>(),
-                      Eigen::ArrayXi::LinSpaced(problem.calibWorldPoints().cols(), 0, problem.calibWorldPoints().cols() - 1));
+  vis->setWorldPoints(
+      problem.calibWorldPoints().cast<float>(), problem.polesPointPairs().cast<float>(),
+      Eigen::ArrayXi::LinSpaced(problem.calibWorldPoints().cols(), 0, problem.calibWorldPoints().cols() - 1));
 
   std::vector<Eigen::Isometry3f> T_c_wrt_W;
   auto c2 = problem.collect_T_W_wrt_view2();
@@ -235,8 +236,8 @@ void Window::on_pushButtonNonLinearRefinePoints3Fix_clicked() {
   }
 
   vis->setCameraPoses(problem.T_W_wrt_view1().inverse().cast<float>(), T_c_wrt_W);
-  vis->setFixCameraImgPoints(problem.view1CalibPoints().imgPoints.cast<float>(), problem.view1CalibPoints().reprojPoints.cast<float>(),
-                             problem.view1CalibPoints().indexes);
+  vis->setFixCameraImgPoints(problem.view1CalibPoints().imgPoints.cast<float>(),
+                             problem.view1CalibPoints().reprojPoints.cast<float>(), problem.view1CalibPoints().indexes);
   vis->setFixCameraWorldPoints(problem.T_W_wrt_view1().inverse().cast<float>(),
                                problem.view1CalibPoints().p3d_wrt_cam_closest.cast<float>(),
                                problem.view1CalibPoints3D().cast<float>());
@@ -254,16 +255,17 @@ void Window::on_pushButtonNonLinearRefinePoints2Fix_clicked() {
     return;
   }
 
-  Eigen::Vector3i newFixedPointsIds = problem.recomputeCameraParamsPosesPoints2Fixed(ui->spinBoxMinNumViews->value(), fixedPointsIds,
-                                                                                     ui->checkBoxEstimateSkier->isChecked());
+  Eigen::Vector3i newFixedPointsIds = problem.recomputeCameraParamsPosesPoints2Fixed(
+      ui->spinBoxMinNumViews->value(), fixedPointsIds, ui->checkBoxEstimateSkier->isChecked());
   if (!(newFixedPointsIds.array() >= 0).all()) {
     // some point selected is not valid
     QMessageBox::critical(this, "Error", "Some index of points selected is not valid, change it");
   }
   fixedPoints2gui(newFixedPointsIds);
 
-  vis->setWorldPoints(problem.calibWorldPoints().cast<float>(), problem.polesPointPairs().cast<float>(),
-                      Eigen::ArrayXi::LinSpaced(problem.calibWorldPoints().cols(), 0, problem.calibWorldPoints().cols() - 1));
+  vis->setWorldPoints(
+      problem.calibWorldPoints().cast<float>(), problem.polesPointPairs().cast<float>(),
+      Eigen::ArrayXi::LinSpaced(problem.calibWorldPoints().cols(), 0, problem.calibWorldPoints().cols() - 1));
 
   std::vector<Eigen::Isometry3f> T_c_wrt_W;
   auto c2 = problem.collect_T_W_wrt_view2();
@@ -272,8 +274,8 @@ void Window::on_pushButtonNonLinearRefinePoints2Fix_clicked() {
   }
 
   vis->setCameraPoses(problem.T_W_wrt_view1().inverse().cast<float>(), T_c_wrt_W);
-  vis->setFixCameraImgPoints(problem.view1CalibPoints().imgPoints.cast<float>(), problem.view1CalibPoints().reprojPoints.cast<float>(),
-                             problem.view1CalibPoints().indexes);
+  vis->setFixCameraImgPoints(problem.view1CalibPoints().imgPoints.cast<float>(),
+                             problem.view1CalibPoints().reprojPoints.cast<float>(), problem.view1CalibPoints().indexes);
   vis->setFixCameraWorldPoints(problem.T_W_wrt_view1().inverse().cast<float>(),
                                problem.view1CalibPoints().p3d_wrt_cam_closest.cast<float>(),
                                problem.view1CalibPoints3D().cast<float>());
@@ -291,8 +293,8 @@ void Window::on_pushButtonNonLinearRefine_clicked() {
   }
 
   vis->setCameraPoses(problem.T_W_wrt_view1().inverse().cast<float>(), T_c_wrt_W);
-  vis->setFixCameraImgPoints(problem.view1CalibPoints().imgPoints.cast<float>(), problem.view1CalibPoints().reprojPoints.cast<float>(),
-                             problem.view1CalibPoints().indexes);
+  vis->setFixCameraImgPoints(problem.view1CalibPoints().imgPoints.cast<float>(),
+                             problem.view1CalibPoints().reprojPoints.cast<float>(), problem.view1CalibPoints().indexes);
   vis->setFixCameraWorldPoints(problem.T_W_wrt_view1().inverse().cast<float>(),
                                problem.view1CalibPoints().p3d_wrt_cam_closest.cast<float>(),
                                problem.view1CalibPoints3D().cast<float>());
@@ -311,17 +313,17 @@ void Window::on_pushButtonSaveSkierPoints_clicked() {
       for (int i = 0; i < this->problem.numValidViews(); i++) {
         tt << "#FRAME " << i << Qt::endl;
         for (int k = 0; k < this->problem.framesMeas(i).view1Points.cols(); k++) {
-          const auto& f = this->problem.framesMeas(i);
+          const auto &f = this->problem.framesMeas(i);
           tt << f.view1Points.col(k).x() << " " << f.view1Points.col(k).y() << " " << f.view2Points.col(k).x() << " "
-             << f.view2Points.col(k).y() << " " << f.p3d_est.col(k).x() << " " << f.p3d_est.col(k).y() << " " << f.p3d_est.col(k).z()
-             << " " << Qt::endl;
+             << f.view2Points.col(k).y() << " " << f.p3d_est.col(k).x() << " " << f.p3d_est.col(k).y() << " "
+             << f.p3d_est.col(k).z() << " " << Qt::endl;
         }
       }
     }
   }
 }
 
-void Window::resizeEvent(QResizeEvent* event) {
+void Window::resizeEvent(QResizeEvent *event) {
   QMainWindow::resizeEvent(event);
   vis->setWidgetSize(ui->preview->width(), ui->preview->height());
 
@@ -330,71 +332,33 @@ void Window::resizeEvent(QResizeEvent* event) {
   }
 }
 
-void Window::on_checkBoxShowLabels3D_clicked() {
-  vis->showLabels3D = ui->checkBoxShowLabels3D->isChecked();
-}
-void Window::on_checkBoxShowLabelsFix_clicked() {
-  vis->showLabelsFix = ui->checkBoxShowLabelsFix->isChecked();
-}
-void Window::on_checkBoxShowLabelsMov_clicked() {
-  vis->showLabelsMov = ui->checkBoxShowLabelsMov->isChecked();
-}
-void Window::on_checkBoxShowLabelsCorr_clicked() {
-  vis->showLabelsCorr = ui->checkBoxShowLabelsCorr->isChecked();
-}
+void Window::on_checkBoxShowLabels3D_clicked() { vis->showLabels3D = ui->checkBoxShowLabels3D->isChecked(); }
+void Window::on_checkBoxShowLabelsFix_clicked() { vis->showLabelsFix = ui->checkBoxShowLabelsFix->isChecked(); }
+void Window::on_checkBoxShowLabelsMov_clicked() { vis->showLabelsMov = ui->checkBoxShowLabelsMov->isChecked(); }
+void Window::on_checkBoxShowLabelsCorr_clicked() { vis->showLabelsCorr = ui->checkBoxShowLabelsCorr->isChecked(); }
 
-void Window::on_checkBoxShowMeas3D_clicked() {
-  vis->showMeas3D = ui->checkBoxShowMeas3D->isChecked();
-}
-void Window::on_checkBoxShowMeasFix_clicked() {
-  vis->showMeasFix = ui->checkBoxShowMeasFix->isChecked();
-}
-void Window::on_checkBoxShowMeasMov_clicked() {
-  vis->showMeasMov = ui->checkBoxShowMeasMov->isChecked();
-}
-void Window::on_checkBoxShowMeasCorr_clicked() {
-  vis->showMeasCorr = ui->checkBoxShowMeasCorr->isChecked();
-}
+void Window::on_checkBoxShowMeas3D_clicked() { vis->showMeas3D = ui->checkBoxShowMeas3D->isChecked(); }
+void Window::on_checkBoxShowMeasFix_clicked() { vis->showMeasFix = ui->checkBoxShowMeasFix->isChecked(); }
+void Window::on_checkBoxShowMeasMov_clicked() { vis->showMeasMov = ui->checkBoxShowMeasMov->isChecked(); }
+void Window::on_checkBoxShowMeasCorr_clicked() { vis->showMeasCorr = ui->checkBoxShowMeasCorr->isChecked(); }
 
-void Window::on_checkBoxShowReprFix_clicked() {
-  vis->showReprFix = ui->checkBoxShowReprFix->isChecked();
-}
-void Window::on_checkBoxShowReprMov_clicked() {
-  vis->showReprMov = ui->checkBoxShowReprMov->isChecked();
-}
-void Window::on_checkBoxShowReprCorr_clicked() {
-  vis->showReprCorr = ui->checkBoxShowReprCorr->isChecked();
-}
+void Window::on_checkBoxShowReprFix_clicked() { vis->showReprFix = ui->checkBoxShowReprFix->isChecked(); }
+void Window::on_checkBoxShowReprMov_clicked() { vis->showReprMov = ui->checkBoxShowReprMov->isChecked(); }
+void Window::on_checkBoxShowReprCorr_clicked() { vis->showReprCorr = ui->checkBoxShowReprCorr->isChecked(); }
 
-void Window::on_checkBoxShowErr3D_clicked() {
-  vis->showErr3D = ui->checkBoxShowErr3D->isChecked();
-}
-void Window::on_checkBoxShowErrFix_clicked() {
-  vis->showErrFix = ui->checkBoxShowErrFix->isChecked();
-}
-void Window::on_checkBoxShowErrMov_clicked() {
-  vis->showErrMov = ui->checkBoxShowErrMov->isChecked();
-}
-void Window::on_checkBoxShowErrCorr_clicked() {
-  vis->showErrCorr = ui->checkBoxShowErrCorr->isChecked();
-}
+void Window::on_checkBoxShowErr3D_clicked() { vis->showErr3D = ui->checkBoxShowErr3D->isChecked(); }
+void Window::on_checkBoxShowErrFix_clicked() { vis->showErrFix = ui->checkBoxShowErrFix->isChecked(); }
+void Window::on_checkBoxShowErrMov_clicked() { vis->showErrMov = ui->checkBoxShowErrMov->isChecked(); }
+void Window::on_checkBoxShowErrCorr_clicked() { vis->showErrCorr = ui->checkBoxShowErrCorr->isChecked(); }
 
-void Window::on_checkBoxShowViewRaysFix_clicked() {
-  vis->showViewRaysFix = ui->checkBoxShowViewRaysFix->isChecked();
-}
-void Window::on_checkBoxShowViewRaysMov_clicked() {
-  vis->showViewRaysMov = ui->checkBoxShowViewRaysMov->isChecked();
-}
+void Window::on_checkBoxShowViewRaysFix_clicked() { vis->showViewRaysFix = ui->checkBoxShowViewRaysFix->isChecked(); }
+void Window::on_checkBoxShowViewRaysMov_clicked() { vis->showViewRaysMov = ui->checkBoxShowViewRaysMov->isChecked(); }
 
 void Window::on_checkBoxShow3DCalibPoints_clicked() {
   vis->show3DCalibPoints = ui->checkBoxShow3DCalibPoints->isChecked();
 }
-void Window::on_checkBoxShow3DPoles_clicked() {
-  vis->show3DCalibPoles = ui->checkBoxShow3DPoles->isChecked();
-}
-void Window::on_checkBoxShow3DCorr_clicked() {
-  vis->showCorr3D = ui->checkBoxShow3DCorr->isChecked();
-}
+void Window::on_checkBoxShow3DPoles_clicked() { vis->show3DCalibPoles = ui->checkBoxShow3DPoles->isChecked(); }
+void Window::on_checkBoxShow3DCorr_clicked() { vis->showCorr3D = ui->checkBoxShow3DCorr->isChecked(); }
 
 void Window::on_pushButtonPlay_clicked() {
   if (ui->pushButtonPlay->isChecked()) {

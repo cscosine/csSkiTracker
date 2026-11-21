@@ -60,7 +60,7 @@ class Visualizer : public csVisOpenGL::VisualizerInterface {
   Eigen::Matrix2Xf skierImgMeasPointsV1, skierImgReprPointsV1;
   Eigen::Matrix2Xf skierImgMeasPointsV2, skierImgReprPointsV2;
 
-  float computeImgScale(const QImage& source, QImage& dest);
+  float computeImgScale(const QImage &source, QImage &dest);
 
 public:
   // visualization flags
@@ -76,33 +76,36 @@ public:
   Visualizer();
   virtual ~Visualizer();
 
-  void initialize(csVisOpenGL::ShaderFactory& shaderFactory, std::shared_ptr<QOpenGLExtraFunctions> const& glExtraFunctions) override;
-  void paintBackground(const csVisOpenGL::Camera& camera) override;
-  void paint(const csVisOpenGL::Camera& camera) override;
-  void paintQt(const csVisOpenGL::Camera& camera, QPainter& painter);
+  void initialize(csVisOpenGL::ShaderFactory &shaderFactory,
+                  std::shared_ptr<QOpenGLExtraFunctions> const &glExtraFunctions) override;
+  void paintBackground(const csVisOpenGL::Camera &camera) override;
+  void paint(const csVisOpenGL::Camera &camera) override;
+  void paintQt(const csVisOpenGL::Camera &camera, QPainter &painter);
 
-  void setWorldPoints(const Eigen::Matrix3Xf& wp, const Eigen::Matrix3Xf& polesLines, const Eigen::ArrayXi& idxs);
+  void setWorldPoints(const Eigen::Matrix3Xf &wp, const Eigen::Matrix3Xf &polesLines, const Eigen::ArrayXi &idxs);
 
-  void setFixCameraWorldPoints(const Eigen::Isometry3f& T_C_wrt_W, const Eigen::Matrix3Xf& camPoints,
-                               const Eigen::Matrix3Xf& worldPoints);
-  void setMovCameraWorldPoints(const Eigen::Isometry3f& T_C_wrt_W, const Eigen::Matrix3Xf& camPoints,
-                               const Eigen::Matrix3Xf& worldPoints);
-  void setReconstructedPoints(const Eigen::Matrix3Xf& points);
-  void setSkierModel(const SkierModel& model);
+  void setFixCameraWorldPoints(const Eigen::Isometry3f &T_C_wrt_W, const Eigen::Matrix3Xf &camPoints,
+                               const Eigen::Matrix3Xf &worldPoints);
+  void setMovCameraWorldPoints(const Eigen::Isometry3f &T_C_wrt_W, const Eigen::Matrix3Xf &camPoints,
+                               const Eigen::Matrix3Xf &worldPoints);
+  void setReconstructedPoints(const Eigen::Matrix3Xf &points);
+  void setSkierModel(const SkierModel &model);
 
-  void setCameraPoses(const Eigen::Isometry3f& fixCam, const std::vector<Eigen::Isometry3f>& T_C_wrt_W);
+  void setCameraPoses(const Eigen::Isometry3f &fixCam, const std::vector<Eigen::Isometry3f> &T_C_wrt_W);
 
-  void setFixCameraImgPoints(const Eigen::Matrix2Xf& measPoints, const Eigen::Matrix2Xf& reprojPoints, const Eigen::ArrayXi& idxs);
-  void setMovCameraImgPoints(const Eigen::Matrix2Xf& measPoints, const Eigen::Matrix2Xf& reprojPoints, const Eigen::ArrayXi& idxs);
+  void setFixCameraImgPoints(const Eigen::Matrix2Xf &measPoints, const Eigen::Matrix2Xf &reprojPoints,
+                             const Eigen::ArrayXi &idxs);
+  void setMovCameraImgPoints(const Eigen::Matrix2Xf &measPoints, const Eigen::Matrix2Xf &reprojPoints,
+                             const Eigen::ArrayXi &idxs);
 
-  void setFixCameraImg(const QImage& img);
-  void setMovCameraImg(const QImage& img);
-  void setMovCameraPose(const Eigen::Isometry3f& T_C_wrt_W);
+  void setFixCameraImg(const QImage &img);
+  void setMovCameraImg(const QImage &img);
+  void setMovCameraPose(const Eigen::Isometry3f &T_C_wrt_W);
 
-  void setCorrespondences(const Eigen::Matrix2Xf& measV1, const Eigen::Matrix2Xf& reprV1, const Eigen::Matrix2Xf& measV2,
-                          const Eigen::Matrix2Xf& reprV2);
-  void setSkierCorrespondences(const Eigen::Matrix2Xf& measV1, const Eigen::Matrix2Xf& reprV1, const Eigen::Matrix2Xf& measV2,
-                               const Eigen::Matrix2Xf& reprV2);
+  void setCorrespondences(const Eigen::Matrix2Xf &measV1, const Eigen::Matrix2Xf &reprV1,
+                          const Eigen::Matrix2Xf &measV2, const Eigen::Matrix2Xf &reprV2);
+  void setSkierCorrespondences(const Eigen::Matrix2Xf &measV1, const Eigen::Matrix2Xf &reprV1,
+                               const Eigen::Matrix2Xf &measV2, const Eigen::Matrix2Xf &reprV2);
 
   void setWidgetSize(int w, int h);
 };

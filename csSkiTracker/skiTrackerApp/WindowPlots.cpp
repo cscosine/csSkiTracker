@@ -56,8 +56,8 @@ void Window::on_pushButtonPlotReprojErrV1_clicked() { /*
 
      // recompute 3d points
      Eigen::VectorXd error3d = (problem.T_W_wrt_view1().inverse() * problem.view1CalibPoints().p3d_wrt_cam_closest -
-   problem.view1CalibPoints3D()).colwise().norm(); std::vector<double> e3d(error3d.size()); for (int i = 0; i < e3d.size(); i++) {
-       e3d[i] = error3d(i);
+   problem.view1CalibPoints3D()).colwise().norm(); std::vector<double> e3d(error3d.size()); for (int i = 0; i <
+   e3d.size(); i++) { e3d[i] = error3d(i);
      }
 
      plt::title("3D distance from point");
@@ -123,8 +123,8 @@ void Window::on_pushButtonPlotReprojErr_clicked() { /*
 
      // recompute 3d points
      Eigen::VectorXd error3d = (problem.T_W_wrt_view2(view2Num).second.inverse() *
-   problem.view2CalibPoints(view2Num).p3d_wrt_cam_closest - problem.view2CalibPoints3D(view2Num)).colwise().norm(); std::vector<double>
-   e3d(error3d.size()); for (int i = 0; i < e3d.size(); i++) { e3d[i] = error3d(i);
+   problem.view2CalibPoints(view2Num).p3d_wrt_cam_closest - problem.view2CalibPoints3D(view2Num)).colwise().norm();
+   std::vector<double> e3d(error3d.size()); for (int i = 0; i < e3d.size(); i++) { e3d[i] = error3d(i);
      }
 
      plt::title("3D distance from point");
@@ -157,8 +157,9 @@ void Window::on_pushButtonPlotCameraParams_clicked() { /*
    plt::subplot(2, 2, 1);
    plt::title("Camera Pricipal Point");
    plt::named_plot("Fixed Camera", std::vector<double>{problem.view1CamPar().cameraModel.cx()},
-   std::vector<double>{problem.view1CamPar().cameraModel.cy()}, "r+"); plt::named_plot("Moving Camera", view2cx, view2cy, "g+"); for
-   (int i = 0; i < view2cx.size(); i++) { plt::text(view2cx[i], view2cy[i], QString("%1").arg(view2idx[i]).toStdString());
+   std::vector<double>{problem.view1CamPar().cameraModel.cy()}, "r+"); plt::named_plot("Moving Camera", view2cx,
+   view2cy, "g+"); for (int i = 0; i < view2cx.size(); i++) { plt::text(view2cx[i], view2cy[i],
+   QString("%1").arg(view2idx[i]).toStdString());
    }
    plt::plot(std::vector<int>{0, problem.view1CamPar().cameraModel.w(), problem.view1CamPar().cameraModel.w(), 0, 0},
      std::vector<int>{0, 0, problem.view1CamPar().cameraModel.h(), problem.view1CamPar().cameraModel.h(), 0},
@@ -263,9 +264,9 @@ void Window::on_pushButtonReprojErrSummary_clicked() { /*
    e_mean[0]).cwiseAbs().maxCoeff();
      }
      for (int i = 0; i < idx.size(); i++) {
-       Eigen::VectorXd dist = (problem.T_W_wrt_view2(i).second.inverse() * problem.view2CalibPoints(i).p3d_wrt_cam_closest -
-   problem.view2CalibPoints3D(i)).colwise().norm(); e_mean[i+1] = dist.mean(); e_errMax[i+1] = (dist.array() -
-   e_mean[i+1]).cwiseAbs().maxCoeff();
+       Eigen::VectorXd dist = (problem.T_W_wrt_view2(i).second.inverse() *
+   problem.view2CalibPoints(i).p3d_wrt_cam_closest - problem.view2CalibPoints3D(i)).colwise().norm(); e_mean[i+1] =
+   dist.mean(); e_errMax[i+1] = (dist.array() - e_mean[i+1]).cwiseAbs().maxCoeff();
      }
 
 

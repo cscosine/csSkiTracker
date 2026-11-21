@@ -9,8 +9,9 @@
 
 #include <vector>
 
-class CameraCalibSection : public csNelson::SingleSection<CameraCalibSection, CameraPosePointNodeBase, csBlockMatrix::BlockCoeffSparse,
-                                                          double, csBlockMatrix::Variable> {
+class CameraCalibSection
+    : public csNelson::SingleSection<CameraCalibSection, CameraPosePointNodeBase, csBlockMatrix::BlockCoeffSparse,
+                                     double, csBlockMatrix::Variable> {
 
   std::array<CameraNode, 2> _cameras, _camerasBck;
   PoseNode _view1Pose, _view1PoseBck;
@@ -27,19 +28,20 @@ class CameraCalibSection : public csNelson::SingleSection<CameraCalibSection, Ca
 
   std::vector<int> _parametersSize;
 
-  using SingleSectionBase = csNelson::SingleSection<CameraCalibSection, CameraPosePointNodeBase, csBlockMatrix::BlockCoeffSparse,
-                                                    double, csBlockMatrix::Variable>;
+  using SingleSectionBase = csNelson::SingleSection<CameraCalibSection, CameraPosePointNodeBase,
+                                                    csBlockMatrix::BlockCoeffSparse, double, csBlockMatrix::Variable>;
 
-  void init(const std::vector<csLie::SE3d>& view2Poses, const Eigen::Matrix3Xd& points, const Eigen::Matrix3Xd& fixedPoints,
-            const std::vector<Eigen::Matrix3Xd>& skierPoints);
+  void init(const std::vector<csLie::SE3d> &view2Poses, const Eigen::Matrix3Xd &points,
+            const Eigen::Matrix3Xd &fixedPoints, const std::vector<Eigen::Matrix3Xd> &skierPoints);
 
 public:
-  CameraCalibSection(const CameraNode& camera1, const CameraNode& camera2, const csLie::SE3d& view1Pose,
-                     const std::vector<csLie::SE3d>& view2Poses, const Eigen::Matrix3Xd& points, const Eigen::Matrix3Xd& fixedPoints,
-                     const Eigen::Vector2d& p3_xy, const Eigen::Isometry3d& T_p012, const std::vector<Eigen::Matrix3Xd>& skierPoints);
-  CameraCalibSection(const CameraNode& camera1, const CameraNode& camera2, const csLie::SE3d& view1Pose,
-                     const std::vector<csLie::SE3d>& view2Poses, const Eigen::Matrix3Xd& points, const Eigen::Matrix3Xd& fixedPoints,
-                     const std::vector<Eigen::Matrix3Xd>& skierPoints);
+  CameraCalibSection(const CameraNode &camera1, const CameraNode &camera2, const csLie::SE3d &view1Pose,
+                     const std::vector<csLie::SE3d> &view2Poses, const Eigen::Matrix3Xd &points,
+                     const Eigen::Matrix3Xd &fixedPoints, const Eigen::Vector2d &p3_xy, const Eigen::Isometry3d &T_p012,
+                     const std::vector<Eigen::Matrix3Xd> &skierPoints);
+  CameraCalibSection(const CameraNode &camera1, const CameraNode &camera2, const csLie::SE3d &view1Pose,
+                     const std::vector<csLie::SE3d> &view2Poses, const Eigen::Matrix3Xd &points,
+                     const Eigen::Matrix3Xd &fixedPoints, const std::vector<Eigen::Matrix3Xd> &skierPoints);
   virtual ~CameraCalibSection();
 
   void backupSolution() {
@@ -60,15 +62,11 @@ public:
     _skierPoints = _skierPointsBck;
   }
 
-  const std::vector<int>& parameterSize() const override {
-    return _parametersSize;
-  }
+  const std::vector<int> &parameterSize() const override { return _parametersSize; }
 
-  int numFixedParameters() const override {
-    return _fixedPoints.size();
-  }
+  int numFixedParameters() const override { return _fixedPoints.size(); }
 
-  void oplus(const typename SingleSectionBase::HessianVecType& inc) {
+  void oplus(const typename SingleSectionBase::HessianVecType &inc) {
     int ns = 0;
     _cameras[0].oplus(inc.segment(this->user2internalIndexes()(ns++)));
 
@@ -97,9 +95,7 @@ public:
     assert(ns == inc.numSegments());
   }
 
-  csNelson::NodeId camera1ParId() const {
-    return csNelson::NodeId(0);
-  }
+  csNelson::NodeId camera1ParId() const { return csNelson::NodeId(0); }
   csNelson::NodeId camera2ParId() const {
     if (_view2Poses.size() > 0) {
       return csNelson::NodeId(1);
@@ -115,9 +111,7 @@ public:
       return csNelson::NodeId(1);
     }
   }
-  csNelson::NodeId camera2PoseId(int i) const {
-    return csNelson::NodeId(2 + (_view2Poses.size() > 0 ? 1 : 0) + i);
-  }
+  csNelson::NodeId camera2PoseId(int i) const { return csNelson::NodeId(2 + (_view2Poses.size() > 0 ? 1 : 0) + i); }
 
   csNelson::NodeId pointXYId() const {
     assert(_hasPointXY);
@@ -132,47 +126,23 @@ public:
     return csNelson::NodeId(start + _skierPointsStarts[i] + j);
   }
 
-  const csCamera::Camerad& view1Camera() const {
-    return _cameras[0].camera();
-  }
-  const csCamera::Camerad& view2Camera() const {
-    return _cameras[1].camera();
-  }
-  const csCamera::CameraDistortionModeld& view1CameraDistModel() const {
-    return _cameras[0].distModel();
-  }
-  const csCamera::CameraDistortionModeld& view2CameraDistModel() const {
-    return _cameras[1].distModel();
-  }
-  const csLie::SE3d& view1Pose() const {
-    return _view1Pose.pose();
-  }
-  int numView2Poses() const {
-    return _view2Poses.size();
-  }
-  const csLie::SE3d& view2Pose(int i) const {
-    return _view2Poses[i].pose();
-  }
+  const csCamera::Camerad &view1Camera() const { return _cameras[0].camera(); }
+  const csCamera::Camerad &view2Camera() const { return _cameras[1].camera(); }
+  const csCamera::CameraDistortionModeld &view1CameraDistModel() const { return _cameras[0].distModel(); }
+  const csCamera::CameraDistortionModeld &view2CameraDistModel() const { return _cameras[1].distModel(); }
+  const csLie::SE3d &view1Pose() const { return _view1Pose.pose(); }
+  int numView2Poses() const { return _view2Poses.size(); }
+  const csLie::SE3d &view2Pose(int i) const { return _view2Poses[i].pose(); }
 
-  const Eigen::Vector2d& pointXY() const {
-    return _pointXY.point();
-  }
-  const Eigen::Isometry3d& pointXYRefFrame() const {
-    return _pointXY.T_W_planeOrigin();
-  }
+  const Eigen::Vector2d &pointXY() const { return _pointXY.point(); }
+  const Eigen::Isometry3d &pointXYRefFrame() const { return _pointXY.T_W_planeOrigin(); }
 
-  const Eigen::Vector3d& point(int i) const {
-    return _points[i].point();
-  }
-  const Eigen::Vector3d& fixedPoint(int i) const {
-    return _fixedPoints[i].point();
-  }
+  const Eigen::Vector3d &point(int i) const { return _points[i].point(); }
+  const Eigen::Vector3d &fixedPoint(int i) const { return _fixedPoints[i].point(); }
 
-  const Eigen::Vector3d& skierPoint(int i, int j) const {
-    return _skierPoints[i][j].point();
-  }
+  const Eigen::Vector3d &skierPoint(int i, int j) const { return _skierPoints[i][j].point(); }
 
-  virtual const CameraPosePointNodeBase& parameter(csNelson::NodeId i) const override {
+  virtual const CameraPosePointNodeBase &parameter(csNelson::NodeId i) const override {
     if (i.isVariable()) {
       if (i.id() == 0) {
         return _cameras[0];
@@ -217,7 +187,7 @@ public:
     }
   }
 
-  virtual CameraPosePointNodeBase& parameter(csNelson::NodeId i) override {
+  virtual CameraPosePointNodeBase &parameter(csNelson::NodeId i) override {
     if (i.isVariable()) {
       if (i.id() == 0) {
         return _cameras[0];

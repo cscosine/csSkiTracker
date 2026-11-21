@@ -7,34 +7,29 @@
 
 #include <cassert>
 
-CameraCalibSection::CameraCalibSection(const CameraNode& camera1, const CameraNode& camera2, const csLie::SE3d& view1Pose,
-                                       const std::vector<csLie::SE3d>& view2Poses, const Eigen::Matrix3Xd& points,
-                                       const Eigen::Matrix3Xd& fixedPoints, const Eigen::Vector2d& p3_xy,
-                                       const Eigen::Isometry3d& T_p012, const std::vector<Eigen::Matrix3Xd>& skierPoints)
-    : _cameras({camera1, camera2})
-    , _camerasBck({camera1, camera2})
-    , // need init
-    _view1Pose(PoseNode(view1Pose))
-    , _pointXY(T_p012, p3_xy)
-    , _hasPointXY(true) {
+CameraCalibSection::CameraCalibSection(const CameraNode &camera1, const CameraNode &camera2,
+                                       const csLie::SE3d &view1Pose, const std::vector<csLie::SE3d> &view2Poses,
+                                       const Eigen::Matrix3Xd &points, const Eigen::Matrix3Xd &fixedPoints,
+                                       const Eigen::Vector2d &p3_xy, const Eigen::Isometry3d &T_p012,
+                                       const std::vector<Eigen::Matrix3Xd> &skierPoints)
+    : _cameras({camera1, camera2}), _camerasBck({camera1, camera2}), // need init
+      _view1Pose(PoseNode(view1Pose)), _pointXY(T_p012, p3_xy), _hasPointXY(true) {
   assert(fixedPoints.cols() == 2);
 
   this->init(view2Poses, points, fixedPoints, skierPoints);
 }
 
-CameraCalibSection::CameraCalibSection(const CameraNode& camera1, const CameraNode& camera2, const csLie::SE3d& view1Pose,
-                                       const std::vector<csLie::SE3d>& view2Poses, const Eigen::Matrix3Xd& points,
-                                       const Eigen::Matrix3Xd& fixedPoints, const std::vector<Eigen::Matrix3Xd>& skierPoints)
-    : _cameras({camera1, camera2})
-    , _camerasBck({camera1, camera2})
-    , // need init
-    _view1Pose(PoseNode(view1Pose))
-    , _hasPointXY(false) {
+CameraCalibSection::CameraCalibSection(const CameraNode &camera1, const CameraNode &camera2,
+                                       const csLie::SE3d &view1Pose, const std::vector<csLie::SE3d> &view2Poses,
+                                       const Eigen::Matrix3Xd &points, const Eigen::Matrix3Xd &fixedPoints,
+                                       const std::vector<Eigen::Matrix3Xd> &skierPoints)
+    : _cameras({camera1, camera2}), _camerasBck({camera1, camera2}), // need init
+      _view1Pose(PoseNode(view1Pose)), _hasPointXY(false) {
   this->init(view2Poses, points, fixedPoints, skierPoints);
 }
 
-void CameraCalibSection::init(const std::vector<csLie::SE3d>& view2Poses, const Eigen::Matrix3Xd& points,
-                              const Eigen::Matrix3Xd& fixedPoints, const std::vector<Eigen::Matrix3Xd>& skierPoints) {
+void CameraCalibSection::init(const std::vector<csLie::SE3d> &view2Poses, const Eigen::Matrix3Xd &points,
+                              const Eigen::Matrix3Xd &fixedPoints, const std::vector<Eigen::Matrix3Xd> &skierPoints) {
 
   {
     _skierPointsStarts.resize(skierPoints.size() + 1); // last is total count

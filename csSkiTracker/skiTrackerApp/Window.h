@@ -20,20 +20,20 @@ class Window : public QMainWindow {
   std::shared_ptr<Visualizer> vis;
   std::shared_ptr<csVisOpenGL::OrbitCameraController> m_cameraController;
 
-  Problem& problem;
+  Problem &problem;
 
   bool _initialized;
 
   void saveAndShow();
 
-  bool gui2fixedPoints(Eigen::Vector3i& out, QString& errmsg) const;
-  void fixedPoints2gui(const Eigen::Vector3i& p);
+  bool gui2fixedPoints(Eigen::Vector3i &out, QString &errmsg) const;
+  void fixedPoints2gui(const Eigen::Vector3i &p);
 
 public:
-  Window(Problem& p, const CommandLineOptions& cmd, QWidget* parent = 0);
+  Window(Problem &p, const CommandLineOptions &cmd, QWidget *parent = 0);
   virtual ~Window();
 
-  void resizeEvent(QResizeEvent* event) override;
+  void resizeEvent(QResizeEvent *event) override;
 
 public slots:
   void on_pushButtonPlotCameraParams_clicked();

@@ -4,18 +4,13 @@
 #include <csCamera/CameraDistortionModel_impl.hpp>
 #include <csCamera/Camera_impl.hpp>
 
-CameraNode::CameraNode(const csCamera::Camerad& camera, const csCamera::CameraDistortionModeld& distModel,
-                       FocalEstimation focalEstimation, const std::array<bool, 2>& fixCenter, const std::array<bool, 6>& fixKs,
-                       const std::array<bool, 2>& fixPs, const std::array<bool, 4>& fixSs)
-    : CameraPosePointNodeBase(CameraPosePointNodeBaseType::Camera)
-    , _camera(camera)
-    , _distModel(distModel)
-    , _focalEstimation(focalEstimation)
-    , _fixCenter(fixCenter)
-    , _fixKs(fixKs)
-    , _fixPs(fixPs)
-    , _fixSs(fixSs)
-    , _numParams(0) {
+CameraNode::CameraNode(const csCamera::Camerad &camera, const csCamera::CameraDistortionModeld &distModel,
+                       FocalEstimation focalEstimation, const std::array<bool, 2> &fixCenter,
+                       const std::array<bool, 6> &fixKs, const std::array<bool, 2> &fixPs,
+                       const std::array<bool, 4> &fixSs)
+    : CameraPosePointNodeBase(CameraPosePointNodeBaseType::Camera), _camera(camera), _distModel(distModel),
+      _focalEstimation(focalEstimation), _fixCenter(fixCenter), _fixKs(fixKs), _fixPs(fixPs), _fixSs(fixSs),
+      _numParams(0) {
   this->_aspectRatio = _camera.fx() / _camera.fy();
 
   if (_focalEstimation == FocalEstimation::FixRatio) {

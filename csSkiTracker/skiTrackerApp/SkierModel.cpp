@@ -8,7 +8,7 @@ SkierModel::SkierModel() {}
 
 SkierModel::~SkierModel() {}
 
-void SkierModel::setFromPoints(const Eigen::Matrix3Xd& points) {
+void SkierModel::setFromPoints(const Eigen::Matrix3Xd &points) {
   assert(points.cols() == Labels::END);
   _bodyPoints = points;
 

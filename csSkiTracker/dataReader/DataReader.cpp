@@ -37,7 +37,7 @@ DataReader::DataReader() {}
 
 DataReader::~DataReader() {}
 
-QString DataReader::getLine(QFile& file, int& lineCount) {
+QString DataReader::getLine(QFile &file, int &lineCount) {
   while (!file.atEnd() && file.error() == QFile::NoError) {
     QString ret = QString(file.readLine()).simplified();
     lineCount++;
@@ -47,7 +47,7 @@ QString DataReader::getLine(QFile& file, int& lineCount) {
   return "";
 }
 
-bool DataReader::parseName2ValuesPair(const QString& input, const QString& name, int& v1, int& v2, QString& error) {
+bool DataReader::parseName2ValuesPair(const QString &input, const QString &name, int &v1, int &v2, QString &error) {
   auto s = input.split(' ');
 
   if (s.size() != 3) {
@@ -73,7 +73,7 @@ bool DataReader::parseName2ValuesPair(const QString& input, const QString& name,
   return ok;
 }
 
-bool DataReader::parseNameValuePair(const QString& input, const QString& name, int& v, QString& error) {
+bool DataReader::parseNameValuePair(const QString &input, const QString &name, int &v, QString &error) {
   auto s = input.split(' ');
 
   if (s.size() != 2) {
@@ -96,8 +96,8 @@ bool DataReader::parseNameValuePair(const QString& input, const QString& name, i
 }
 
 template <class T>
-bool DataReader::readMatrix(Eigen::Ref<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> dest, QFile& file, int& lineCount,
-                            QString& error) {
+bool DataReader::readMatrix(Eigen::Ref<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> dest, QFile &file,
+                            int &lineCount, QString &error) {
   int n = dest.cols();
   int m = dest.rows();
   if (m == 0) {
@@ -122,8 +122,8 @@ bool DataReader::readMatrix(Eigen::Ref<Eigen::Matrix<T, Eigen::Dynamic, Eigen::D
   return true;
 }
 
-bool DataReader::readCalibSection(CalibPoints& cp, const QString& header, QFile& file, int& lineCount, QString& _error,
-                                  const Eigen::Matrix3Xd& allWorldPoints) {
+bool DataReader::readCalibSection(CalibPoints &cp, const QString &header, QFile &file, int &lineCount, QString &_error,
+                                  const Eigen::Matrix3Xd &allWorldPoints) {
   int nCalib;
   bool ok = true;
   QString line;
@@ -141,7 +141,8 @@ bool DataReader::readCalibSection(CalibPoints& cp, const QString& header, QFile&
   if (ok) {
     line = getLine(file, lineCount);
     if (line.compare(calib_pts_projMatrix_h) != 0) {
-      _error = QString("line %1: wrong header, expected %2, got %3").arg(lineCount).arg(calib_pts_projMatrix_h).arg(line);
+      _error =
+          QString("line %1: wrong header, expected %2, got %3").arg(lineCount).arg(calib_pts_projMatrix_h).arg(line);
       ok = false;
     }
   }
@@ -160,7 +161,8 @@ bool DataReader::readCalibSection(CalibPoints& cp, const QString& header, QFile&
   if (ok) {
     line = getLine(file, lineCount);
     if (line.compare(calib_pts_imgPoints_h) != 0) {
-      _error = QString("line %1: wrong header, expected %2, got %3").arg(lineCount).arg(calib_pts_imgPoints_h).arg(line);
+      _error =
+          QString("line %1: wrong header, expected %2, got %3").arg(lineCount).arg(calib_pts_imgPoints_h).arg(line);
       ok = false;
     }
   }
@@ -172,7 +174,8 @@ bool DataReader::readCalibSection(CalibPoints& cp, const QString& header, QFile&
   if (ok) {
     line = getLine(file, lineCount);
     if (line.compare(calib_pts_worldPointsId_h) != 0) {
-      _error = QString("line %1: wrong header, expected %2, got %3").arg(lineCount).arg(calib_pts_worldPointsId_h).arg(line);
+      _error =
+          QString("line %1: wrong header, expected %2, got %3").arg(lineCount).arg(calib_pts_worldPointsId_h).arg(line);
       ok = false;
     }
   }
@@ -184,7 +187,7 @@ bool DataReader::readCalibSection(CalibPoints& cp, const QString& header, QFile&
   return ok;
 }
 
-std::shared_ptr<const ProblemData> DataReader::readFromFile(const QString& filename) {
+std::shared_ptr<const ProblemData> DataReader::readFromFile(const QString &filename) {
   _error = "";
 
   int lineCount = 0;
@@ -293,7 +296,7 @@ std::shared_ptr<const ProblemData> DataReader::readFromFile(const QString& filen
       // read matching pts
       {
         int nMatches;
-        MatchingPoints& mp = frame_data.matchingPoints;
+        MatchingPoints &mp = frame_data.matchingPoints;
         if (ok) {
           QString err;
           line = getLine(file, lineCount);
@@ -308,7 +311,10 @@ std::shared_ptr<const ProblemData> DataReader::readFromFile(const QString& filen
         if (ok) {
           line = getLine(file, lineCount);
           if (line.compare(matching_pts_view1_h) != 0) {
-            _error = QString("line %1: wrong header, expected %2, got %3").arg(lineCount).arg(matching_pts_view1_h).arg(line);
+            _error = QString("line %1: wrong header, expected %2, got %3")
+                         .arg(lineCount)
+                         .arg(matching_pts_view1_h)
+                         .arg(line);
             ok = false;
           }
         }
@@ -320,7 +326,10 @@ std::shared_ptr<const ProblemData> DataReader::readFromFile(const QString& filen
         if (ok) {
           line = getLine(file, lineCount);
           if (line.compare(matching_pts_view2_h) != 0) {
-            _error = QString("line %1: wrong header, expected %2, got %3").arg(lineCount).arg(matching_pts_view2_h).arg(line);
+            _error = QString("line %1: wrong header, expected %2, got %3")
+                         .arg(lineCount)
+                         .arg(matching_pts_view2_h)
+                         .arg(line);
             ok = false;
           }
         }
@@ -332,7 +341,10 @@ std::shared_ptr<const ProblemData> DataReader::readFromFile(const QString& filen
         if (ok) {
           line = getLine(file, lineCount);
           if (line.compare(matching_pts_world_h) != 0) {
-            _error = QString("line %1: wrong header, expected %2, got %3").arg(lineCount).arg(matching_pts_world_h).arg(line);
+            _error = QString("line %1: wrong header, expected %2, got %3")
+                         .arg(lineCount)
+                         .arg(matching_pts_world_h)
+                         .arg(line);
             ok = false;
           }
         }
@@ -347,7 +359,7 @@ std::shared_ptr<const ProblemData> DataReader::readFromFile(const QString& filen
       // read skier pts
       {
         int nSkiers;
-        SkierPoints& sp = frame_data.skierPoints;
+        SkierPoints &sp = frame_data.skierPoints;
         if (ok) {
           QString err;
           line = getLine(file, lineCount);
@@ -362,7 +374,8 @@ std::shared_ptr<const ProblemData> DataReader::readFromFile(const QString& filen
         if (ok) {
           line = getLine(file, lineCount);
           if (line.compare(skier_pts_view1_h) != 0) {
-            _error = QString("line %1: wrong header, expected %2, got %3").arg(lineCount).arg(skier_pts_view1_h).arg(line);
+            _error =
+                QString("line %1: wrong header, expected %2, got %3").arg(lineCount).arg(skier_pts_view1_h).arg(line);
             ok = false;
           }
         }
@@ -374,7 +387,8 @@ std::shared_ptr<const ProblemData> DataReader::readFromFile(const QString& filen
         if (ok) {
           line = getLine(file, lineCount);
           if (line.compare(skier_pts_view2_h) != 0) {
-            _error = QString("line %1: wrong header, expected %2, got %3").arg(lineCount).arg(skier_pts_view2_h).arg(line);
+            _error =
+                QString("line %1: wrong header, expected %2, got %3").arg(lineCount).arg(skier_pts_view2_h).arg(line);
             ok = false;
           }
         }
@@ -406,10 +420,10 @@ std::shared_ptr<const ProblemData> DataReader::readFromFile(const QString& filen
   }
 }
 
-template bool DataReader::readMatrix<double>(Eigen::Ref<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>> dest, QFile& file,
-                                             int& lineCount, QString& error);
-template bool DataReader::readMatrix<int>(Eigen::Ref<Eigen::Matrix<int, Eigen::Dynamic, Eigen::Dynamic>> dest, QFile& file,
-                                          int& lineCount, QString& error);
+template bool DataReader::readMatrix<double>(Eigen::Ref<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>> dest,
+                                             QFile &file, int &lineCount, QString &error);
+template bool DataReader::readMatrix<int>(Eigen::Ref<Eigen::Matrix<int, Eigen::Dynamic, Eigen::Dynamic>> dest,
+                                          QFile &file, int &lineCount, QString &error);
 
 } // namespace dataReader
 } // namespace csSkiTracker

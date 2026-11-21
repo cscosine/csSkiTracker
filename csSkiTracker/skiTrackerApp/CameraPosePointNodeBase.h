@@ -10,7 +10,5 @@ public:
   CameraPosePointNodeBase(CameraPosePointNodeBaseType type);
   virtual ~CameraPosePointNodeBase();
 
-  CameraPosePointNodeBaseType type() const {
-    return _type;
-  }
+  CameraPosePointNodeBaseType type() const { return _type; }
 };
