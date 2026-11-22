@@ -53,7 +53,7 @@ def create_orchestrator() -> OptionalOrchestratorWithReport:
     o = create_default_orchestrator(
         name="csSkiTracker",
         # staggered weekly run (UTC), one project at a time in the build-train order (no shared runners)
-        schedule=Cron.weekly(DayOfWeek.MON, hour=5, minute=45),
+        schedule=Cron.weekly(DayOfWeek.MON, hour=5, minute=10),
         version="0.1.0",
         base_install_dir=base_install_dir,
         # opt-in variants: Ubuntu 26.04 (as 22.04/24.04), macOS 15/26 (Ninja Multi-Config, Xcode)

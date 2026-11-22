@@ -7,7 +7,7 @@ name: csSkiTracker
     - v*.*.*
   workflow_dispatch: {}
   schedule:
-  - cron: 45 5 * * 1
+  - cron: 10 5 * * 1
 jobs:
   release-from-artifacts:
     needs: orchestrator-matrix
