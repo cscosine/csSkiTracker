@@ -1,6 +1,6 @@
 # Owned by the project template (cs-project-template): change it there.
 # gersemi (CMake formatter): the layout of csCMake (120 columns, indent 2); `cscmake` = the signatures of the csCMake
-# commands, installed by the gersemi pre-commit hook (csCMake: docs/user/formatting.md)
+# commands, installed by the gersemi-cscmake hook of cs-pre-commit-hooks
 line_length: 120
 indent: 2
 list_expansion: favour-inlining

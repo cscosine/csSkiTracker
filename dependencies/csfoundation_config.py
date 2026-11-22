@@ -93,7 +93,7 @@ def install_csfoundation_build_dependencies(
         git_repo="third_party_base_libs",
         project_name="third_party_base_libs",
         project_version="0.1.0",
-        release_tag="v0.1.0-rc10",
+        release_tag="v0.1.0-rc13",
     )
 
     csqt6_provider = ManifestGithub(
@@ -102,7 +102,7 @@ def install_csfoundation_build_dependencies(
         git_repo="csqt6",
         project_name="csqt6",
         project_version="6.12.0",
-        release_tag="v6.12.0-rc1",
+        release_tag="v6.12.0-rc2",
     )
 
     external_providers = [

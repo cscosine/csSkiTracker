@@ -26,9 +26,9 @@
     "output_bundle_file_name": "csfoundation-0.1.0-bundle.tar.gz",
     "packages": [
       "csVisOpenGL",
+      "csLie",
       "csCore",
-      "csCamera",
-      "csLie"
+      "csCamera"
     ],
     "project_name": "csfoundation",
     "project_version": "0.1.0",
@@ -37,19 +37,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu22.04-x64-generic-gcc-default-ninjamulticonfig"
@@ -58,19 +58,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu22.04-x64-generic-clang-default-ninjamulticonfig"
@@ -79,19 +79,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu22.04-arm64-generic-gcc-default-ninja"
@@ -100,19 +100,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu22.04-arm64-generic-clang-default-ninja"
@@ -121,19 +121,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu24.04-x64-generic-gcc-default-ninjamulticonfig"
@@ -142,19 +142,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu24.04-x64-generic-clang-default-ninjamulticonfig"
@@ -163,19 +163,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu24.04-arm64-generic-gcc-default-ninja"
@@ -184,19 +184,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu24.04-arm64-generic-clang-default-ninja"
@@ -205,19 +205,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-windows-v10-x64-generic-msvc-default-msvc2022"
@@ -226,19 +226,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-windows-v10-x64-generic-msvc-default-msvc2026"
@@ -247,19 +247,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-windows-v10-x64-generic-msvcclang-default-msvc2022"
@@ -268,19 +268,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-windows-v10-x64-generic-msvcclang-default-msvc2026"
@@ -289,19 +289,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu26.04-x64-generic-gcc-default-ninjamulticonfig"
@@ -310,19 +310,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu26.04-x64-generic-clang-default-ninjamulticonfig"
@@ -331,19 +331,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu26.04-arm64-generic-gcc-default-ninja"
@@ -352,19 +352,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-linux-ubuntu26.04-arm64-generic-clang-default-ninja"
@@ -373,19 +373,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-macos-macos15-arm64-generic-appleclang-default-ninjamulticonfig"
@@ -394,19 +394,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-macos-macos15-arm64-generic-appleclang-default-xcode"
@@ -415,19 +415,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-macos-macos26-arm64-generic-appleclang-default-ninjamulticonfig"
@@ -436,19 +436,19 @@
         "entries": [
           {
             "name": "csCore",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csLie",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csCamera",
-            "version": "1.0.0"
+            "version": "0.1.0"
           },
           {
             "name": "csVisOpenGL",
-            "version": "1.0.0"
+            "version": "0.1.0"
           }
         ],
         "variant": "csv1-macos-macos26-arm64-generic-appleclang-default-xcode"

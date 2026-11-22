@@ -41,7 +41,7 @@ def create_orchestrator() -> OptionalOrchestratorWithReport:
     base_build_dir = base_target_dir / Path("build")
     deploy_archives_dir = base_target_dir / Path("deploy-archives")
     build_config = BuildConfig.DEBUG_RELEASE_RELWITHDEBINFO_PARANOID
-    cscmake_version = "1.0.0-rc8"
+    cscmake_version = "1.0.0-rc10"
 
     o = create_orchestrator_factory_all_supported_cases(
         name="csSkiTracker",
