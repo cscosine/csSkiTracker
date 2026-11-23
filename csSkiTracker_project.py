@@ -36,13 +36,13 @@ from csSkiTracker_config import install_csskitracker_build_dependencies
 def create_orchestrator() -> OptionalOrchestratorWithReport:
     report = Report()
 
-    base_target_dir = Path("workspace")
+    base_target_dir = Path("_csw")
     base_install_dir = base_target_dir / Path("install")
     base_libs_dir = base_target_dir / Path("libs")
     base_build_dir = base_target_dir / Path("build")
     deploy_archives_dir = base_target_dir / Path("deploy-archives")
     build_config = BuildConfig.DEBUG_RELEASE_RELWITHDEBINFO_PARANOID
-    cscmake_version = "1.0.0"
+    cscmake_version = "1.1.0"
 
     o = create_orchestrator_factory_all_supported_cases(
         name="csSkiTracker",
