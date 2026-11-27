@@ -41,14 +41,14 @@ jobs:
         )
 
         input_folder_base = Path('.')
-        input_manifest_path_variant = [(Path('csSkiTracker-0.1.0-csv1-linux-ubuntu22.04-x64-generic-gcc-default-ninjamulticonfig/csSkiTracker-0.1.0-csv1-linux-ubuntu22.04-x64-generic-gcc-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-linux-ubuntu22.04-x64-generic-gcc-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.0-csv1-linux-ubuntu22.04-x64-generic-clang-default-ninjamulticonfig/csSkiTracker-0.1.0-csv1-linux-ubuntu22.04-x64-generic-clang-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-linux-ubuntu22.04-x64-generic-clang-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.0-csv1-linux-ubuntu22.04-arm64-generic-gcc-default-ninja/csSkiTracker-0.1.0-csv1-linux-ubuntu22.04-arm64-generic-gcc-default-ninja.csOrchestratorManifest'), 'csv1-linux-ubuntu22.04-arm64-generic-gcc-default-ninja'), (Path('csSkiTracker-0.1.0-csv1-linux-ubuntu22.04-arm64-generic-clang-default-ninja/csSkiTracker-0.1.0-csv1-linux-ubuntu22.04-arm64-generic-clang-default-ninja.csOrchestratorManifest'), 'csv1-linux-ubuntu22.04-arm64-generic-clang-default-ninja'), (Path('csSkiTracker-0.1.0-csv1-linux-ubuntu24.04-x64-generic-gcc-default-ninjamulticonfig/csSkiTracker-0.1.0-csv1-linux-ubuntu24.04-x64-generic-gcc-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-linux-ubuntu24.04-x64-generic-gcc-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.0-csv1-linux-ubuntu24.04-x64-generic-clang-default-ninjamulticonfig/csSkiTracker-0.1.0-csv1-linux-ubuntu24.04-x64-generic-clang-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-linux-ubuntu24.04-x64-generic-clang-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.0-csv1-linux-ubuntu24.04-arm64-generic-gcc-default-ninja/csSkiTracker-0.1.0-csv1-linux-ubuntu24.04-arm64-generic-gcc-default-ninja.csOrchestratorManifest'), 'csv1-linux-ubuntu24.04-arm64-generic-gcc-default-ninja'), (Path('csSkiTracker-0.1.0-csv1-linux-ubuntu24.04-arm64-generic-clang-default-ninja/csSkiTracker-0.1.0-csv1-linux-ubuntu24.04-arm64-generic-clang-default-ninja.csOrchestratorManifest'), 'csv1-linux-ubuntu24.04-arm64-generic-clang-default-ninja'), (Path('csSkiTracker-0.1.0-csv1-windows-v10-x64-generic-msvc-default-msvc2022/csSkiTracker-0.1.0-csv1-windows-v10-x64-generic-msvc-default-msvc2022.csOrchestratorManifest'), 'csv1-windows-v10-x64-generic-msvc-default-msvc2022'), (Path('csSkiTracker-0.1.0-csv1-windows-v10-x64-generic-msvc-default-msvc2026/csSkiTracker-0.1.0-csv1-windows-v10-x64-generic-msvc-default-msvc2026.csOrchestratorManifest'), 'csv1-windows-v10-x64-generic-msvc-default-msvc2026'), (Path('csSkiTracker-0.1.0-csv1-windows-v10-x64-generic-msvcclang-default-msvc2022/csSkiTracker-0.1.0-csv1-windows-v10-x64-generic-msvcclang-default-msvc2022.csOrchestratorManifest'), 'csv1-windows-v10-x64-generic-msvcclang-default-msvc2022'), (Path('csSkiTracker-0.1.0-csv1-windows-v10-x64-generic-msvcclang-default-msvc2026/csSkiTracker-0.1.0-csv1-windows-v10-x64-generic-msvcclang-default-msvc2026.csOrchestratorManifest'), 'csv1-windows-v10-x64-generic-msvcclang-default-msvc2026'), (Path('csSkiTracker-0.1.0-csv1-linux-ubuntu26.04-x64-generic-gcc-default-ninjamulticonfig/csSkiTracker-0.1.0-csv1-linux-ubuntu26.04-x64-generic-gcc-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-linux-ubuntu26.04-x64-generic-gcc-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.0-csv1-linux-ubuntu26.04-x64-generic-clang-default-ninjamulticonfig/csSkiTracker-0.1.0-csv1-linux-ubuntu26.04-x64-generic-clang-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-linux-ubuntu26.04-x64-generic-clang-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.0-csv1-linux-ubuntu26.04-arm64-generic-gcc-default-ninja/csSkiTracker-0.1.0-csv1-linux-ubuntu26.04-arm64-generic-gcc-default-ninja.csOrchestratorManifest'), 'csv1-linux-ubuntu26.04-arm64-generic-gcc-default-ninja'), (Path('csSkiTracker-0.1.0-csv1-linux-ubuntu26.04-arm64-generic-clang-default-ninja/csSkiTracker-0.1.0-csv1-linux-ubuntu26.04-arm64-generic-clang-default-ninja.csOrchestratorManifest'), 'csv1-linux-ubuntu26.04-arm64-generic-clang-default-ninja'), (Path('csSkiTracker-0.1.0-csv1-macos-macos15-arm64-generic-appleclang-default-ninjamulticonfig/csSkiTracker-0.1.0-csv1-macos-macos15-arm64-generic-appleclang-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-macos-macos15-arm64-generic-appleclang-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.0-csv1-macos-macos15-arm64-generic-appleclang-default-xcode/csSkiTracker-0.1.0-csv1-macos-macos15-arm64-generic-appleclang-default-xcode.csOrchestratorManifest'), 'csv1-macos-macos15-arm64-generic-appleclang-default-xcode'), (Path('csSkiTracker-0.1.0-csv1-macos-macos26-arm64-generic-appleclang-default-ninjamulticonfig/csSkiTracker-0.1.0-csv1-macos-macos26-arm64-generic-appleclang-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-macos-macos26-arm64-generic-appleclang-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.0-csv1-macos-macos26-arm64-generic-appleclang-default-xcode/csSkiTracker-0.1.0-csv1-macos-macos26-arm64-generic-appleclang-default-xcode.csOrchestratorManifest'), 'csv1-macos-macos26-arm64-generic-appleclang-default-xcode')]
-        output_manifest_filename = Path('csSkiTracker-0.1.0.csOrchestratorManifest')
+        input_manifest_path_variant = [(Path('csSkiTracker-0.1.1-csv1-linux-ubuntu22.04-x64-generic-gcc-default-ninjamulticonfig/csSkiTracker-0.1.1-csv1-linux-ubuntu22.04-x64-generic-gcc-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-linux-ubuntu22.04-x64-generic-gcc-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.1-csv1-linux-ubuntu22.04-x64-generic-clang-default-ninjamulticonfig/csSkiTracker-0.1.1-csv1-linux-ubuntu22.04-x64-generic-clang-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-linux-ubuntu22.04-x64-generic-clang-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.1-csv1-linux-ubuntu22.04-arm64-generic-gcc-default-ninja/csSkiTracker-0.1.1-csv1-linux-ubuntu22.04-arm64-generic-gcc-default-ninja.csOrchestratorManifest'), 'csv1-linux-ubuntu22.04-arm64-generic-gcc-default-ninja'), (Path('csSkiTracker-0.1.1-csv1-linux-ubuntu22.04-arm64-generic-clang-default-ninja/csSkiTracker-0.1.1-csv1-linux-ubuntu22.04-arm64-generic-clang-default-ninja.csOrchestratorManifest'), 'csv1-linux-ubuntu22.04-arm64-generic-clang-default-ninja'), (Path('csSkiTracker-0.1.1-csv1-linux-ubuntu24.04-x64-generic-gcc-default-ninjamulticonfig/csSkiTracker-0.1.1-csv1-linux-ubuntu24.04-x64-generic-gcc-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-linux-ubuntu24.04-x64-generic-gcc-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.1-csv1-linux-ubuntu24.04-x64-generic-clang-default-ninjamulticonfig/csSkiTracker-0.1.1-csv1-linux-ubuntu24.04-x64-generic-clang-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-linux-ubuntu24.04-x64-generic-clang-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.1-csv1-linux-ubuntu24.04-arm64-generic-gcc-default-ninja/csSkiTracker-0.1.1-csv1-linux-ubuntu24.04-arm64-generic-gcc-default-ninja.csOrchestratorManifest'), 'csv1-linux-ubuntu24.04-arm64-generic-gcc-default-ninja'), (Path('csSkiTracker-0.1.1-csv1-linux-ubuntu24.04-arm64-generic-clang-default-ninja/csSkiTracker-0.1.1-csv1-linux-ubuntu24.04-arm64-generic-clang-default-ninja.csOrchestratorManifest'), 'csv1-linux-ubuntu24.04-arm64-generic-clang-default-ninja'), (Path('csSkiTracker-0.1.1-csv1-windows-v10-x64-generic-msvc-default-msvc2022/csSkiTracker-0.1.1-csv1-windows-v10-x64-generic-msvc-default-msvc2022.csOrchestratorManifest'), 'csv1-windows-v10-x64-generic-msvc-default-msvc2022'), (Path('csSkiTracker-0.1.1-csv1-windows-v10-x64-generic-msvc-default-msvc2026/csSkiTracker-0.1.1-csv1-windows-v10-x64-generic-msvc-default-msvc2026.csOrchestratorManifest'), 'csv1-windows-v10-x64-generic-msvc-default-msvc2026'), (Path('csSkiTracker-0.1.1-csv1-windows-v10-x64-generic-msvcclang-default-msvc2022/csSkiTracker-0.1.1-csv1-windows-v10-x64-generic-msvcclang-default-msvc2022.csOrchestratorManifest'), 'csv1-windows-v10-x64-generic-msvcclang-default-msvc2022'), (Path('csSkiTracker-0.1.1-csv1-windows-v10-x64-generic-msvcclang-default-msvc2026/csSkiTracker-0.1.1-csv1-windows-v10-x64-generic-msvcclang-default-msvc2026.csOrchestratorManifest'), 'csv1-windows-v10-x64-generic-msvcclang-default-msvc2026'), (Path('csSkiTracker-0.1.1-csv1-linux-ubuntu26.04-x64-generic-gcc-default-ninjamulticonfig/csSkiTracker-0.1.1-csv1-linux-ubuntu26.04-x64-generic-gcc-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-linux-ubuntu26.04-x64-generic-gcc-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.1-csv1-linux-ubuntu26.04-x64-generic-clang-default-ninjamulticonfig/csSkiTracker-0.1.1-csv1-linux-ubuntu26.04-x64-generic-clang-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-linux-ubuntu26.04-x64-generic-clang-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.1-csv1-linux-ubuntu26.04-arm64-generic-gcc-default-ninja/csSkiTracker-0.1.1-csv1-linux-ubuntu26.04-arm64-generic-gcc-default-ninja.csOrchestratorManifest'), 'csv1-linux-ubuntu26.04-arm64-generic-gcc-default-ninja'), (Path('csSkiTracker-0.1.1-csv1-linux-ubuntu26.04-arm64-generic-clang-default-ninja/csSkiTracker-0.1.1-csv1-linux-ubuntu26.04-arm64-generic-clang-default-ninja.csOrchestratorManifest'), 'csv1-linux-ubuntu26.04-arm64-generic-clang-default-ninja'), (Path('csSkiTracker-0.1.1-csv1-macos-macos15-arm64-generic-appleclang-default-ninjamulticonfig/csSkiTracker-0.1.1-csv1-macos-macos15-arm64-generic-appleclang-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-macos-macos15-arm64-generic-appleclang-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.1-csv1-macos-macos15-arm64-generic-appleclang-default-xcode/csSkiTracker-0.1.1-csv1-macos-macos15-arm64-generic-appleclang-default-xcode.csOrchestratorManifest'), 'csv1-macos-macos15-arm64-generic-appleclang-default-xcode'), (Path('csSkiTracker-0.1.1-csv1-macos-macos26-arm64-generic-appleclang-default-ninjamulticonfig/csSkiTracker-0.1.1-csv1-macos-macos26-arm64-generic-appleclang-default-ninjamulticonfig.csOrchestratorManifest'), 'csv1-macos-macos26-arm64-generic-appleclang-default-ninjamulticonfig'), (Path('csSkiTracker-0.1.1-csv1-macos-macos26-arm64-generic-appleclang-default-xcode/csSkiTracker-0.1.1-csv1-macos-macos26-arm64-generic-appleclang-default-xcode.csOrchestratorManifest'), 'csv1-macos-macos26-arm64-generic-appleclang-default-xcode')]
+        output_manifest_filename = Path('csSkiTracker-0.1.1.csOrchestratorManifest')
         project_name = 'csSkiTracker'
-        project_version = '0.1.0'
+        project_version = '0.1.1'
         base_path_additional_files = Path(os.environ["GITHUB_WORKSPACE"])
         list_additional_files = []
         output_folder_additional_files = Path(os.environ["GITHUB_WORKSPACE"]) / Path('generated-for-release')
-        output_bundle_file_name = Path('csSkiTracker-0.1.0-bundle.tar.gz')
+        output_bundle_file_name = Path('csSkiTracker-0.1.1-bundle.tar.gz')
         repo_publish_config_dict = {}
         header_only_variants_sources = {'csv1-linux': 'csv1-linux-ubuntu22.04-x64-generic-gcc-default-ninjamulticonfig', 'csv1-windows': 'csv1-windows-v10-x64-generic-msvc-default-msvc2022', 'csv1-macos': 'csv1-macos-macos15-arm64-generic-appleclang-default-ninjamulticonfig'}
         dependencies = {}
@@ -82,9 +82,9 @@ jobs:
     - name: Upload manifest as artifacts
       uses: actions/upload-artifact@v7
       with:
-        name: csSkiTracker-0.1.0.csOrchestratorManifest
+        name: csSkiTracker-0.1.1.csOrchestratorManifest
         path: |-
-          generated-for-release/csSkiTracker-0.1.0.csOrchestratorManifest
+          generated-for-release/csSkiTracker-0.1.1.csOrchestratorManifest
         overwrite: true
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v3
@@ -92,7 +92,7 @@ jobs:
         files: |-
           artifacts/**/*.tar.gz
           artifacts/**/*.zip
-          generated-for-release/csSkiTracker-0.1.0.csOrchestratorManifest
+          generated-for-release/csSkiTracker-0.1.1.csOrchestratorManifest
         prerelease: ${{ contains(github.ref_name, '-rc') }}
       if: ${{ github.ref_type == 'tag' }}
   orchestrator-matrix:
@@ -374,25 +374,25 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0
-        fileName: third_party_base_libs-0.1.0-eigen3-5.0.1-csv1-${{ matrix.os }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: third_party_base_libs-0.1.1-eigen3-5.0.1-csv1-${{ matrix.os }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib eigen3 extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-eigen3-5.0.1-csv1-${{ matrix.os }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-eigen3-5.0.1-csv1-${{ matrix.os }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-eigen3-5.0.1-csv1-${{ matrix.os }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-eigen3-5.0.1-csv1-${{ matrix.os }}.tar.gz
       shell: bash
     - name: Get Precompiled Lib tclap download tar.gz
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0
-        fileName: third_party_base_libs-0.1.0-tclap-1.0.0-csv1-${{ matrix.os }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: third_party_base_libs-0.1.1-tclap-1.0.0-csv1-${{ matrix.os }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib tclap extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-tclap-1.0.0-csv1-${{ matrix.os }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-tclap-1.0.0-csv1-${{ matrix.os }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-tclap-1.0.0-csv1-${{ matrix.os }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-tclap-1.0.0-csv1-${{ matrix.os }}.tar.gz
       shell: bash
     - name: Run command install the OpenMP runtime of clang
       run: |-
@@ -452,97 +452,109 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0
-        fileName: third_party_base_libs-0.1.0-Catch2-3.16.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: third_party_base_libs-0.1.1-Catch2-3.16.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib Catch2 extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-Catch2-3.16.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-Catch2-3.16.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-Catch2-3.16.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-Catch2-3.16.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
       shell: bash
     - name: Get Precompiled Lib NamedType download tar.gz
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0
-        fileName: third_party_base_libs-0.1.0-NamedType-1.1.0-csv1-${{ matrix.os }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: third_party_base_libs-0.1.1-NamedType-1.1.0-csv1-${{ matrix.os }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib NamedType extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-NamedType-1.1.0-csv1-${{ matrix.os }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-NamedType-1.1.0-csv1-${{ matrix.os }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-NamedType-1.1.0-csv1-${{ matrix.os }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-NamedType-1.1.0-csv1-${{ matrix.os }}.tar.gz
       shell: bash
     - name: Get Precompiled Lib cpptrace download tar.gz
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0
-        fileName: third_party_base_libs-0.1.0-cpptrace-1.0.4-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: third_party_base_libs-0.1.1-cpptrace-1.0.4-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib cpptrace extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-cpptrace-1.0.4-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-cpptrace-1.0.4-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-cpptrace-1.0.4-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-cpptrace-1.0.4-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
       shell: bash
     - name: Get Precompiled Lib fmt download tar.gz
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0
-        fileName: third_party_base_libs-0.1.0-fmt-12.2.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: third_party_base_libs-0.1.1-fmt-12.2.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib fmt extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-fmt-12.2.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-fmt-12.2.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-fmt-12.2.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-fmt-12.2.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
       shell: bash
     - name: Get Precompiled Lib fmt-eigen download tar.gz
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0
-        fileName: third_party_base_libs-0.1.0-fmt-eigen-1.0.0-csv1-${{ matrix.os }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: third_party_base_libs-0.1.1-fmt-eigen-1.0.0-csv1-${{ matrix.os }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib fmt-eigen extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-fmt-eigen-1.0.0-csv1-${{ matrix.os }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-fmt-eigen-1.0.0-csv1-${{ matrix.os }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-fmt-eigen-1.0.0-csv1-${{ matrix.os }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-fmt-eigen-1.0.0-csv1-${{ matrix.os }}.tar.gz
       shell: bash
     - name: Get Precompiled Lib libassert download tar.gz
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0
-        fileName: third_party_base_libs-0.1.0-libassert-2.2.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: third_party_base_libs-0.1.1-libassert-2.2.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib libassert extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-libassert-2.2.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-libassert-2.2.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-libassert-2.2.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-libassert-2.2.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
       shell: bash
     - name: Get Precompiled Lib tl-expected download tar.gz
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0
-        fileName: third_party_base_libs-0.1.0-tl-expected-1.3.1-csv1-${{ matrix.os }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: third_party_base_libs-0.1.1-tl-expected-1.3.1-csv1-${{ matrix.os }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib tl-expected extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-tl-expected-1.3.1-csv1-${{ matrix.os }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-tl-expected-1.3.1-csv1-${{ matrix.os }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-tl-expected-1.3.1-csv1-${{ matrix.os }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-tl-expected-1.3.1-csv1-${{ matrix.os }}.tar.gz
       shell: bash
     - name: Get Precompiled Lib tl-optional download tar.gz
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/third_party_base_libs
-        tag: v0.1.0
-        fileName: third_party_base_libs-0.1.0-tl-optional-1.1.0-csv1-${{ matrix.os }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: third_party_base_libs-0.1.1-tl-optional-1.1.0-csv1-${{ matrix.os }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib tl-optional extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-tl-optional-1.1.0-csv1-${{ matrix.os }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.0-tl-optional-1.1.0-csv1-${{ matrix.os }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-tl-optional-1.1.0-csv1-${{ matrix.os }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-tl-optional-1.1.0-csv1-${{ matrix.os }}.tar.gz
+      shell: bash
+    - name: Get Precompiled Lib zstd download tar.gz
+      uses: robinraju/release-downloader@v1.13
+      with:
+        repository: cscosine/third_party_base_libs
+        tag: v0.1.1-rc1
+        fileName: third_party_base_libs-0.1.1-zstd-1.6.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+    - name: Get Precompiled Lib zstd extract tar.gz
+      run: |-
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-zstd-1.6.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/third_party_base_libs-0.1.1-zstd-1.6.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
       shell: bash
     - name: Run command install apt packages
       run: |-
@@ -640,49 +652,49 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csfoundation
-        tag: v0.1.0
-        fileName: csfoundation-0.1.0-csCamera-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: csfoundation-0.1.1-csCamera-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib csCamera extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.0-csCamera-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.0-csCamera-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.1-csCamera-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.1-csCamera-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
       shell: bash
     - name: Get Precompiled Lib csCore download tar.gz
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csfoundation
-        tag: v0.1.0
-        fileName: csfoundation-0.1.0-csCore-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: csfoundation-0.1.1-csCore-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib csCore extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.0-csCore-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.0-csCore-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.1-csCore-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.1-csCore-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
       shell: bash
     - name: Get Precompiled Lib csLie download tar.gz
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csfoundation
-        tag: v0.1.0
-        fileName: csfoundation-0.1.0-csLie-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: csfoundation-0.1.1-csLie-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib csLie extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.0-csLie-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.0-csLie-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.1-csLie-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.1-csLie-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
       shell: bash
     - name: Get Precompiled Lib csVisOpenGL download tar.gz
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csfoundation
-        tag: v0.1.0
-        fileName: csfoundation-0.1.0-csVisOpenGL-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: csfoundation-0.1.1-csVisOpenGL-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib csVisOpenGL extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.0-csVisOpenGL-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.0-csVisOpenGL-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.1-csVisOpenGL-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csfoundation-0.1.1-csVisOpenGL-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
       shell: bash
     - name: Run command install apt packages
       run: |-
@@ -740,25 +752,25 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csoptimization
-        tag: v0.1.0
-        fileName: csoptimization-0.1.0-csBlockMatrix-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: csoptimization-0.1.1-csBlockMatrix-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib csBlockMatrix extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csoptimization-0.1.0-csBlockMatrix-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csoptimization-0.1.0-csBlockMatrix-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csoptimization-0.1.1-csBlockMatrix-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csoptimization-0.1.1-csBlockMatrix-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
       shell: bash
     - name: Get Precompiled Lib csNelson download tar.gz
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csoptimization
-        tag: v0.1.0
-        fileName: csoptimization-0.1.0-csNelson-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tag: v0.1.1-rc1
+        fileName: csoptimization-0.1.1-csNelson-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib csNelson extract tar.gz
       run: |-
-        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csoptimization-0.1.0-csNelson-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
-        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csoptimization-0.1.0-csNelson-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
+        tar -xzf _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csoptimization-0.1.1-csNelson-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz -C _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        rm -f _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}/csoptimization-0.1.1-csNelson-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
       shell: bash
     - name: Run command install apt packages
       run: |-
@@ -898,7 +910,7 @@ jobs:
       uses: robinraju/release-downloader@v1.13
       with:
         repository: cscosine/csopencvcpu
-        tag: v5.1.0-cpu.3
+        tag: v5.1.0-cpu.4-rc1
         fileName: csopencvcpu-5.1.0-opencv-5.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.tar.gz
         out-file-path: _csw/libs/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
     - name: Get Precompiled Lib opencv extract tar.gz
@@ -938,8 +950,8 @@ jobs:
         install_subdir = Path('csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}')
         variant_string = 'csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}'
         project_name = 'csSkiTracker'
-        project_version = '0.1.0'
-        output_file = Path('_csw/install/csSkiTracker-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.csOrchestratorManifest')
+        project_version = '0.1.1'
+        output_file = Path('_csw/install/csSkiTracker-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.csOrchestratorManifest')
 
         errors_list = get_package_versions_and_write_single_variant_manifest(
             repos_config_file_list=repos_config_file_list,
@@ -970,8 +982,8 @@ jobs:
             load_release_manifest_single_variant_and_prepare_archive,
         )
 
-        input_full_path = Path('_csw/install/csSkiTracker-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.csOrchestratorManifest')
-        project_name_and_version = 'csSkiTracker-0.1.0'
+        input_full_path = Path('_csw/install/csSkiTracker-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}.csOrchestratorManifest')
+        project_name_and_version = 'csSkiTracker-0.1.1'
         context_os_architecture_compiler_generator_string = 'csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}'
         input_base_dir = Path('_csw/install')
 
@@ -992,7 +1004,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v7
       with:
-        name: csSkiTracker-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
+        name: csSkiTracker-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}
         path: |-
           _csw/install/*.tar.gz
           _csw/install/*.csOrchestratorManifest
@@ -1008,7 +1020,7 @@ jobs:
         build_dir = Path('_csw/build/csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}')
         build_config = 'debug-release-relWithDebInfo-paranoid'
         project_name = 'csSkiTracker'
-        project_name_and_version = 'csSkiTracker-0.1.0'
+        project_name_and_version = 'csSkiTracker-0.1.1'
         variant = 'csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}'
         output_dir = Path('_csw/deploy-archives')
 
@@ -1031,7 +1043,7 @@ jobs:
     - name: 'Create Deployment Archives: upload'
       uses: actions/upload-artifact@v7
       with:
-        name: csSkiTracker-0.1.0-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}-deployments
+        name: csSkiTracker-0.1.1-csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}-deployments
         path: |-
           _csw/deploy-archives/*.tar.gz
           _csw/deploy-archives/*.zip
@@ -1091,7 +1103,7 @@ jobs:
         deployment = 'app'
         archives_dir = Path('_csw/deploy-archives')
         project_name = 'csSkiTracker'
-        project_name_and_version = 'csSkiTracker-0.1.0'
+        project_name_and_version = 'csSkiTracker-0.1.1'
         variant = 'csv1-${{ matrix.os }}-${{ matrix.os_version }}-${{ matrix.architecture }}-${{ matrix.architecture_variant }}-${{ matrix.compiler }}-${{ matrix.compiler_version }}-${{ matrix.generator }}'
         commands = {'linux': ['sh', '-c', 'if command -v xvfb-run >/dev/null; then exec xvfb-run -a "$@"; else exec "$@"; fi', 'sh', '{folder}/bin/skiTrackerApp', '--smoke', '{folder}/data/frame_data_bolshunov.std'], 'windows': ['{folder}/bin/skiTrackerApp.exe', '--smoke', '{folder}/data/frame_data_bolshunov.std'], 'macos': ['{folder}/bin/skiTrackerApp', '--smoke', '{folder}/data/frame_data_bolshunov.std']}
         clean_environment = True

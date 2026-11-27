@@ -92,8 +92,8 @@ def install_csfoundation_build_dependencies(
         org="cscosine",
         git_repo="third_party_base_libs",
         project_name="third_party_base_libs",
-        project_version="0.1.0",
-        release_tag="v0.1.0",
+        project_version="0.1.1",
+        release_tag="v0.1.1-rc1",
     )
 
     csqt6_provider = ManifestGithub(
